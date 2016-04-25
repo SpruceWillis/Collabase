@@ -8,6 +8,18 @@ title       | string    | not null
 description | string    | not null
 owner_id    | integer   | not null, foreign key (references users), indexed
 
+## project_members
+### join table between users and projects
+### uniqueness index on combination of project_id and member_id
+
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+project_id  | integer   | not null, foreign key (references projects), indexed
+member_id   | integer   | not null, foreign key (references users), indexed
+
+
+
 ## messages
 column name | data type | details
 ------------|-----------|-----------------------
@@ -24,7 +36,7 @@ column name | data type | details
 id          | integer   | not null, primary key
 author_id   | integer   | not null, foreign key (references users), indexed
 message_id  | integer   | not null, foreign key (references messages), indexed
-body        | text      | not null 
+body        | text      | not null
 
 ## users
 column name     | data type | details
