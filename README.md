@@ -31,6 +31,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Create and edit message threads on a project's message board (MVP)
 - [ ] Reply to message threads (MVP)
 - [ ] Save messages as drafts (bonus feature)
+- [ ] Transfer ownership of a project to another project member (bonus feature)
 - [ ] Display notifications of latest project activity or mentions (bonus feature)
 - [ ] Real-time chat (bonus feature)
 
@@ -49,7 +50,6 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 ## Implementation Timeline
 
-<!--
 
 ### Phase 1: Backend setup and User Authentication (0.5 days)
 
@@ -60,35 +60,39 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] authentication
 - [ ] user signup/signin pages
 - [ ] blank landing page after signin
+- [ ] seed user data in database for future project phases -
 
-### Phase 2: Notes Model, API, and basic APIUtil (1.5 days)
+<!-- Time elapsed: .5 days  -->
 
-**Objective:** Notes can be created, read, edited and destroyed through
-the API.
+### Phase 2: Project Model, API, and basic APIUtil (1.5 days)
 
-- [ ] create `Note` model
+**Objective:** Projects can be created, read, and edited through the API. Project
+membership can be edited through the API.
+
+- [ ] create `Project` model
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for notes (`NotesController`)
-- [ ] jBuilder views for notes
+- [ ] CRUD API for projects (`ProjectsController`)
+- [ ] jBuilder views for projects
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
+<!-- Time elapsed: 2 days -->
+
 ### Phase 3: Flux Architecture and Router (1.5 days)
 
-**Objective:** Notes can be created, read, edited and destroyed with the
-user interface.
+**Objective:** Projects can be created, read, and edited through the user interface. Project membership can be edited through the interface.
 
 - [ ] setup the flux loop with skeleton files
 - [ ] setup React Router
-- implement each note component, building out the flux loop as needed.
-  - [ ] `NotesIndex`
-  - [ ] `NoteIndexItem`
-  - [ ] `NoteForm`
-- [ ] save Notes to the DB when the form loses focus or is left idle
-  after editing.
+- implement each project component, building out the flux loop as needed.
+  - [ ] `ProjectsIndex`
+  - [ ] `NewProjectPage`
+- [ ] save Project to database after form is submitted. Discard project if form is cancelled.
 
-### Phase 4: Start Styling (0.5 days)
+  <!-- Time elapsed: 3.5 days -->
+
+### Phase 4: Start Styling (.5 days)
 
 **Objective:** Existing pages (including singup/signin) will look good.
 
@@ -96,40 +100,52 @@ user interface.
 - [ ] position elements on the page
 - [ ] add basic colors & styles
 
-### Phase 5: Notebooks (1 day)
+<!-- Time elapsed: 4 days -->
 
-**Objective:** Notes belong to Notebooks, and can be viewed by notebook.
 
-- [ ] create `Notebook` model
+### Phase 5: Message threads (1 day)
+
+**Objective:** Messages belong to Projects, and can be viewed by project.
+
+- [ ] create `Message` model
+  - [ ] add placeholder content until next phase
 - build out API, Flux loop, and components for:
-  - [ ] Notebook CRUD
-  - [ ] adding notes requires a notebook
-  - [ ] moving notes to a different notebook
-  - [ ] viewing notes by notebook
+  - [ ] Message CRUD
+  - [ ] adding a message requires a project
+  - [ ] viewing messages by project
 - Use CSS to style new views
 
 Phase 3 adds organization to the Notes. Notes belong to a Notebook,
 which has its own `Index` view.
 
-### Phase 6: Tags (1.5 days)
+<!-- Time elapsed: 5 days -->
 
-**Objective:** Notes can be tagged with multiple tags, and tags are searchable.
 
-- [ ] create `Tag` model and join table
+### Phase 6: Message comments (1 day)
+
+**Objective:** Comments belong to Messages, and can be viewed by message.
+
+- [ ] create `Comment` model
 - build out API, Flux loop, and components for:
-  - [ ] fetching tags for notebook
-  - [ ] adding tags to notebook
-  - [ ] creating tags while adding to notebooks
-  - [ ] searching notebooks by tag
-- [ ] Style new elements
+  - [ ] Comment CRUD
+  - [ ] adding a message requires a message
+  - [ ] viewing comments by project
+- Use CSS to style new views
 
-### Phase 7: Allow Complex Styling in Notes (0.5 days)
+Phase 3 adds organization to the Notes. Notes belong to a Notebook,
+which has its own `Index` view.
 
-**objective:** Enable complex styling of notes.
+<!-- Time elapsed: 6 days -->
+
+### Phase 7: Allow Complex Styling in Comments (0.5 days)
+
+**objective:** Enable complex styling of comments.
 
 - [ ] Integrate `react-quill` (based on Quill.js).
 - [ ] Use Rails helpers to sanitize HTML before rendering.
 - [ ] Style the new Quill elements.
+
+<!-- Time elapsed: 6.5 days -->
 
 ### Phase 8: Styling Cleanup and Seeding (1 day)
 
@@ -139,17 +155,18 @@ which has its own `Index` view.
 - [ ] Refactor HTML classes & CSS rules
 - [ ] Add modals, transitions, and other styling flourishes.
 
+<!-- Time elapsed: 7.5 days -->
+
+
 ### Bonus Features (TBD)
-- [ ] Search through notes for blocks of text
-- [ ] Pagination / infinite scroll for Notes Index
-- [ ] Set reminders on notes
-- [ ] Changelogs for Notes
-- [ ] Multiple sessions
+- [ ] Save messages as drafts; edit and remove drafts
+- [ ] Pagination / infinite scroll for Comments Index
+- [ ] Transfer project ownership
+- [ ] Notifications for project and mention activity
+- [ ] Real-time chat
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
 [phase-five]: ./docs/phases/phase5.md
-
--->
