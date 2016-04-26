@@ -14,7 +14,6 @@
 
 ### Session
 
-- `GET /session/new`
 - `POST /session`
 - `DELETE /session`
 
@@ -22,13 +21,13 @@
 
 ### Projects
 
-- `GET /api/users/:userid/projects`
-  - accepts pagination params (if I get there)
+<!-- - `GET /api/users/:userid/projects`
+  - accepts pagination params (if I get there) -->
 - `POST /api/users/:userid/projects`
   - Creates new project with current user as owner
-- `GET /api/users/:userid/project/:id`
-- `PATCH /api/users/:userid/project/:id`
-- `DELETE /api/users/:userid/project/:id`
+- `GET /api/users/:userid/projects/:id`
+- `PATCH /api/users/:userid/projects/:id`
+- `DELETE /api/users/:userid/projects/:id`
 
 ### Threads
 

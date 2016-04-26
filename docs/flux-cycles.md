@@ -5,24 +5,72 @@ be sub-categories, and each action is listed with the sequence of events
 that result from its invocation, ending with the API or store. Finally,
 store listeners are listed at the end.
 
-TBD
 
-<!--
-## Note Cycles
+## Session Cycles
+
+### Session API Request Actions
+
+* `fetchSession`
+  0. invoked from login button on `LoginPage` or on user creation when signing in.
+  0. `POST /session` is called.
+  0. `receiveSession` is set as the callback.
+
+* `removeSession`
+  0. invoked from clicking logout link from navbar dropdown.
+  0. `DELETE /session` is called.
+  0. `removeSession` is set as the callback.
+
+### Session API Response Actions
+
+* `receiveSession`
+  0. invoked from an API callback.
+  0. `Session` store updates `_session` and emits change
+
+* `removeSession`
+  0. invoked from an API callback.
+  0. `Session` store clears out `_session` and emits change
+
+### Store Listeners
+
+  * `LoginPage` component listens to `Users` store.
+  * `SignUpBlock` component listens to `Users` store
+  * `UserProfileInfo` component listens to `Users` store
+
+## Project Cycles
 
 ### Project API Request Actions
 
-* `fetchAllNotes`
-  0. invoked from `NotesIndex` `didMount`/`willReceiveProps`
-  0. `GET /api/notes` is called.
-  0. `receiveAllNotes` is set as the callback.
+* `fetchProject`
+  0. invoked on login for an existing user and from the ProjectNavBar when switching projects
+  0. `GET /api/users/:userid/projects/:id` is called
+  0. `receiveProject` is set as the callback
 
-* `createNote`
-  0. invoked from new note button `onClick`
-  0. `POST /api/notes` is called.
-  0. `receiveSingleNote` is set as the callback.
+* `createProject`
+  0. invoked when creating a new user and from the new project page
+  0. `POST /api/users/:userid/projects` is called
+  0. `receiveProject` is set as the callback
 
-* `fetchSingleNote`
+* `updateProject`
+  0. invoked when updating a project from the MainProjectNavigation component.
+  0. `PATCH /api/users/:userid/projects` is called
+  0. `receiveProject` is set as the callback
+
+* `deleteProject`
+  0. invoked when deleting a project from the MainProjectNavigation component.
+  0. `DELETE /api/users/:userid/projects` is called;
+  0. `removeProject` is set as the callback
+
+### Project API Response Actions
+
+* `receiveProject`
+  0. invoked from an API callback
+  0. `Project` store sets `_project` to the project and emits change
+
+* `deleteProject`
+  0. invoked from an API callback
+  0. `Project` is removed from `_project`
+
+<!-- * `fetchSingleNote`
   0. invoked from `NoteDetail` `didMount`/`willReceiveProps`
   0. `GET /api/notes/:id` is called.
   0. `receiveSingleNote` is set as the callback.
@@ -35,7 +83,9 @@ TBD
 * `destroyNote`
   0. invoked from delete note button `onClick`
   0. `DELETE /api/notes/:id` is called.
-  0. `removeNote` is set as the callback.
+  0. `removeNote` is set as the callback. -->
+
+  <!--
 
 ### Notes API Response Actions
 
@@ -100,9 +150,8 @@ TBD
   0. invoked from an API callback.
   0. `Notebook` store removes `_notebooks[id]` and emits change.
 
-### Store Listeners
+-->
 
-* `NotebooksIndex` component listens to `Notebook` store.
 
 
 ## SearchSuggestion Cycles
@@ -123,4 +172,3 @@ TBD
 ### Store Listeners
 
 * `SearchBarSuggestions` component listens to `SearchSuggestion` store.
--->
