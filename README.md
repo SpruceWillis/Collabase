@@ -6,14 +6,14 @@
 
 ## Minimum Viable Product
 
-Collabase is a web application in the vein of basecamp build on Rails and ReactJS.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
+Collabase is a web application in the vein of basecamp build on Rails and ReactJS.  This app will have the following functionality completed by the end of week 9:
 
-- [ ] New account creation, login, and guest/demo login
-- [ ] Smooth, bug-free navigation
+- [ ] New account creation, existing user login, demo account login.
+- [ ] No major bugs.
 - [ ] Good seed data to demonstrate the site's features, including a sample project that all users have access to.
-- [ ] The minimum features required for a basecamp-inspired site: project creation; member management; creation and editing of message threads; and posting replies to threads.
-- [ ] Hosting on Heroku
-- [ ] CSS styling that is satisfactorily visually appealing
+- [ ] Basecamp-inspired features: project creation; member management; creation and posting to message threads; creation, assignment, and completion of to-do lists.
+- [ ] Hosting on Heroku; registration of a non-Heroku domain name.
+- [ ] User-friendly and aesthetically pleasing interface and layout.
 - [ ] Production README file - to be written on completion
 
 ## Product Goals and Priorities
@@ -23,16 +23,20 @@ Collabase will allow users to do the following:
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
-- [ ] Create an account (MVP)
-- [ ] Log in / Log out, including as a Guest/Demo User (MVP)
-- [ ] Create and edit projects (MVP)
-- [ ] Add or remove members from projects (MVP)
-- [ ] Create and edit message threads on a project's message board (MVP)
-- [ ] Reply to message threads (MVP)
-- [ ] Save messages as drafts (bonus feature)
-- [ ] Transfer ownership of a project to another project member (bonus feature)
-- [ ] Display notifications of latest project activity or mentions (bonus feature)
-- [ ] Real-time chat (bonus feature)
+- [ ] MVP Features
+  - [ ] Create an account
+  - [ ] Log in / Log out, including as a Guest/Demo User
+  - [ ] Create and edit projects
+  - [ ] Add or remove members from projects
+  - [ ] Create and post to message threads on a project's message board
+  - [ ] Notification of outstanding assigned to-do items
+  - [ ] Create and assignment of to-do list items; mark items as completed
+- [ ] Bonus Features
+  - [ ] Notification of latest project activity or mentions
+  - [ ] Save messages as drafts
+  - [ ] Send password reset email
+  - [ ] Transfer ownership of a project to another project member
+  - [ ] Real-time chat
 
 ## Design Docs
 * [View Wireframes][views]
@@ -159,13 +163,18 @@ which has its own `Index` view.
 
 ### Bonus Features (TBD)
 - [ ] Save messages as drafts; edit and remove drafts
+- [ ] Password resets via email
 - [ ] Pagination / infinite scroll for Comments Index
 - [ ] Transfer project ownership
 - [ ] Notifications for project and mention activity
 - [ ] Real-time chat
+
+<!--
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
 [phase-five]: ./docs/phases/phase5.md
+
+ -->
