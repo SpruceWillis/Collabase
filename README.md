@@ -1,4 +1,4 @@
-# FresherNote
+# Collabase
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
 
@@ -12,10 +12,9 @@ Collabase is a web application in the vein of basecamp build on Rails and ReactJ
 - [ ] Smooth, bug-free navigation
 - [ ] Good seed data to demonstrate the site's features, including a sample project that all users have access to.
 - [ ] The minimum features required for a basecamp-inspired site: project creation; member management; creation and editing of message threads; and posting replies to threads.
-<!-- - [ ] The minimally necessary features for an Evernote-inspired site: note creation and saving, note editing, and notes organized into notebooks -->
 - [ ] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
-- [ ] A production README, replacing the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- to be written later.
+- [ ] Production README file - to be written on completion
 
 ## Product Goals and Priorities
 
