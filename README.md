@@ -50,20 +50,19 @@ collaBase will allow users to do the following:
 
 ## Implementation Timeline
 
-### Phase 1: Backend setup and User Authentication (0.5 days)
+### Phase 1: Backend setup and User Authentication (1 days)
 
 **Objective:** Functioning rails project with Authentication
 
 - [ ] create new project
 - [ ] create `User` model
 - [ ] authentication
-- [ ] user signup/signin pages
+- [ ] user signup component and sign-in
 - [ ] blank landing page after signin
-- [ ] seed user data in database for future project phases -
+- [ ] seed user data in database for future project phases
+- [ ] style authentication components
 
-<!-- Time elapsed: .5 days  -->
-
-### Phase 2: Project Model, API, and basic APIUtil (1.5 days)
+### Phase 2: Project Model, API, and basic APIUtil (2 days)
 
 **Objective:** Projects can be created, read, and edited through the API. Project membership can be edited through the API.
 
@@ -75,7 +74,7 @@ collaBase will allow users to do the following:
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
-<!-- Time elapsed: 2 days -->
+<!-- Time elapsed: 3 days -->
 
 ### Phase 3: Flux Architecture and Router (1.5 days)
 
@@ -84,58 +83,43 @@ collaBase will allow users to do the following:
 - [ ] setup the flux loop with skeleton files
 - [ ] setup React Router
 - implement each project component, building out the flux loop as needed.
-  - [ ] `ProjectsIndex`
+  - [ ] `ProjectLandingPage`
   - [ ] `NewProjectPage`
+- [ ] Pages are properly styled
 - [ ] save Project to database after form is submitted. Discard project if form is cancelled.
 
   <!-- Time elapsed: 3.5 days -->
 
-### Phase 4: Start Styling (.5 days)
-
-**Objective:** Existing pages (including singup/signin) will look good.
-
-- [ ] create a basic style guide
-- [ ] position elements on the page
-- [ ] add basic colors & styles
-
-<!-- Time elapsed: 4 days -->
-
-
-### Phase 5: Message threads (1 day)
+### Phase 4: Message threads (2 days)
 
 **Objective:** Messages belong to Projects, and can be viewed by project.
 
 - [ ] create `Message` model
   - [ ] add placeholder content until next phase
 - build out API, Flux loop, and components for:
-  - [ ] Message CRUD
-  - [ ] adding a message requires a project
-  - [ ] viewing messages by project
-- Use CSS to style new views
-
-Phase 3 adds organization to the Notes. Notes belong to a Notebook,
-which has its own `Index` view.
+  - [ ] Thread CRUD
+  - [ ] Adding a thread requires a project
+  - [ ] Viewing threads by project
+- [ ] Create and style view for creating a new thread and viewing a project's threads
 
 <!-- Time elapsed: 5 days -->
 
 
-### Phase 6: Message comments (1 day)
+### Phase 5: Comments (2 days)
 
-**Objective:** Comments belong to Messages, and can be viewed by message.
+**Objective:** Comments belong to Threads, and can be viewed by thread.
 
 - [ ] create `Comment` model
 - build out API, Flux loop, and components for:
   - [ ] Comment CRUD
-  - [ ] adding a message requires a message
-  - [ ] viewing comments by project
+  - [ ] Adding a comment requires a thread
+  - [ ] Viewing comments by thread
+- view for displaying a thread's comments
 - Use CSS to style new views
-
-Phase 3 adds organization to the Notes. Notes belong to a Notebook,
-which has its own `Index` view.
 
 <!-- Time elapsed: 6 days -->
 
-### Phase 7: Allow Complex Styling in Comments (0.5 days)
+### Phase 6: Allow Complex Styling in Comments (0.5 days)
 
 **objective:** Enable complex styling of comments.
 
@@ -145,7 +129,31 @@ which has its own `Index` view.
 
 <!-- Time elapsed: 6.5 days -->
 
-### Phase 8: Styling Cleanup and Seeding (1 day)
+### Phase 7: Todo-Lists (1.5 days)
+
+**objective** Todo lists belong to projects, and can be viewed by list.
+- [ ] create `Todo-List` model
+- [ ] build out API, Flux loop, and components for:
+  - [ ] Todo-list CRUD
+  - [ ] Adding a list requires a project
+  - [ ] Viewing lists by project
+- [ ] View for displaying a project's lists
+- [ ] Use CSS to style new views
+
+### Phase 8: Todo-Items (2.5 days)
+
+**objective** Todo-items belong to todo-lists, and can be viewed by list. They
+can be assigned to project members, who will receive a notification.
+- [ ] create `Todo-item` model
+- [ ] build out API, Flux loop, and components for:
+  - [ ] Todo-item CRUD
+  - [ ] Adding an item requires a list
+  - [ ] Viewing items by list
+  - [ ] Users can view their assigned todo-items 
+- [ ] View for displaying a todo-list's items
+- [ ] Integrate push notifications to users on being assigned a todo-list item
+
+### Phase 9: Styling Cleanup and Seeding (1.5 days)
 
 **objective:** Make the site feel more cohesive and awesome.
 
