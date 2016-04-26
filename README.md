@@ -1,4 +1,4 @@
-# Collabase
+# collaBase
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
 
@@ -6,7 +6,7 @@
 
 ## Minimum Viable Product
 
-Collabase is a web application in the vein of basecamp build on Rails and ReactJS.  This app will have the following functionality completed by the end of week 9:
+collaBase is a web application in the vein of basecamp build on Rails and ReactJS.  This app will have the following functionality completed by the end of week 9:
 
 - [ ] New account creation, existing user login, demo account login.
 - [ ] No major bugs.
@@ -18,7 +18,7 @@ Collabase is a web application in the vein of basecamp build on Rails and ReactJ
 
 ## Product Goals and Priorities
 
-Collabase will allow users to do the following:
+collaBase will allow users to do the following:
 
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->

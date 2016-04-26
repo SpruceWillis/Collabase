@@ -32,9 +32,6 @@
         * `NavProjectItem`
           * `NavItemHeader`
           * `NavItemPreview`
-  * `ResetPasswordPage`        
-    * `ResetPasswordBlock`
-    * `ResetConfirmedBlock`
   * `SplashPage`
     * `PitchBlock`
     * `SplashNavBar`
