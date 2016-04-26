@@ -1,34 +1,41 @@
 ## Component Hierarchy
 
 * `App`
+  * `ProjectNavBar`
+  * `IntraProjectNavBar`
   * `LoginPage`
-  * `MessageBoardShow`
-    * `ProjectNavBar`
-    * `IntraProjectNavBar`
-    * `MessagePreviewBox`
-      * `MessageBoardHeader`
-      * `MessagePreview`
-  * `NewMessage`
-    * `ProjectNavBar`
-    * `IntraProjectNavBar`
+  * `ThreadIndex`
+    * `ThreadPreviewBox`
+      * `ThreadIndexHeader`
+      * `ThreadPreview`
+  * `NewThread`
     * `ThreadCreationBox`
-      * `MessageContentBox`
+      * `CommentContentBox`
   * `NewProjectPage`
-    * `ProjectNavBar`
     * `MemberList`
     * `MemberSearchResult`
-  * `MessageShow`
-    * `ProjectNavBar`
-    * `IntraProjectNavBar`
-    * `MessageThreadBox`
-      * `OriginalMessage`
-      * `MessageReply`
-    * `MessageContentBox`
+  * `ThreadShow`
+    * `ThreadBox`
+      * `Comment`
+    * `CommentContentBox`
   * `ProjectLandingPage`
-    * `ProjectNavBar`
     * `MainProjectNavBox`
       * `ProjectHeader`
       * `MainProjectNavBox`
         * `NavProjectItem`
           * `NavItemHeader`
           * `NavItemPreview`
+  * `TodoIndex`
+    * `TodoContainer`
+      * `AddListComponent`
+      * `TodoList`
+        * `ProgressIndicator`
+        * `ListElement`
+        * `AddTodo`
+  * `TodoShow`
+    * `TodoListContainer`
+      * `EditListDetails`
+      * `ListElement`
+        * `EditListElement`
+      * `AddListElement`
+      

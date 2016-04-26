@@ -31,6 +31,7 @@
 ![todo-index]
 
 ## Project / Todo
+![todo-list]
 
 [new-user]: ./wireframes/Sign_Up_Block_React_Component.png
 [new-session]: ./wireframes/Login_Page.png
