@@ -53,11 +53,8 @@
 - `PATCH /api/projects/:projectid/todos/:id`
 - `DELETE /api/projects/:projectid/todos/:id`
 
-### Todo-Lists
+### Todo-Items
 
-- `GET /api/projects/:projectid/todos/:todoid/todolists`
-- `GET /api/projects/:projectid/todos/:todoid/todolists/:id`
-- `POST /api/projects/:projectid/todos/:todoid/todolists`
-- `PATCH /api/projects/:projectid/todos/:todoid/todolists/:id`
-- `UPDATE /api/projects/:projectid/todos/:todoid/todolists/:id`
-- `DELETE /api/projects/:projectid/todos/:todoid/todolists/:id`
+- `POST /api/projects/:projectid/todos/:todoid/items`
+- `PATCH /api/projects/:projectid/todos/:todoid/items/:id`
+- `DELETE /api/projects/:projectid/todos/:todoid/items/:id`
