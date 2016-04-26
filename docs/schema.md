@@ -47,3 +47,32 @@ email           | string    | not null, indexed, unique
 organization    | string    | not null
 password_digest | string    | not null
 session_token   | string    | not null, indexed, unique
+
+## todo_lists
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+project_id      | integer   | not null, foreign key (references projects), indexed
+creator_id      | integer   | not null, foreign key (references users), indexed
+title           | string    | not null
+description     | string    | not null
+completed       | boolean   |
+
+
+## todo_item
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+todo_list_id    | integer   | not null, foreign key (references projects), indexed
+creator_id      | integer   | not null, foreign key (references users), indexed
+title           | string    | not null
+description     | string    | not null
+due_date        | date      | 
+completed       | boolean   |
+
+## todo_item_assignments
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+todo_item_id    | integer   | not null, foreign key (references projects), indexed
+assignee_id     | integer   | not null, foreign key (references projects), indexed
