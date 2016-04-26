@@ -36,7 +36,6 @@ column name | data type | details
 id          | integer   | not null, primary key
 author_id   | integer   | not null, foreign key (references users), indexed
 thread_id   | integer   | not null, foreign key (references threads), indexed
-parent_id   | integer   | not null, foreign key (references messages)
 body        | text      | not null
 
 ## users
@@ -67,7 +66,7 @@ todo_list_id    | integer   | not null, foreign key (references projects), index
 creator_id      | integer   | not null, foreign key (references users), indexed
 title           | string    | not null
 description     | string    | not null
-due_date        | date      | 
+due_date        | date      |
 completed       | boolean   |
 
 ## todo_item_assignments
