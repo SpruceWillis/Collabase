@@ -1,6 +1,6 @@
 # collaBase
 
-[Heroku link][heroku] **NB:** This should be a link to your production site
+[Heroku link][heroku] Link to production site goes here
 
 [heroku]: http://www.herokuapp.com
 
@@ -9,7 +9,7 @@
 collaBase is a web application in the vein of basecamp build on Rails and ReactJS.  This app will have the following functionality completed by the end of week 9:
 
 - [ ] New account creation, existing user login, demo account login.
-- [ ] No major bugs.
+- [ ] No major bugs present.
 - [ ] Good seed data to demonstrate the site's features, including a sample project that all users have access to.
 - [ ] Basecamp-inspired features: project creation; member management; creation and posting to message threads; creation, assignment, and completion of to-do lists.
 - [ ] Hosting on Heroku; registration of a non-Heroku domain name.
@@ -20,15 +20,12 @@ collaBase is a web application in the vein of basecamp build on Rails and ReactJ
 
 collaBase will allow users to do the following:
 
-<!-- This is a Markdown checklist. Use it to keep track of your
-progress. Put an x between the brackets for a checkmark: [x] -->
-
 - [ ] MVP Features
   - [ ] Create an account
   - [ ] Log in / Log out, including as a Guest/Demo User
   - [ ] Create and edit projects
   - [ ] Add or remove members from projects
-  - [ ] Create and post to message threads on a project's message board
+  - [ ] Create and post to message threads on project message board
   - [ ] Notification of outstanding assigned to-do items
   - [ ] Create and assignment of to-do list items; mark items as completed
 - [ ] Bonus Features
@@ -53,7 +50,6 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 ## Implementation Timeline
 
-
 ### Phase 1: Backend setup and User Authentication (0.5 days)
 
 **Objective:** Functioning rails project with Authentication
@@ -69,8 +65,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 ### Phase 2: Project Model, API, and basic APIUtil (1.5 days)
 
-**Objective:** Projects can be created, read, and edited through the API. Project
-membership can be edited through the API.
+**Objective:** Projects can be created, read, and edited through the API. Project membership can be edited through the API.
 
 - [ ] create `Project` model
 - [ ] seed the database with a small amount of test data
