@@ -32,7 +32,3 @@
         * `NavProjectItem`
           * `NavItemHeader`
           * `NavItemPreview`
-  * `SplashPage`
-    * `PitchBlock`
-    * `SplashNavBar`
-    * `SignUpBlock`
