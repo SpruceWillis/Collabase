@@ -31,13 +31,12 @@
 
 ### Threads
 
-- `GET /api/projects/:projectid/threads`
+- `GET /api/projects/:projectId/threads`
   - accepts pagination params (if I get there)
-- `POST /api/projects/:projectid/threads`
-- `PATCH /api/projects/:projectid/thread/:id`
+- `POST /api/projects/:projectId/threads`
+- `PATCH /api/projects/:projectId/thread/:id`
 
 ### Comments
-
 
 - `POST /api/comments`
   - params indicate the message thread that the comment belongs to
@@ -46,14 +45,14 @@
 
 ### Todos
 
-- `GET /api/projects/:projectid/todos`
-- `POST /api/projects/:projectid/todos`
-- `GET /api/projects/:projectid/todos/:id`
-- `PATCH /api/projects/:projectid/todos/:id`
-- `DELETE /api/projects/:projectid/todos/:id`
+- `GET /api/projects/:projectId/todos`
+- `POST /api/projects/:projectId/todos`
+- `GET /api/projects/:projectId/todos/:id`
+- `PATCH /api/projects/:projectId/todos/:id`
+- `DELETE /api/projects/:projectId/todos/:id`
 
 ### Todo-Items
 
-- `POST /api/projects/:projectid/todos/:todoid/items`
-- `PATCH /api/projects/:projectid/todos/:todoid/items/:id`
-- `DELETE /api/projects/:projectid/todos/:todoid/items/:id`
+- `POST /api/projects/:projectId/todos/:todoId/items`
+- `PATCH /api/projects/:projectId/todos/:todoId/items/:id`
+- `DELETE /api/projects/:projectId/todos/:todoId/items/:id`
