@@ -20,7 +20,7 @@ member_id   | integer   | not null, foreign key (references users), indexed
 
 
 
-## messages
+## threads
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
@@ -29,13 +29,14 @@ project_id  | integer   | not null, foreign key (references projects), indexed
 title       | string    | not null
 body        | text      | not null
 
-
+<!-- May need to refactor to remove threads altogether - consider implications of this -->
 ## comments
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 author_id   | integer   | not null, foreign key (references users), indexed
-message_id  | integer   | not null, foreign key (references messages), indexed
+thread_id   | integer   | not null, foreign key (references threads), indexed
+parent_id   | integer   | not null, foreign key (references messages)
 body        | text      | not null
 
 ## users
