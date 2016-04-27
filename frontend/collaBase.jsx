@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var SignUp = require('./components/signUpBlock');
 
-document.AddEventListener('DOMContentLoaded', function(){
-  ReactDOM.render('<h1>Haikus are pretty</h1>', document.body);
+document.addEventListener('DOMContentLoaded', function(){
+  ReactDOM.render(<SignUp />, document.getElementById('root'));
 });
