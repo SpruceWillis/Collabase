@@ -102,7 +102,7 @@ store listeners are listed at the end.
 
   * `destroy`
     0. invoked by `MessageThreadContainer` component
-    0. `DELETE /api/projects/:projectId/` is called
+    0.  `DELETE /api/projects/:projectId/thread/:id` is called
     0. `destroyThread` is set as the callback
 
 
@@ -135,7 +135,7 @@ store listeners are listed at the end.
 
   * `deleteComment`
     0. invoked from `MessageReply` component when deleting a comment
-    0. `DELETE /api/comments/:id`
+    0. `DELETE /api/comments/:id` is called
     0. `removeComment` is set as the callback
 
 ### Comment API Response Actions
@@ -159,94 +159,87 @@ store listeners are listed at the end.
   * `MessageContentBox` component listens to `Thread` store
   * `MessageThreadContainer` component listens to `Thread` store
 
-## Todo Lists and Todo Items Cycles
+## Todo-lists and Todo-items Cycles
 
+### Todo-list Actions
 
+* `fetchTodoLists`
+  0. invoked by `TodoContainer` component on componentDidMount
+  0. `GET /api/projects/:projectId/todos` is called
+  0. `receiveTodoLists` is set as the callback
 
+* `fetchTodoList`
+  0. invoked by `TodoListContainer` component on componentDidMount
+  0. `GET /api/projects/:projectId/todos/:id` is called
+  0. `receiveTodoList` is set as the callback
 
-<!-- * `fetchSingleNote`
-  0. invoked from `NoteDetail` `didMount`/`willReceiveProps`
-  0. `GET /api/notes/:id` is called.
-  0. `receiveSingleNote` is set as the callback.
+* `createTodoList`
+  0. invoked by `AddTodoList` component on submit
+  0. `POST /api/projects/:projectId/todos` is called
+  0. `receiveTodoList` is set as the callback
 
-* `updateNote`
-  0. invoked from `NoteForm` `onSubmit`
-  0. `POST /api/notes` is called.
-  0. `receiveSingleNote` is set as the callback.
+* `updateTodoList`
+  0. invoked by `EditListDetails` component if user edits the list's title/description
+  0. `PATCH /api/projects/:projectId/todos/:id` is called
+  0. `updateTodoListInfo` is set as the callback
 
-* `destroyNote`
-  0. invoked from delete note button `onClick`
-  0. `DELETE /api/notes/:id` is called.
-  0. `removeNote` is set as the callback. -->
+* `destroyTodoList`
+  0. invoked by `TodoListContainer` component
+  0. `DELETE /api/projects/:projectId/todos/:id` is called
+  0. `destroyTodoList` is set as the callback
 
-  <!--
+### TodoList API Response Actions
 
-### Notes API Response Actions
+  * `receiveTodoList`
+    0. invoked from an API callback
+    0. `TodoList` store sets the value of `_todoList` to the thread, sets `_todoItems` to the thread's comments, and emits change.
 
-* `receiveAllNotes`
-  0. invoked from an API callback.
-  0. `Note` store updates `_notes` and emits change.
+  * `updateTodoList`
+    0. invoked from an API callback
+    0. `TodoList` store updates the value of `_todoList`, changing the affected properties of the `TodoList` in the store, and emits change.
 
-* `receiveSingleNote`
-  0. invoked from an API callback.
-  0. `Note` store updates `_notes[id]` and emits change.
+  * `destroyTodoList`
+    0. invoked from an API callback
+    0. `TodoList` store sets the value of `_todoList` to an empty object and emits change.
 
-* `removeNote`
-  0. invoked from an API callback.
-  0. `Note` store removes `_notes[id]` and emits change.
+### TodoItem API Request Actions
+<!-- TODO: hash map + linked list?? -->
+
+  * `createTodoItem`
+    0. invoked from `AddListItem` component on submit
+    0. `POST /api/projects/:projectId/todos/:todoId/items` is called
+    0. `addTodoItem` is set as the callback
+
+  * `editTodoItem`
+    0. invoked from `EditListItem` component on submit if used for an existing comment
+    0. `PATCH /api/projects/:projectId/todos/:todoId/items/:id` is called
+    0. `updateTodoItem` is set as the callback
+
+  * `deleteTodoItem`
+    0. invoked from `EditListItem` component when deleting a comment
+    0. `DELETE /api/projects/:projectId/todos/:todoId/items/:id` is called
+    0. `removeTodoItem` is set as the callback
+
+### TodoItem API Response Actions
+
+  * `addTodoItem`
+    0. invoked from an API callback
+    0. `TodoList` store pushes the received comment to the `_todoItems` array and emits change
+
+    <!-- linear search probably sufficient, larger threads will be paginated later -->
+
+  * `updateTodoItem`
+    0. invoked from an API callback
+    0. `TodoList` store searches `_todoItems` by ID, updates that value to the received comment, and emits change
+
+  * `removeTodoItem`
+    0. invoked from an API callback
+    0. `TodoList` store searches `_todoItems` by ID, removes that element, and emits change
 
 ### Store Listeners
 
-* `NotesIndex` component listens to `Note` store.
-* `NoteDetail` component listens to `Note` store.
-
-
-## Notebook Cycles
-
-### Notebooks API Request Actions
-
-* `fetchAllNotebooks`
-  0. invoked from `NotebooksIndex` `didMount`/`willReceiveProps`
-  0. `GET /api/notebooks` is called.
-  0. `receiveAllNotebooks` is set as the callback.
-
-* `createNotebook`
-  0. invoked from new notebook button `onClick`
-  0. `POST /api/notebooks` is called.
-  0. `receiveSingleNotebook` is set as the callback.
-
-* `fetchSingleNotebook`
-  0. invoked from `NotebookDetail` `didMount`/`willReceiveProps`
-  0. `GET /api/notebooks/:id` is called.
-  0. `receiveSingleNotebook` is set as the callback.
-
-* `updateNotebook`
-  0. invoked from `NotebookForm` `onSubmit`
-  0. `POST /api/notebooks` is called.
-  0. `receiveSingleNotebook` is set as the callback.
-
-* `destroyNotebook`
-  0. invoked from delete notebook button `onClick`
-  0. `DELETE /api/notebooks/:id` is called.
-  0. `removeNotebook` is set as the callback.
-
-### Notebooks API Response Actions
-
-* `receiveAllNotebooks`
-  0. invoked from an API callback.
-  0. `Notebook` store updates `_notebooks` and emits change.
-
-* `receiveSingleNotebook`
-  0. invoked from an API callback.
-  0. `Notebook` store updates `_notebooks[id]` and emits change.
-
-* `removeNotebook`
-  0. invoked from an API callback.
-  0. `Notebook` store removes `_notebooks[id]` and emits change.
-
--->
-
-
+  * `TodoContainer` listens to the `TodoList` store
+  * `TodoListContainer` listens to the `TodoList` store
 
 ## SearchSuggestion Cycles
 
