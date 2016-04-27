@@ -33,8 +33,10 @@
 
 - `GET /api/projects/:projectId/threads`
   - accepts pagination params (if I get there)
+- `GET /api/projects/:projectId/threads/:id`
 - `POST /api/projects/:projectId/threads`
 - `PATCH /api/projects/:projectId/thread/:id`
+- `DELETE /api/projects/:projectId`
 
 ### Comments
 
