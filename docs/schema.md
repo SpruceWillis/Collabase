@@ -42,6 +42,7 @@ body        | text      | not null
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
+name            | string    | not null
 email           | string    | not null, indexed, unique
 organization    | string    | not null
 password_digest | string    | not null
