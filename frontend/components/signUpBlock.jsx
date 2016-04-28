@@ -4,7 +4,7 @@ var SessionStore = require('../stores/sessionStore');
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return {name: "", email: "", organization: "", password: ""};
+    return {name: "", email: "", organization: "", password: "", errors: []};
   },
 
   handleSubmit: function(e){
@@ -19,21 +19,42 @@ module.exports = React.createClass({
     this.setState(newState);
   },
 
+  errors: function(){
+    if (this.state.errors.length > 0){
+      return (
+        <ul>
+          {this.state.errors.map(function(error){
+            return <li key={error}>{error}</li>
+          })}
+        </ul>
+      );
+    }
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    debugger;
+    this.setState({errors: nextProps.errors})
+  },
+
   form: function(){
     return (
-      <form onSubmit={this.handleSubmit}>
-          <input type="text" onInput={this.linkState} id="name" placeholder="Name" value={this.state.name}></input>
-          <input type="email" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
-          <input type="text" onInput={this.linkState} id="organization" placeholder="Company/Organization" value={this.state.organization}></input>
-          <input type="password" onInput={this.linkState} id="password" placeholder="Password" value={this.state.password}></input>
-        <input type="submit" value="Sign Up"></input>
-      </form>
+      <div>
+        {this.errors()}
+        <form onSubmit={this.handleSubmit}>
+            <input type="text" onInput={this.linkState} id="name" placeholder="Name" value={this.state.name}></input>
+            <input type="email" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
+            <input type="text" onInput={this.linkState} id="organization" placeholder="Company/Organization" value={this.state.organization}></input>
+            <input type="password" onInput={this.linkState} id="password" placeholder="Password" value={this.state.password}></input>
+          <input type="submit" value="Sign Up"></input>
+        </form>
+      </div>
     )
   },
 
   render: function() {
     return (
       <div>
+        {this.errors}
         {this.form()}
       </div>
     );

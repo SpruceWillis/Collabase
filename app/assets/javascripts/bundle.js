@@ -20132,7 +20132,7 @@
 	    } else if (this.state.type === "signin") {
 	      return React.createElement(SignIn, { close: this.closeModal, errors: this.state.userErrors });
 	    } else if (this.state.type === "signup") {
-	      return React.createElement(SignUpBlock, { close: this.closeModal });
+	      return React.createElement(SignUpBlock, { close: this.closeModal, errors: this.state.userErrors });
 	    }
 	  },
 	
@@ -20166,7 +20166,7 @@
 	  displayName: 'exports',
 	
 	  getInitialState: function () {
-	    return { name: "", email: "", organization: "", password: "" };
+	    return { name: "", email: "", organization: "", password: "", errors: [] };
 	  },
 	
 	  handleSubmit: function (e) {
@@ -20181,15 +20181,41 @@
 	    this.setState(newState);
 	  },
 	
+	  errors: function () {
+	    if (this.state.errors.length > 0) {
+	      return React.createElement(
+	        'ul',
+	        null,
+	        this.state.errors.map(function (error) {
+	          return React.createElement(
+	            'li',
+	            { key: error },
+	            error
+	          );
+	        })
+	      );
+	    }
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    debugger;
+	    this.setState({ errors: nextProps.errors });
+	  },
+	
 	  form: function () {
 	    return React.createElement(
-	      'form',
-	      { onSubmit: this.handleSubmit },
-	      React.createElement('input', { type: 'text', onInput: this.linkState, id: 'name', placeholder: 'Name', value: this.state.name }),
-	      React.createElement('input', { type: 'email', onInput: this.linkState, id: 'email', placeholder: 'Email', value: this.state.email }),
-	      React.createElement('input', { type: 'text', onInput: this.linkState, id: 'organization', placeholder: 'Company/Organization', value: this.state.organization }),
-	      React.createElement('input', { type: 'password', onInput: this.linkState, id: 'password', placeholder: 'Password', value: this.state.password }),
-	      React.createElement('input', { type: 'submit', value: 'Sign Up' })
+	      'div',
+	      null,
+	      this.errors(),
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'name', placeholder: 'Name', value: this.state.name }),
+	        React.createElement('input', { type: 'email', onInput: this.linkState, id: 'email', placeholder: 'Email', value: this.state.email }),
+	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'organization', placeholder: 'Company/Organization', value: this.state.organization }),
+	        React.createElement('input', { type: 'password', onInput: this.linkState, id: 'password', placeholder: 'Password', value: this.state.password }),
+	        React.createElement('input', { type: 'submit', value: 'Sign Up' })
+	      )
 	    );
 	  },
 	
@@ -20197,6 +20223,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      this.errors,
 	      this.form()
 	    );
 	  }
@@ -20673,7 +20700,7 @@
 	
 	SessionStore.handleErrors = function (errors) {
 	  _user = {};
-	  _errors = errors;
+	  _errors = errors || [];
 	  SessionStore.__emitChange();
 	};
 	
@@ -20684,12 +20711,11 @@
 	};
 	
 	SessionStore.currentUser = function () {
-	  console.log(_user);
 	  return Object.assign({}, _user);
 	};
 	
 	SessionStore.errors = function () {
-	  console.log(_errors);
+	  debugger;
 	  return [].slice.call(_errors);
 	};
 	
@@ -20744,7 +20770,8 @@
 	  getInitialState: function () {
 	    return {
 	      email: "",
-	      password: ""
+	      password: "",
+	      errors: []
 	    };
 	  },
 	
@@ -20760,10 +20787,32 @@
 	    this.setState({ password: "" });
 	  },
 	
+	  errors: function () {
+	    if (this.state.errors.length > 0) {
+	      return React.createElement(
+	        'ul',
+	        null,
+	        this.state.errors.map(function (error) {
+	          return React.createElement(
+	            'li',
+	            { key: 'error' },
+	            error
+	          );
+	        })
+	      );
+	    }
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    debugger;
+	    this.setState({ errors: nextProps.errors });
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
+	      this.errors(),
 	      React.createElement(
 	        'div',
 	        null,

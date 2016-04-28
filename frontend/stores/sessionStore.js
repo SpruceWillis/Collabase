@@ -29,7 +29,7 @@ SessionStore.loginUser = function(user){
 
 SessionStore.handleErrors = function(errors){
   _user = {};
-  _errors = errors;
+  _errors = errors || [];
   SessionStore.__emitChange();
 };
 
@@ -41,12 +41,11 @@ SessionStore.logout = function(){
 }
 
 SessionStore.currentUser = function(){
-  console.log(_user);
   return Object.assign({}, _user);
 };
 
 SessionStore.errors = function () {
-  console.log(_errors);
+  debugger;
   return [].slice.call(_errors);
 }
 

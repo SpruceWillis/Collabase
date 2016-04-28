@@ -90,7 +90,7 @@ var NavBar = React.createClass({
     } else if (this.state.type === "signin"){
       return <SignIn close={this.closeModal} errors={this.state.userErrors}/>
     } else if (this.state.type === "signup"){
-      return <SignUpBlock close={this.closeModal} />
+      return <SignUpBlock close={this.closeModal} errors={this.state.userErrors}/>
     }
   },
 

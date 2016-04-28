@@ -6,7 +6,8 @@ var SignIn = React.createClass({
   getInitialState: function() {
     return {
       email: "",
-      password: ""
+      password: "",
+      errors: []
     };
   },
 
@@ -22,9 +23,27 @@ var SignIn = React.createClass({
     this.setState({password: ""});
   },
 
+  errors: function(){
+    if (this.state.errors.length > 0){
+      return (
+        <ul>
+          {this.state.errors.map(function(error){
+            return <li key="error">{error}</li>
+          })}
+        </ul>
+      );
+    }
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    debugger;
+    this.setState({errors: nextProps.errors})
+  },
+
   render: function() {
     return (
       <div >
+        {this.errors()}
         <div>Sign In</div>
         <form onSubmit={this.handleSubmit}>
           <input type="text" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
