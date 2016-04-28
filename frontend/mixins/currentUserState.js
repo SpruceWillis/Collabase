@@ -12,7 +12,7 @@ var CurrentUserState = {
 	},
 	componentDidMount: function(){
 
-		SessionStore.addListener(this.updateUser);
+		this.sessionListener = SessionStore.addListener(this.updateUser);
 		if (Object.keys(SessionStore.currentUser()).length === 0) {
 			SessionActions.fetchCurrentUser();
 		}
@@ -23,7 +23,11 @@ var CurrentUserState = {
 			currentUser: SessionStore.currentUser(),
 			userErrors: SessionStore.errors()
 		});
-	}
+	},
+
+	componentWillUnmount: function() {
+		this.sessionListener.remove();
+	},
 
 };
 

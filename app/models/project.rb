@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
     class_name: User
 
   has_many :memberships,
+    dependent: :destroy,
     foreign_key: :project_id,
     class_name: ProjectMembership
 

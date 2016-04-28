@@ -4,7 +4,7 @@ class Api::SessionsController < ApplicationController
     @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
     if @user
       login(@user)
-      render "api/users/show"
+      render "api/users/show", locals: {show_projects: true}
     else
       @errors = ['invalid credentials']
       render "api/shared/error", status: 401
@@ -15,7 +15,7 @@ class Api::SessionsController < ApplicationController
     @user = current_user
     if @user
       logout
-      render "api/users/show"
+      render "api/users/show", locals: {show_projects: false}
     else
       @errors = ['no one logged in']
       render "api/shared/error", status: 404
@@ -25,7 +25,7 @@ class Api::SessionsController < ApplicationController
   def show
     if current_user
       @user = current_user
-      render "api/users/show"
+      render "api/users/show", locals: {show_projects: true}
     else
       # @errors = nil
       # render "api/shared/error", status: 404

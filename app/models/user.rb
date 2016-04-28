@@ -10,10 +10,12 @@ class User < ActiveRecord::Base
   before_validation :ensure_session_token_uniqueness
 
   has_many :projects,
+    dependent: :destroy,
     foreign_key: :owner_id,
     class_name: Project
 
   has_many :project_memberships,
+    dependent: :destroy,
     foreign_key: :member_id
 
   has_many :member_projects,

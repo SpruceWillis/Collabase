@@ -8,7 +8,6 @@ var handleErrors = function(error){
 module.exports = {
   // getUser: function(data){
   getUser: function(data){
-
     $.ajax({
       url: data.url,
       method: data.method,

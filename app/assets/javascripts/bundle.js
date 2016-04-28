@@ -20346,7 +20346,6 @@
 	module.exports = {
 	  // getUser: function(data){
 	  getUser: function (data) {
-	
 	    $.ajax({
 	      url: data.url,
 	      method: data.method,
@@ -27275,7 +27274,7 @@
 		},
 		componentDidMount: function () {
 	
-			SessionStore.addListener(this.updateUser);
+			this.sessionListener = SessionStore.addListener(this.updateUser);
 			if (Object.keys(SessionStore.currentUser()).length === 0) {
 				SessionActions.fetchCurrentUser();
 			}
@@ -27286,6 +27285,10 @@
 				currentUser: SessionStore.currentUser(),
 				userErrors: SessionStore.errors()
 			});
+		},
+	
+		componentWillUnmount: function () {
+			this.sessionListener.remove();
 		}
 	
 	};

@@ -70,7 +70,7 @@ collaBase will allow users to do the following:
 - [ ] seed the database with a small amount of test data
 - [ ] CRUD API for projects (`ProjectsController`)
 - [ ] jBuilder views for projects
-- [x] setup Webpack & Flux scaffold
+- [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
