@@ -5,8 +5,20 @@ module.exports = {
   loginUser: function(user){
     dispatcher.dispatch({
       actionType: ActionTypes.LOGIN_USER,
-      user: user.user,
-      errors: user.errors
+      user: user,
     });
+  },
+
+  handleErrors: function(errors){
+    dispatcher.dispatch({
+      actionType: ActionTypes.ERROR,
+      errors: errors
+    })
+  },
+
+  logout: function(user){
+    dispatcher.dispatch({
+      actionType: ActionTypes.LOGOUT
+    })
   }
 };

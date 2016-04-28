@@ -1,7 +1,21 @@
 var SessionApiUtil = require('../util/sessionApiUtil');
 
 module.exports = {
-  createUser: function(user){
-    SessionApiUtil.createUser(user);
+  getUser: function(user, url){
+    SessionApiUtil.getUser({
+      user: user,
+      method: "POST",
+      url: url
+    });
+  },
+
+
+
+  fetchCurrentUser: function(){
+    SessionApiUtil.fetchCurrentUser();
+  },
+
+  logout: function(){
+    SessionApiUtil.logout();
   }
 }

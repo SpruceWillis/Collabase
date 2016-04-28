@@ -1,14 +1,52 @@
 var SessionServerActions = require('../actions/sessionServerActions');
 
+var handleErrors = function(error){
+  SessionServerActions.handleErrors(error.responseJSON.errors);
+
+}
+
 module.exports = {
-  createUser: function(user){
+  // getUser: function(data){
+  getUser: function(data){
+    debugger;
     $.ajax({
-      url: '/api/users',
-      method: "POST",
-      data: {user: user},
+      url: data.url,
+      method: data.method,
+      data: {user: data.user},
+      success: function(data){
+        SessionServerActions.loginUser(data.user);
+      },
+      error: function(error){
+        debugger
+        SessionServerActions.handleErrors(error.responseJSON.errors);
+      }
+    })
+  },
+
+  fetchCurrentUser: function(){
+    $.ajax({
+			url: '/api/session',
+			method: 'get',
+			success: function(data){
+        SessionServerActions.loginUser(data.user);
+		  },
+      error: function(error){
+        SessionServerActions.handleErrors(error.responseJSON.errors);
+      }
+    });
+  },
+
+  logout: function(){
+    $.ajax({
+      url: '/api/session',
+      method: "DELETE",
       success: function(user){
-        SessionServerActions.loginUser(user);
+        SessionServerActions.logout();
+      },
+      error: function(error){
+        SessionServerActions.handleErrors(error.responseJSON.errors);
       }
     })
   }
-}
+
+};

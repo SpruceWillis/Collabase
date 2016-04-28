@@ -1,7 +1,10 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var SignUp = require('./components/signUpBlock');
+var NavBar = require('./components/navBar');
+var Modal = require("react-modal");
+
 
 document.addEventListener('DOMContentLoaded', function(){
-  ReactDOM.render(<SignUp />, document.getElementById('root'));
+  Modal.setAppElement(document.body);
+  ReactDOM.render(<NavBar />, document.getElementById('root'));
 });
