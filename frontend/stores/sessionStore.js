@@ -36,6 +36,8 @@ SessionStore.handleErrors = function(errors){
 SessionStore.logout = function(){
   _user = {};
   _errors = [];
+  SessionStore.__emitChange();
+
 }
 
 SessionStore.currentUser = function(){

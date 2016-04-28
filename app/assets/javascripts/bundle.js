@@ -46,12 +46,12 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-	var NavBar = __webpack_require__(166);
+	var NavBarAuth = __webpack_require__(216);
 	var Modal = __webpack_require__(196);
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  Modal.setAppElement(document.body);
-	  ReactDOM.render(React.createElement(NavBar, null), document.getElementById('root'));
+	  ReactDOM.render(React.createElement(NavBarAuth, null), document.getElementById('root'));
 	});
 
 /***/ },
@@ -20010,139 +20010,7 @@
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ },
-/* 166 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var SignUpBlock = __webpack_require__(167);
-	var CurrentUserState = __webpack_require__(194);
-	var SessionActions = __webpack_require__(168);
-	var SignIn = __webpack_require__(195);
-	var Modal = __webpack_require__(196);
-	
-	var style = {
-	  overlay: {
-	    position: 'fixed',
-	    top: 0,
-	    left: 0,
-	    right: 0,
-	    bottom: 0,
-	    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-	    "zindex": 10
-	  },
-	  content: {
-	    position: 'fixed',
-	    top: '100px',
-	    left: '150px',
-	    right: '150px',
-	    bottom: '100px',
-	    border: '1px solid #ccc',
-	    padding: '20px',
-	    "zindex": 11
-	  }
-	};
-	
-	var NavBar = React.createClass({
-	  displayName: 'NavBar',
-	
-	
-	  mixins: [CurrentUserState],
-	
-	  getInitialState: function () {
-	    return { modalOpen: false };
-	  },
-	
-	  hasUser: function () {
-	    return Object.keys(this.state.currentUser).length != 0;
-	  },
-	
-	  openModal: function () {
-	    this.setState({ modalOpen: true });
-	  },
-	
-	  closeModal: function () {
-	    this.setState({ modalOpen: false });
-	  },
-	
-	  logout: function (e) {
-	    e.preventDefault();
-	    SessionActions.logout();
-	  },
-	
-	  greeting: function () {
-	    if (this.hasUser()) {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'label',
-	          null,
-	          'Logged in as ',
-	          this.state.currentUser.name
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.logout },
-	          'Log out'
-	        )
-	      );
-	    } else {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	          'button',
-	          { onClick: this.openModal },
-	          'Sign In'
-	        )
-	      );
-	    }
-	  },
-	
-	  errors: function () {
-	    if (this.state.userErrors.length === 0) {
-	      return;
-	    }
-	    var self = this;
-	    return React.createElement(
-	      'ul',
-	      null,
-	      Object.keys(this.state.userErrors).map(function (key, i) {
-	        return React.createElement(
-	          'li',
-	          { key: i },
-	          self.state.userErrors[key]
-	        );
-	      })
-	    );
-	  },
-	
-	  form: function () {
-	    if (this.hasUser()) {
-	      return;
-	    }
-	    return React.createElement(SignUpBlock, null);
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      this.greeting(),
-	      this.form(),
-	      React.createElement(
-	        Modal,
-	        { isOpen: this.state.modalOpen && !this.hasUser(), onRequestClose: this.closeModal, style: style },
-	        React.createElement(SignIn, { close: this.closeModal, errors: this.state.userErrors })
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = NavBar;
-
-/***/ },
+/* 166 */,
 /* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20205,8 +20073,8 @@
 	      url: url
 	    });
 	  },
-	
 	  fetchCurrentUser: function () {
+	
 	    SessionApiUtil.fetchCurrentUser();
 	  },
 	
@@ -20228,7 +20096,7 @@
 	module.exports = {
 	  // getUser: function(data){
 	  getUser: function (data) {
-	    debugger;
+	
 	    $.ajax({
 	      url: data.url,
 	      method: data.method,
@@ -20668,6 +20536,7 @@
 	SessionStore.logout = function () {
 	  _user = {};
 	  _errors = [];
+	  SessionStore.__emitChange();
 	};
 	
 	SessionStore.currentUser = function () {
@@ -27135,18 +27004,21 @@
 	var CurrentUserState = {
 	
 		getInitialState: function () {
+			var currentUser = localStorage.getItem('currentUser') || SessionStore.currentUser();
 			return {
 				currentUser: SessionStore.currentUser(),
 				userErrors: SessionStore.errors()
 			};
 		},
 		componentDidMount: function () {
+	
 			SessionStore.addListener(this.updateUser);
-			if (typeof SessionStore.currentUser() === 'undefined') {
+			if (Object.keys(SessionStore.currentUser()).length === 0) {
 				SessionActions.fetchCurrentUser();
 			}
 		},
 		updateUser: function () {
+			localStorage.setItem('currentUser', SessionStore.currentUser());
 			this.setState({
 				currentUser: SessionStore.currentUser(),
 				userErrors: SessionStore.errors()
@@ -29157,6 +29029,147 @@
 	  else this.add(className)
 	}
 
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var SignUpBlock = __webpack_require__(167);
+	var CurrentUserState = __webpack_require__(194);
+	var SessionActions = __webpack_require__(168);
+	var SignIn = __webpack_require__(195);
+	var Modal = __webpack_require__(196);
+	
+	var style = {
+	  overlay: {
+	    position: 'fixed',
+	    top: 0,
+	    left: 0,
+	    right: 0,
+	    bottom: 0,
+	    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+	    "zindex": 10
+	  },
+	  content: {
+	    position: 'fixed',
+	    top: '100px',
+	    left: '150px',
+	    right: '150px',
+	    bottom: '100px',
+	    border: '1px solid #ccc',
+	    padding: '20px',
+	    "zindex": 11
+	  }
+	};
+	
+	var NavBar = React.createClass({
+	  displayName: 'NavBar',
+	
+	
+	  mixins: [CurrentUserState],
+	
+	  getInitialState: function () {
+	    return { modalOpen: false };
+	  },
+	
+	  hasUser: function () {
+	    return Object.keys(this.state.currentUser).length != 0;
+	  },
+	
+	  openModal: function (e) {
+	    this.setState({ modalOpen: true, type: e.target.value });
+	  },
+	
+	  closeModal: function () {
+	    this.setState({ modalOpen: false });
+	  },
+	
+	  logout: function (e) {
+	    e.preventDefault();
+	    SessionActions.logout();
+	  },
+	
+	  greeting: function () {
+	    if (this.hasUser()) {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'label',
+	          null,
+	          'Logged in as ',
+	          this.state.currentUser.name
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.logout },
+	          'Log out'
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.openModal, value: 'signin' },
+	          'Sign In'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.openModal, value: 'signup' },
+	          'Sign Up'
+	        )
+	      );
+	    }
+	  },
+	
+	  errors: function () {
+	    if (this.state.userErrors.length === 0) {
+	      return;
+	    }
+	    var self = this;
+	    return React.createElement(
+	      'ul',
+	      null,
+	      Object.keys(this.state.userErrors).map(function (key, i) {
+	        return React.createElement(
+	          'li',
+	          { key: i },
+	          self.state.userErrors[key]
+	        );
+	      })
+	    );
+	  },
+	
+	  form: function () {
+	    if (this.hasUser()) {
+	      return;
+	    } else if (this.state.type === "signin") {
+	      return React.createElement(SignIn, { close: this.closeModal, errors: this.state.userErrors });
+	    } else if (this.state.type === "signup") {
+	      return React.createElement(SignUpBlock, { close: this.closeModal });
+	    }
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      this.greeting(),
+	      React.createElement(
+	        Modal,
+	        { isOpen: this.state.modalOpen && !this.hasUser(), type: this.state.type,
+	          onRequestClose: this.closeModal, style: style },
+	        this.form()
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = NavBar;
 
 /***/ }
 /******/ ]);

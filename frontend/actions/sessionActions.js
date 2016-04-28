@@ -8,10 +8,8 @@ module.exports = {
       url: url
     });
   },
-
-
-
   fetchCurrentUser: function(){
+
     SessionApiUtil.fetchCurrentUser();
   },
 
