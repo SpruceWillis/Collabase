@@ -36,7 +36,7 @@ var NavBar = React.createClass({
   },
 
   hasUser: function(){
-    return (Object.keys(this.state.currentUser).length != 0)
+    return !($.isEmptyObject(this.state.currentUser));
   },
 
   openModal: function(e){
@@ -50,6 +50,10 @@ var NavBar = React.createClass({
   logout: function(e){
     e.preventDefault();
     SessionActions.logout();
+  },
+
+  componentWillUpdate: function() {
+    if (this.hasUser() && this.state.modalOpen) this.closeModal();
   },
 
   greeting: function(){
