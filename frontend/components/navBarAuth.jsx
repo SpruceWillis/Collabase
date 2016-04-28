@@ -12,15 +12,19 @@ var style = {
     left            : 0,
     right           : 0,
     bottom          : 0,
-    backgroundColor : 'rgba(255, 255, 255, 0.75)',
+    backgroundColor : 'rgba(0, 0, 0, 0.75)',
     "zindex"         : 10
   },
   content : {
     position        : 'fixed',
-    top             : '100px',
-    left            : '150px',
-    right           : '150px',
-    bottom          : '100px',
+    top: '50%',
+    left: '25%',
+    right: '25%',
+    bottom: 'auto',
+    // top             : '100px',
+    // left            : '150px',
+    // right           : '150px',
+    // bottom          : '100px',
     border          : '1px solid #ccc',
     padding         : '20px',
     "zindex"         : 11
@@ -39,8 +43,23 @@ var NavBar = React.createClass({
     return !($.isEmptyObject(this.state.currentUser));
   },
 
-  openModal: function(e){
-    this.setState({modalOpen: true, type: e.target.value});
+  openSignInModal: function(e){
+    e.preventDefault();
+    this.setState({modalOpen: true, type: "signIn"});
+  },
+
+  openSignUpModal: function(e){
+    e.preventDefault();
+    this.setState({modalOpen: true, type: "signUp"})
+  },
+
+  toggleModalType: function(e){
+    e.preventDefault();
+    if (this.state.type === "signIn"){
+      this.setState({type: "signUp"});
+    } else {
+      this.setState({type: "signIn"})
+    }
   },
 
   closeModal: function(){
@@ -64,8 +83,8 @@ var NavBar = React.createClass({
       </div>)
     } else {
       return (<div>
-        <button onClick={this.openModal} value="signin">Sign In</button>
-        <button onClick={this.openModal} value="signup">Sign Up</button>
+        <button onClick={this.openSignInModal} >Sign In</button>
+        <button onClick={this.openSignUpModal} >Sign Up</button>
       </div>)
     }
   },
@@ -87,16 +106,16 @@ var NavBar = React.createClass({
   form: function(){
     if (this.hasUser()){
       return;
-    } else if (this.state.type === "signin"){
-      return <SignIn close={this.closeModal} errors={this.state.userErrors}/>
-    } else if (this.state.type === "signup"){
-      return <SignUpBlock close={this.closeModal} errors={this.state.userErrors}/>
+    } else if (this.state.type === "signIn"){
+      return <SignIn close={this.closeModal} errors={this.state.userErrors} toggle={this.toggleModalType}/>
+    } else if (this.state.type === "signUp"){
+      return <SignUpBlock close={this.closeModal} errors={this.state.userErrors} toggle={this.toggleModalType}/>
     }
   },
 
   render: function() {
     return (
-      <div>
+      <div className="navbar-auth group">
         {this.greeting()}
         <Modal isOpen={this.state.modalOpen && !this.hasUser()} type={this.state.type}
           onRequestClose={this.closeModal} style={style}>

@@ -36,7 +36,7 @@ var SignIn = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    debugger;
+
     this.setState({errors: nextProps.errors})
   },
 
@@ -50,6 +50,9 @@ var SignIn = React.createClass({
           <input type="password" onInput={this.linkState} id="password" placeholder="Password" value={this.state.password}></input>
           <input type="submit" value="Sign In"></input>
         </form>
+        <div>Don't have an account?
+          <a onClick={this.props.toggle}>Sign Up</a>
+        </div>
       </div>
     );
   }

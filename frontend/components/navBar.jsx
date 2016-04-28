@@ -1,14 +1,15 @@
 var React = require('react');
-var PropTypes = React.PropTypes;
+var NavBarAuth = require('./navBarAuth');
 
 var NavBar = React.createClass({
 
-  // mixins: [CurrentUserState],
 
 
   render: function() {
     return (
-      <div />
+      <div className="navbar">
+        <NavBarAuth />
+      </div>
     );
   }
 

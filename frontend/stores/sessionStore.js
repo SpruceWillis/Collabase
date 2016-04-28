@@ -45,7 +45,7 @@ SessionStore.currentUser = function(){
 };
 
 SessionStore.errors = function () {
-  debugger;
+
   return [].slice.call(_errors);
 }
 

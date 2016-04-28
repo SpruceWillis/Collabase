@@ -54,11 +54,11 @@ collaBase will allow users to do the following:
 
 **Objective:** Functioning rails project with Authentication
 
-- [ ] create new project
-- [ ] create `User` model
-- [ ] authentication
-- [ ] user signup component and sign-in
-- [ ] blank landing page after signin
+- [x] create new project
+- [x] create `User` model
+- [x] authentication
+- [x] user signup component and sign-in
+- [x] blank landing page after signin
 - [ ] seed user data in database for future project phases
 - [ ] style authentication components
 
@@ -149,7 +149,7 @@ can be assigned to project members, who will receive a notification.
   - [ ] Todo-item CRUD
   - [ ] Adding an item requires a list
   - [ ] Viewing items by list
-  - [ ] Users can view their assigned todo-items 
+  - [ ] Users can view their assigned todo-items
 - [ ] View for displaying a todo-list's items
 - [ ] Integrate push notifications to users on being assigned a todo-list item
 

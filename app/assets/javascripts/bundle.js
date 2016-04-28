@@ -46,12 +46,12 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-	var NavBarAuth = __webpack_require__(166);
+	var SplashPage = __webpack_require__(217);
 	var Modal = __webpack_require__(179);
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	  Modal.setAppElement(document.body);
-	  ReactDOM.render(React.createElement(NavBarAuth, null), document.getElementById('root'));
+	  ReactDOM.render(React.createElement(SplashPage, null), document.getElementById('root'));
 	});
 
 /***/ },
@@ -20027,15 +20027,19 @@
 	    left: 0,
 	    right: 0,
 	    bottom: 0,
-	    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+	    backgroundColor: 'rgba(0, 0, 0, 0.75)',
 	    "zindex": 10
 	  },
 	  content: {
 	    position: 'fixed',
-	    top: '100px',
-	    left: '150px',
-	    right: '150px',
-	    bottom: '100px',
+	    top: '50%',
+	    left: '25%',
+	    right: '25%',
+	    bottom: 'auto',
+	    // top             : '100px',
+	    // left            : '150px',
+	    // right           : '150px',
+	    // bottom          : '100px',
 	    border: '1px solid #ccc',
 	    padding: '20px',
 	    "zindex": 11
@@ -20056,8 +20060,23 @@
 	    return !$.isEmptyObject(this.state.currentUser);
 	  },
 	
-	  openModal: function (e) {
-	    this.setState({ modalOpen: true, type: e.target.value });
+	  openSignInModal: function (e) {
+	    e.preventDefault();
+	    this.setState({ modalOpen: true, type: "signIn" });
+	  },
+	
+	  openSignUpModal: function (e) {
+	    e.preventDefault();
+	    this.setState({ modalOpen: true, type: "signUp" });
+	  },
+	
+	  toggleModalType: function (e) {
+	    e.preventDefault();
+	    if (this.state.type === "signIn") {
+	      this.setState({ type: "signUp" });
+	    } else {
+	      this.setState({ type: "signIn" });
+	    }
 	  },
 	
 	  closeModal: function () {
@@ -20096,12 +20115,12 @@
 	        null,
 	        React.createElement(
 	          'button',
-	          { onClick: this.openModal, value: 'signin' },
+	          { onClick: this.openSignInModal },
 	          'Sign In'
 	        ),
 	        React.createElement(
 	          'button',
-	          { onClick: this.openModal, value: 'signup' },
+	          { onClick: this.openSignUpModal },
 	          'Sign Up'
 	        )
 	      );
@@ -20129,17 +20148,17 @@
 	  form: function () {
 	    if (this.hasUser()) {
 	      return;
-	    } else if (this.state.type === "signin") {
-	      return React.createElement(SignIn, { close: this.closeModal, errors: this.state.userErrors });
-	    } else if (this.state.type === "signup") {
-	      return React.createElement(SignUpBlock, { close: this.closeModal, errors: this.state.userErrors });
+	    } else if (this.state.type === "signIn") {
+	      return React.createElement(SignIn, { close: this.closeModal, errors: this.state.userErrors, toggle: this.toggleModalType });
+	    } else if (this.state.type === "signUp") {
+	      return React.createElement(SignUpBlock, { close: this.closeModal, errors: this.state.userErrors, toggle: this.toggleModalType });
 	    }
 	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'navbar-auth group' },
 	      this.greeting(),
 	      React.createElement(
 	        Modal,
@@ -20198,23 +20217,34 @@
 	  },
 	
 	  componentWillReceiveProps: function (nextProps) {
-	    debugger;
+	
 	    this.setState({ errors: nextProps.errors });
 	  },
 	
 	  form: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'signup' },
+	      'Sign Up',
 	      this.errors(),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit },
+	        { onSubmit: this.handleSubmit, className: 'signup-form' },
 	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'name', placeholder: 'Name', value: this.state.name }),
 	        React.createElement('input', { type: 'email', onInput: this.linkState, id: 'email', placeholder: 'Email', value: this.state.email }),
 	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'organization', placeholder: 'Company/Organization', value: this.state.organization }),
 	        React.createElement('input', { type: 'password', onInput: this.linkState, id: 'password', placeholder: 'Password', value: this.state.password }),
 	        React.createElement('input', { type: 'submit', value: 'Sign Up' })
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        'Already have an account?',
+	        React.createElement(
+	          'a',
+	          { onClick: this.props.toggle },
+	          'Sign In'
+	        )
 	      )
 	    );
 	  },
@@ -20276,7 +20306,6 @@
 	        SessionServerActions.loginUser(data.user);
 	      },
 	      error: function (error) {
-	        debugger;
 	        SessionServerActions.handleErrors(error.responseJSON.errors);
 	      }
 	    });
@@ -20715,7 +20744,7 @@
 	};
 	
 	SessionStore.errors = function () {
-	  debugger;
+	
 	  return [].slice.call(_errors);
 	};
 	
@@ -20804,7 +20833,7 @@
 	  },
 	
 	  componentWillReceiveProps: function (nextProps) {
-	    debugger;
+	
 	    this.setState({ errors: nextProps.errors });
 	  },
 	
@@ -20824,6 +20853,16 @@
 	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'email', placeholder: 'Email', value: this.state.email }),
 	        React.createElement('input', { type: 'password', onInput: this.linkState, id: 'password', placeholder: 'Password', value: this.state.password }),
 	        React.createElement('input', { type: 'submit', value: 'Sign In' })
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        'Don\'t have an account?',
+	        React.createElement(
+	          'a',
+	          { onClick: this.props.toggle },
+	          'Sign Up'
+	        )
 	      )
 	    );
 	  }
@@ -29222,6 +29261,52 @@
 	
 	module.exports = FluxMixinLegacy;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var NavBarAuth = __webpack_require__(166);
+	
+	var NavBar = React.createClass({
+	  displayName: 'NavBar',
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'navbar' },
+	      React.createElement(NavBarAuth, null)
+	    );
+	  }
+	
+	});
+	
+	module.exports = NavBar;
+
+/***/ },
+/* 217 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var NavBar = __webpack_require__(216);
+	
+	var SplashPage = React.createClass({
+	  displayName: 'SplashPage',
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(NavBar, null)
+	    );
+	  }
+	
+	});
+	
+	module.exports = SplashPage;
 
 /***/ }
 /******/ ]);
