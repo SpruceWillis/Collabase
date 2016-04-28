@@ -17,7 +17,7 @@ var style = {
   },
   content : {
     position        : 'fixed',
-    top: '40%',
+    top: 'auto',
     left: '40%',
     right: 'auto',
     bottom: 'auto',

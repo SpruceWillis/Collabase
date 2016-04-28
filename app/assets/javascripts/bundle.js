@@ -48,11 +48,14 @@
 	var ReactDOM = __webpack_require__(32);
 	var SplashPage = __webpack_require__(166);
 	var Modal = __webpack_require__(198);
-	var Router = __webpack_require__(218);
+	var Router = __webpack_require__(218),
+	    Route = __webpack_require__(218).Route,
+	    IndexRoute = __webpack_require__(218).IndexRoute,
+	    hashHistory = __webpack_require__(218).hashHistory;
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	  Modal.setAppElement(document.body);
-	  ReactDOM.render(React.createElement(SplashPage, null), document.getElementById('root'));
+	    Modal.setAppElement(document.body);
+	    ReactDOM.render(React.createElement(SplashPage, null), document.getElementById('root'));
 	});
 
 /***/ },
@@ -20079,7 +20082,7 @@
 	  },
 	  content: {
 	    position: 'fixed',
-	    top: '40%',
+	    top: 'auto',
 	    left: '40%',
 	    right: 'auto',
 	    bottom: 'auto',
@@ -20750,7 +20753,13 @@
 	
 	var SessionStore = new Store(dispatcher);
 	
-	var _user = JSON.parse(localStorage.getItem('currentUser'));
+	if (localStorage.getItem('currentUser') === "undefined") {
+	  var _user = {};
+	  localStorage.setItem('currentUser', JSON.stringify({}));
+	  localStorage.getItem('currentUser');
+	} else {
+	  var _user = JSON.parse(localStorage.getItem('currentUser'));
+	}
 	var _errors = [];
 	
 	SessionStore.__onDispatch = function (payload) {
@@ -20791,9 +20800,11 @@
 	};
 	
 	SessionStore.currentUser = function () {
-	
-	  // return Object.assign({}, _user);
-	  return JSON.parse(localStorage.getItem('currentUser'));
+	  if (localStorage.getItem('currentUser') === "undefined") {
+	    return {};
+	  } else {
+	    return JSON.parse(localStorage.getItem('currentUser'));
+	  }
 	};
 	
 	SessionStore.errors = function () {

@@ -4,7 +4,13 @@ var ActionTypes = require('../constants/ActionTypes');
 
 var SessionStore = new Store(dispatcher);
 
-var _user = JSON.parse(localStorage.getItem('currentUser'));
+if (localStorage.getItem('currentUser') === "undefined"){
+  var _user = {};
+  localStorage.setItem('currentUser', JSON.stringify({}));
+  localStorage.getItem('currentUser');
+} else {
+  var _user = JSON.parse(localStorage.getItem('currentUser'));
+}
 var _errors = [];
 
 SessionStore.__onDispatch = function(payload){
@@ -46,9 +52,11 @@ SessionStore.logout = function(){
 }
 
 SessionStore.currentUser = function(){
-
-  // return Object.assign({}, _user);
-  return (JSON.parse(localStorage.getItem('currentUser')));
+  if (localStorage.getItem('currentUser') === "undefined"){
+    return {};
+  } else {
+    return (JSON.parse(localStorage.getItem('currentUser')));
+  }
 };
 
 SessionStore.errors = function () {

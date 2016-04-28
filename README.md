@@ -59,8 +59,8 @@ collaBase will allow users to do the following:
 - [x] authentication
 - [x] user signup component and sign-in
 - [x] blank landing page after signin
-- [ ] seed user data in database for future project phases
-- [ ] style authentication components
+- [x] seed user data in database for future project phases
+- [x] style authentication components
 
 ### Phase 2: Project Model, API, and basic APIUtil (2 days)
 
@@ -70,7 +70,7 @@ collaBase will allow users to do the following:
 - [ ] seed the database with a small amount of test data
 - [ ] CRUD API for projects (`ProjectsController`)
 - [ ] jBuilder views for projects
-- [ ] setup Webpack & Flux scaffold
+- [x] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 

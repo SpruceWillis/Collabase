@@ -9,6 +9,17 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   before_validation :ensure_session_token_uniqueness
 
+  has_many :projects,
+    foreign_key: :owner_id,
+    class_name: Project
+
+  has_many :project_memberships,
+    foreign_key: :member_id
+
+  has_many :member_projects,
+    through: :project_memberships,
+    source: :project
+
   def password= (password)
     self.password_digest = BCrypt::Password.create(password)
     @password = password
