@@ -42,15 +42,14 @@ var SignIn = React.createClass({
 
   render: function() {
     return (
-      <div >
+      <div className="authmodal">
         {this.errors()}
-        <div>Sign In</div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="authmodal-form">
           <input type="text" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
           <input type="password" onInput={this.linkState} id="password" placeholder="Password" value={this.state.password}></input>
           <input type="submit" value="Sign In"></input>
         </form>
-        <div>Don't have an account?
+        <div className="authmodal-footer">Don't have an account?
           <a onClick={this.props.toggle}>Sign Up</a>
         </div>
       </div>

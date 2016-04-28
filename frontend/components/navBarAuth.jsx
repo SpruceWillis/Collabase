@@ -17,9 +17,9 @@ var style = {
   },
   content : {
     position        : 'fixed',
-    top: '50%',
-    left: '25%',
-    right: '25%',
+    top: '40%',
+    left: '40%',
+    right: 'auto',
     bottom: 'auto',
     // top             : '100px',
     // left            : '150px',
@@ -78,7 +78,7 @@ var NavBar = React.createClass({
   greeting: function(){
     if (this.hasUser()){
       return (<div>
-          <label>Logged in as {this.state.currentUser.name}</label>
+          <div className="greeting">Logged in as {this.state.currentUser.name}</div>
           <button onClick={this.logout}>Log out</button>
       </div>)
     } else {

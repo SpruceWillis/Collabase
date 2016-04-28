@@ -38,17 +38,17 @@ module.exports = React.createClass({
 
   form: function(){
     return (
-      <div className="signup">Sign Up
+      <div className="authmodal">
         {this.errors()}
-        <form onSubmit={this.handleSubmit} className="signup-form">
+        <form onSubmit={this.handleSubmit} className="authmodal-form">
             <input type="text" onInput={this.linkState} id="name" placeholder="Name" value={this.state.name}></input>
             <input type="email" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
             <input type="text" onInput={this.linkState} id="organization" placeholder="Company/Organization" value={this.state.organization}></input>
             <input type="password" onInput={this.linkState} id="password" placeholder="Password" value={this.state.password}></input>
           <input type="submit" value="Sign Up"></input>
         </form>
-        <div>Already have an account?
-          <a onClick={this.props.toggle}>Sign In</a>
+        <div className="authmodal-footer">Already have an account?
+          <a onClick={this.props.toggle} >Sign In</a>
         </div>
       </div>
     )

@@ -26,7 +26,7 @@ html, body, section, article, h1, h2, p, button {
 
 .navbar-auth {
   float: right;
-  // width: 150px;
+  width: 300ps;
 }
 
 .group:after {
@@ -35,8 +35,17 @@ html, body, section, article, h1, h2, p, button {
   clear: both;;
 }
 
+.greeting {
+  color: white;
+  font-size: 16px;
+  font-family: sans-serif;
+  display: inline-block;
+  text-align: center;
+  padding: 5px 5px;
+}
+
 .navbar-auth button {
-  float: left;
+  float: right;
   padding: 5px 5px;
   margin-left: 5px;
   margin-right: 5px;
@@ -51,11 +60,43 @@ html, body, section, article, h1, h2, p, button {
 }
 
 .navbar-auth button:hover {
-  background-color: white;
+  background-color: green;
   color: black;
-  border: 1px solid black;
 }
 
-.signup-form {
+.authmodal {
   margin: auto;
+  text-align: center;
+  font-size: 26px;
+  font-family: sans-serif;
+  display: block;
+}
+
+
+
+.authmodal-form > input{
+  margin: 5px;
+  font-size: 24px;
+  display: block;
+}
+
+.authmodal-form > div {
+  margin-top: 5px;
+}
+
+input + input {
+  margin-bottom: 5px;
+}
+
+.authmodal-footer {
+  font-size: 14px;
+}
+
+.authmodal-footer > a {
+  color: blue;
+  cursor: default;
+}
+
+.authmodal-footer > a:hover {
+  text-decoration: underline;
 }

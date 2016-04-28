@@ -4,7 +4,7 @@ var SessionActions = require('../actions/sessionActions');
 var CurrentUserState = {
 
 	getInitialState: function(){
-		var currentUser = localStorage.getItem('currentUser') || SessionStore.currentUser();
+		var currentUser =  SessionStore.currentUser();
 		return {
 			currentUser: SessionStore.currentUser(),
 			userErrors: SessionStore.errors()
@@ -18,7 +18,7 @@ var CurrentUserState = {
 		}
 	},
 	updateUser: function(){
-		localStorage.setItem('currentUser', SessionStore.currentUser());
+		// localStorage.setItem('currentUser', SessionStore.currentUser());
 		this.setState({
 			currentUser: SessionStore.currentUser(),
 			userErrors: SessionStore.errors()
