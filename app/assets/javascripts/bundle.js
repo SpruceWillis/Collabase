@@ -20055,12 +20055,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(NavBar, null),
-	      React.createElement(
-	        'h1',
-	        null,
-	        'collaBase: where teamwork goes to die'
-	      )
+	      React.createElement(NavBar, null)
 	    );
 	  }
 	
@@ -20081,7 +20076,12 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'navbar' },
+	      { className: 'navbar group' },
+	      React.createElement(
+	        'div',
+	        { className: 'logo group' },
+	        React.createElement('img', { src: 'https://placekitten.com/80/30' })
+	      ),
 	      React.createElement(NavBarAuth, null)
 	    );
 	  }

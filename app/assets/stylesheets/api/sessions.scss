@@ -80,6 +80,12 @@ html, body, section, form, article, h1, h2, p, button {
   justify-content: flex-start;
 }
 
+.logo {
+  float: left;
+  margin: 0 30px;
+  text-align: center
+}
+
 .authmodal-form {
   height: 100px;
   margin: auto;
