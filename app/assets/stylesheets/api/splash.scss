@@ -1,0 +1,33 @@
+.main {
+  height: 1400px;
+  width: 100%;
+  background-color: beige;
+
+  // background-size: cover;
+}
+
+img.bg {
+  min-height: 100%;
+  min-width: 1024px;
+  z-index: -1;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0
+}
+
+@media screen and (max-width: 1024px){
+  img.bg {
+    left: 50%;
+    margin-left: -512px;
+  }
+}
+
+.tagline {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 50px;
+  color: lightgreen;
+
+}

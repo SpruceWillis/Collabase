@@ -5,9 +5,10 @@ var SplashPage = React.createClass({
 
   render: function() {
     return (
-      <div>
-        < NavBar />
-      
+      <div className="">
+        <img src="https://placekitten.com/1400/1200" className="bg"/>
+        <NavBar />
+
       </div>
     );
   }

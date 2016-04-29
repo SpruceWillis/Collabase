@@ -20054,7 +20054,8 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: '' },
+	      React.createElement('img', { src: 'https://placekitten.com/1400/1200', className: 'bg' }),
 	      React.createElement(NavBar, null)
 	    );
 	  }
@@ -20069,17 +20070,21 @@
 
 	var React = __webpack_require__(1);
 	var NavBarAuth = __webpack_require__(168);
+	var hashHistory = __webpack_require__(218).hashHistory;
 	
 	var NavBar = React.createClass({
 	  displayName: 'NavBar',
 	
+	  toSplashPage: function () {
+	    hashHistory.push('/');
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      { className: 'navbar group' },
 	      React.createElement(
 	        'div',
-	        { className: 'logo group' },
+	        { className: 'logo group', onClick: this.toSplashPage },
 	        React.createElement('img', { src: 'https://placekitten.com/80/30' })
 	      ),
 	      React.createElement(NavBarAuth, null)
