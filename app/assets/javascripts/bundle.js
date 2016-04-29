@@ -20118,10 +20118,10 @@
 	    flexdirection: "column",
 	    alignitems: "center",
 	    justifycontent: "center",
-	    top: '175px',
+	    top: '125px',
 	    left: '375px',
 	    right: '375px',
-	    bottom: '175px',
+	    bottom: '125px',
 	    border: '1px solid #ccc',
 	    padding: '20px',
 	    "zindex": 11
@@ -20288,11 +20288,11 @@
 	    if (this.state.errors.length > 0) {
 	      return React.createElement(
 	        'ul',
-	        null,
+	        { className: 'errorlist' },
 	        this.state.errors.map(function (error) {
 	          return React.createElement(
 	            'li',
-	            { key: error },
+	            { className: 'signinerror', key: error },
 	            error
 	          );
 	        })
@@ -20312,17 +20312,17 @@
 	      this.errors(),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit, className: 'authmodal-form' },
+	        { onSubmit: this.handleSubmit, className: 'signup-form' },
 	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'name', placeholder: 'Name', value: this.state.name }),
 	        React.createElement('input', { type: 'email', onInput: this.linkState, id: 'email', placeholder: 'Email', value: this.state.email }),
 	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'organization', placeholder: 'Company/Organization', value: this.state.organization }),
 	        React.createElement('input', { type: 'password', onInput: this.linkState, id: 'password', placeholder: 'Password', value: this.state.password }),
-	        React.createElement('input', { type: 'submit', value: 'Sign Up' })
+	        React.createElement('input', { type: 'submit', className: 'guest-signin-button', value: 'Sign Up' })
 	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'authmodal-footer' },
-	        'Already have an account?',
+	        'Already have an account?  ',
 	        React.createElement(
 	          'a',
 	          { onClick: this.props.toggle },
@@ -27359,7 +27359,7 @@
 	    if (this.state.errors.length > 0) {
 	      return React.createElement(
 	        'ul',
-	        null,
+	        { className: 'errorlist' },
 	        this.state.errors.map(function (error) {
 	          return React.createElement(
 	            'li',
@@ -27389,15 +27389,23 @@
 	      React.createElement(
 	        'form',
 	        { id: 'signinform', onSubmit: this.handleSubmit, className: 'authmodal-form' },
-	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'email', placeholder: 'Email', value: this.state.email }),
+	        React.createElement('input', { type: 'email', onInput: this.linkState, id: 'email', placeholder: 'Email', value: this.state.email }),
 	        React.createElement('input', { type: 'password', onInput: this.linkState, id: 'password', placeholder: 'Password', value: this.state.password })
 	      ),
-	      React.createElement('button', { type: 'submit', value: 'Sign In' }),
-	      React.createElement('button', { onClick: this.guestLogin, type: 'button', value: 'Guest Login' }),
+	      React.createElement(
+	        'div',
+	        { className: 'signin' },
+	        React.createElement('input', { type: 'submit', form: 'signinform', className: 'signin-button', value: 'Sign In' }),
+	        React.createElement(
+	          'label',
+	          { className: 'guest-signin-button', onClick: this.guestLogin },
+	          'Guest'
+	        )
+	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'authmodal-footer' },
-	        'Don\'t have an account?',
+	        'Don\'t have an account?  ',
 	        React.createElement(
 	          'a',
 	          { onClick: this.props.toggle },

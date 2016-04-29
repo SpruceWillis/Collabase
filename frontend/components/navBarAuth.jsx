@@ -22,10 +22,10 @@ var style = {
     flexdirection: "column",
     alignitems: "center",
     justifycontent: "center",
-    top             : '175px',
+    top             : '125px',
     left            : '375px',
     right           : '375px',
-    bottom          : '175px',
+    bottom          : '125px',
     border          : '1px solid #ccc',
     padding         : '20px',
     "zindex"         : 11

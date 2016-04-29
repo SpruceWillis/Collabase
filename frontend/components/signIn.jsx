@@ -26,7 +26,7 @@ var SignIn = React.createClass({
   errors: function(){
     if (this.state.errors.length > 0){
       return (
-        <ul>
+        <ul className="errorlist">
           {this.state.errors.map(function(error){
             return <li key="error" className="signinerror">{error}</li>
           })}
@@ -50,12 +50,14 @@ var SignIn = React.createClass({
       <div className="authmodal">
         {this.errors()}
         <form id="signinform" onSubmit={this.handleSubmit} className="authmodal-form">
-          <input type="text" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
+          <input type="email" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
           <input type="password" onInput={this.linkState} id="password" placeholder="Password" value={this.state.password}></input>
         </form>
-        <button type="submit" value="Sign In"></button>
-        <button onClick={this.guestLogin} type="button" value="Guest Login"></button>
-        <div className="authmodal-footer">Don't have an account?
+        <div className="signin">
+          <input type="submit" form="signinform" className="signin-button" value="Sign In"></input>
+          <label className="guest-signin-button" onClick={this.guestLogin} >Guest</label>
+        </div>
+        <div className="authmodal-footer">Don't have an account? &nbsp;
           <a onClick={this.props.toggle}>Sign Up</a>
         </div>
       </div>

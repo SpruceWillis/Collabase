@@ -18,6 +18,10 @@ html, body, section, form, article, h1, h2, p, button {
     height: auto;
   }
 
+.errorlist {
+  padding: 0;
+}
+
 .navbar {
   display: block;
   background-color: blue;
@@ -66,21 +70,52 @@ html, body, section, form, article, h1, h2, p, button {
 
 .authmodal {
   height: auto;
-  background-color: red;
   margin: auto;
   text-align: center;
   font-size: 32px;
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: flex-start;
+}
+
+.authmodal-form {
+  height: 100px;
+  margin: auto;
+}
+
+.signup-form {
+  height: 250px;
+  margin: auto;
+}
+
+.signup-form > input{
+  // border: 1px solid black;
+  border-radius: 5%;
+  margin: 5px auto;
+  font-size: 32px;
+  text-align: center;
   display: block;
+}
+
+.signup-form:last-child{
+  color: red;
+}
+
+.signup-form:last-child:hover {
+  box-shadow: 0 0 10px;
 }
 
 .signinerror {
   list-style: none;
-  font-size: 24px;
+  font-size: 16px;
   color: red;
 }
 
 .authmodal-form > input{
+  // border: 1px solid black;
+  border-radius: 5%;
   margin: 5px;
   font-size: 32px;
   text-align: center;
@@ -95,8 +130,45 @@ input + input {
   margin-bottom: 5px;
 }
 
+.signin {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.signin > label {
+  padding: 5px;
+  margin: 0 10px;
+}
+
+.signin > label:hover {
+  box-shadow: 0 0 10px;
+}
+
+.signin-button {
+  background-color: green;
+  border: none;
+  font-size: 32px;
+
+}
+
+.signin-button:hover{
+  box-shadow: 0 0 10px;
+}
+
+.guest-signin-button {
+  background-color: rgb(173, 216, 230);
+  border: none;
+}
+
+.guest-signin-button:hover {
+  box-shadow: 0 0 10px;
+}
+
 .authmodal-footer {
   font-size: 14px;
+  // margin: 10px;
 }
 
 .authmodal-footer > a {
