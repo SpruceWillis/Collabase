@@ -3,7 +3,7 @@ var SessionServerActions = require('../actions/sessionServerActions');
 var handleErrors = function(error){
   SessionServerActions.handleErrors(error.responseJSON.errors);
 
-}
+};
 
 module.exports = {
   // getUser: function(data){
@@ -12,13 +12,13 @@ module.exports = {
       url: data.url,
       method: data.method,
       data: {user: data.user},
-      success: function(data){
-        SessionServerActions.loginUser(data.user);
+      success: function(datum){
+        SessionServerActions.loginUser(datum.user);
       },
       error: function(error){
         SessionServerActions.handleErrors(error.responseJSON.errors);
       }
-    })
+    });
   },
 
   fetchCurrentUser: function(){
@@ -44,7 +44,7 @@ module.exports = {
       error: function(error){
         SessionServerActions.handleErrors(error.responseJSON.errors);
       }
-    })
+    });
   }
 
 };

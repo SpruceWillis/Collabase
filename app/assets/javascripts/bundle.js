@@ -20046,22 +20046,31 @@
 
 	var React = __webpack_require__(1);
 	var NavBar = __webpack_require__(167);
-	
+	var CurrentUserState = __webpack_require__(196);
 	var SplashPage = React.createClass({
 	  displayName: 'SplashPage',
 	
 	
+	  mixins: [CurrentUserState],
+	
 	  handleStartClick: function (e) {
-	    e.preventDefault();
-	    debugger;
-	    this.refs["nav"].refs["auth"].openSignInModal(e);
+	    if (this.hasUser()) {
+	      this.refs["nav"].refs["auth"].redirectLogin(this.state.currentUser);
+	    } else {
+	      this.refs["nav"].refs["auth"].openSignInModal(e);
+	    }
+	  },
+	
+	  hasUser: function () {
+	    return !$.isEmptyObject(this.state.currentUser);
 	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('img', { src: 'https://placekitten.com/1400/1200', className: 'bg' }),
+	      React.createElement('img', { src: 'https://placekitten.com/1400/1200',
+	        className: 'bg' }),
 	      React.createElement(NavBar, { ref: 'nav' }),
 	      React.createElement(
 	        'div',
@@ -20073,7 +20082,8 @@
 	        ),
 	        React.createElement(
 	          'button',
-	          { className: 'startbutton', onClick: this.handleStartClick },
+	          { className: 'startbutton',
+	            onClick: this.handleStartClick },
 	          'Get Started'
 	        )
 	      )
@@ -20195,10 +20205,16 @@
 	    SessionActions.logout();
 	  },
 	
-	  componentWillUpdate: function () {
-	    if (this.hasUser() && this.state.modalOpen) {
+	  componentWillUpdate: function (nextProps, nextState) {
+	    if (!$.isEmptyObject(nextState.currentUser) && !this.hasUser() && this.state.modalOpen) {
 	      this.closeModal();
+	      this.redirectLogin(nextState.currentUser);
 	    }
+	  },
+	
+	  redirectLogin: function (user) {
+	    console.log("/users/" + user.id + "/projects/" + user.projects[0].id);
+	    // history.push("/users/" + user.id + "/projects/" + user.projects[0].id);
 	  },
 	
 	  greeting: function () {
@@ -20258,9 +20274,11 @@
 	    if (this.hasUser()) {
 	      return;
 	    } else if (this.state.type === "signIn") {
-	      return React.createElement(SignIn, { close: this.closeModal, errors: this.state.userErrors, toggle: this.toggleModalType });
+	      return React.createElement(SignIn, { close: this.closeModal, errors: this.state.userErrors,
+	        toggle: this.toggleModalType });
 	    } else if (this.state.type === "signUp") {
-	      return React.createElement(SignUpBlock, { close: this.closeModal, errors: this.state.userErrors, toggle: this.toggleModalType });
+	      return React.createElement(SignUpBlock, { close: this.closeModal,
+	        errors: this.state.userErrors, toggle: this.toggleModalType });
 	    }
 	  },
 	
@@ -20271,8 +20289,8 @@
 	      this.greeting(),
 	      React.createElement(
 	        Modal,
-	        { isOpen: this.state.modalOpen && !this.hasUser(), type: this.state.type,
-	          onRequestClose: this.closeModal, style: style },
+	        { isOpen: this.state.modalOpen && !this.hasUser(),
+	          type: this.state.type, onRequestClose: this.closeModal, style: style },
 	        this.form()
 	      )
 	    );
@@ -20404,8 +20422,8 @@
 	      url: data.url,
 	      method: data.method,
 	      data: { user: data.user },
-	      success: function (data) {
-	        SessionServerActions.loginUser(data.user);
+	      success: function (datum) {
+	        SessionServerActions.loginUser(datum.user);
 	      },
 	      error: function (error) {
 	        SessionServerActions.handleErrors(error.responseJSON.errors);
@@ -20811,7 +20829,7 @@
 	  localStorage.setItem('currentUser', JSON.stringify({}));
 	  localStorage.getItem('currentUser');
 	} else {
-	  var _user = JSON.parse(localStorage.getItem('currentUser'));
+	  _user = JSON.parse(localStorage.getItem('currentUser'));
 	}
 	var _errors = [];
 	
@@ -27320,21 +27338,18 @@
 	var CurrentUserState = {
 	
 		getInitialState: function () {
-			var currentUser = SessionStore.currentUser();
 			return {
 				currentUser: SessionStore.currentUser(),
 				userErrors: SessionStore.errors()
 			};
 		},
 		componentDidMount: function () {
-	
 			this.sessionListener = SessionStore.addListener(this.updateUser);
 			if (Object.keys(SessionStore.currentUser()).length === 0) {
 				SessionActions.fetchCurrentUser();
 			}
 		},
 		updateUser: function () {
-			// localStorage.setItem('currentUser', SessionStore.currentUser());
 			this.setState({
 				currentUser: SessionStore.currentUser(),
 				userErrors: SessionStore.errors()
@@ -34832,12 +34847,12 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      React.createElement(NavBar, null),
 	      React.createElement(
 	        'div',
 	        null,
 	        'This is a landing page'
-	      ),
-	      React.createElement(NavBar, null)
+	      )
 	    );
 	  }
 	

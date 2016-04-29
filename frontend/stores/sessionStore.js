@@ -9,7 +9,7 @@ if (localStorage.getItem('currentUser') === "undefined"){
   localStorage.setItem('currentUser', JSON.stringify({}));
   localStorage.getItem('currentUser');
 } else {
-  var _user = JSON.parse(localStorage.getItem('currentUser'));
+  _user = JSON.parse(localStorage.getItem('currentUser'));
 }
 var _errors = [];
 
@@ -19,7 +19,7 @@ SessionStore.__onDispatch = function(payload){
       SessionStore.loginUser(payload.user);
       break;
     case ActionTypes.ERROR:
-      SessionStore.handleErrors(payload.errors)
+      SessionStore.handleErrors(payload.errors);
       break;
     case ActionTypes.LOGOUT:
       SessionStore.logout();
@@ -49,7 +49,7 @@ SessionStore.logout = function(){
   _errors = [];
   SessionStore.__emitChange();
 
-}
+};
 
 SessionStore.currentUser = function(){
   if (localStorage.getItem('currentUser') === "undefined"){
@@ -62,6 +62,6 @@ SessionStore.currentUser = function(){
 SessionStore.errors = function () {
 
   return [].slice.call(_errors);
-}
+};
 
 module.exports = SessionStore;

@@ -5,8 +5,8 @@ var ProjectLandingPage = React.createClass({
   render: function() {
     return (
       <div>
-        <div>This is a landing page</div>
         <NavBar />
+        <div>This is a landing page</div>
       </div>
     );
   }
