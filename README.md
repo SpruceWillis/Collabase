@@ -66,10 +66,10 @@ collaBase will allow users to do the following:
 
 **Objective:** Projects can be created, read, and edited through the API. Project membership can be edited through the API.
 
-- [ ] create `Project` model
+- [x] create `Project` model
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for projects (`ProjectsController`)
-- [ ] jBuilder views for projects
+- [x] CRUD API for projects (`ProjectsController`)
+- [x] jBuilder views for projects
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.

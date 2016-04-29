@@ -35,6 +35,11 @@ var SignIn = React.createClass({
     }
   },
 
+  guestLogin: function(e){
+    e.preventDefault();
+    SessionActions.getUser({email: "guest@guest.com", password:"password"}, "/api/session");
+  },
+
   componentWillReceiveProps: function(nextProps) {
 
     this.setState({errors: nextProps.errors})
@@ -48,6 +53,7 @@ var SignIn = React.createClass({
           <input type="text" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
           <input type="password" onInput={this.linkState} id="password" placeholder="Password" value={this.state.password}></input>
           <input type="submit" value="Sign In"></input>
+          <input onClick={this.guestLogin} type="button" value="Guest Login"></input>
         </form>
         <div className="authmodal-footer">Don't have an account?
           <a onClick={this.props.toggle}>Sign Up</a>

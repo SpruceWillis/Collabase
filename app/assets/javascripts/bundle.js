@@ -47,15 +47,42 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
 	var SplashPage = __webpack_require__(166);
+	var NavBar = __webpack_require__(167);
 	var Modal = __webpack_require__(198);
-	var Router = __webpack_require__(218),
-	    Route = __webpack_require__(218).Route,
-	    IndexRoute = __webpack_require__(218).IndexRoute,
-	    hashHistory = __webpack_require__(218).hashHistory;
+	var ReactRouter = __webpack_require__(218),
+	    Router = ReactRouter.Router,
+	    Route = ReactRouter.Route,
+	    IndexRoute = ReactRouter.IndexRoute,
+	    hashHistory = ReactRouter.hashHistory;
+	
+	var App = React.createClass({
+	  displayName: 'App',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'App' },
+	      this.props.children
+	    );
+	  }
+	});
+	// <NavBar />
+	// <IndexRoute component={SplashPage}></IndexRoute>
+	
+	var router = React.createElement(
+	  Router,
+	  { history: hashHistory },
+	  React.createElement(
+	    Route,
+	    { path: '/', component: App },
+	    React.createElement(IndexRoute, { component: SplashPage })
+	  )
+	);
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	    Modal.setAppElement(document.body);
-	    ReactDOM.render(React.createElement(SplashPage, null), document.getElementById('root'));
+	  // debugger;
+	  Modal.setAppElement(document.body);
+	  ReactDOM.render(router, document.getElementById('root'));
 	});
 
 /***/ },
@@ -20046,7 +20073,6 @@
 	var NavBar = React.createClass({
 	  displayName: 'NavBar',
 	
-	
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -27342,6 +27368,11 @@
 	    }
 	  },
 	
+	  guestLogin: function (e) {
+	    e.preventDefault();
+	    SessionActions.getUser({ email: "guest@guest.com", password: "password" }, "/api/session");
+	  },
+	
 	  componentWillReceiveProps: function (nextProps) {
 	
 	    this.setState({ errors: nextProps.errors });
@@ -27357,7 +27388,8 @@
 	        { onSubmit: this.handleSubmit, className: 'authmodal-form' },
 	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'email', placeholder: 'Email', value: this.state.email }),
 	        React.createElement('input', { type: 'password', onInput: this.linkState, id: 'password', placeholder: 'Password', value: this.state.password }),
-	        React.createElement('input', { type: 'submit', value: 'Sign In' })
+	        React.createElement('input', { type: 'submit', value: 'Sign In' }),
+	        React.createElement('input', { onClick: this.guestLogin, type: 'button', value: 'Guest Login' })
 	      ),
 	      React.createElement(
 	        'div',
