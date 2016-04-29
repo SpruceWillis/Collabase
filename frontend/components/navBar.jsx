@@ -10,9 +10,9 @@ var NavBar = React.createClass({
     return (
       <div className="navbar group">
         <div className="logo group" onClick={this.toSplashPage}>
-          <img src="https://placekitten.com/80/30"  />
+          <img src="https://placekitten.com/80/30" title="hello" />
         </div>
-        <NavBarAuth />
+        <NavBarAuth ref="auth" />
       </div>
     );
   }

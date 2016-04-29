@@ -20051,12 +20051,32 @@
 	  displayName: 'SplashPage',
 	
 	
+	  handleStartClick: function (e) {
+	    e.preventDefault();
+	    debugger;
+	    this.refs["nav"].refs["auth"].openSignInModal(e);
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: '' },
+	      null,
 	      React.createElement('img', { src: 'https://placekitten.com/1400/1200', className: 'bg' }),
-	      React.createElement(NavBar, null)
+	      React.createElement(NavBar, { ref: 'nav' }),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'h1',
+	          { className: 'tagline' },
+	          'Working Together'
+	        ),
+	        React.createElement(
+	          'button',
+	          { className: 'startbutton', onClick: this.handleStartClick },
+	          'Get Started'
+	        )
+	      )
 	    );
 	  }
 	
@@ -20085,9 +20105,9 @@
 	      React.createElement(
 	        'div',
 	        { className: 'logo group', onClick: this.toSplashPage },
-	        React.createElement('img', { src: 'https://placekitten.com/80/30' })
+	        React.createElement('img', { src: 'https://placekitten.com/80/30', title: 'hello' })
 	      ),
-	      React.createElement(NavBarAuth, null)
+	      React.createElement(NavBarAuth, { ref: 'auth' })
 	    );
 	  }
 	

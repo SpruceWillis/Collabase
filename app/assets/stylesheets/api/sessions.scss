@@ -2,6 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+//Color palette
+$watermelon: #FF383F;
+$neutral: #EFEFEF;
+$sky: #CAEBF2;
+$carbon: #A9A9A9;
+
+//palette2
+$navy: #18121E;
+$gunmetal: #233237;
+$rustyred: #984843;
+$warmyellow: #EAC67A;
+
+//palette3
+$leaf: #66AB8C;
+$salmon: #FA7C92;
+$rain: #6EC4DB;
+$buttermilk: #FFF7C0;
+
 
 // CSS Reset
 
@@ -18,15 +36,13 @@ html, body, section, form, article, h1, h2, p, button {
     height: auto;
   }
 
-
-
 .errorlist {
   padding: 0;
 }
 
 .navbar {
   display: block;
-  background-color: blue;
+  background-color: $rain;
   height: 30px;
   z-index: 1;
 }
@@ -67,7 +83,7 @@ html, body, section, form, article, h1, h2, p, button {
 }
 
 .navbar-auth button:hover {
-  background-color: white;
+  background-color: $neutral;
   color: black;
 }
 
@@ -157,7 +173,7 @@ input + input {
 }
 
 .signin-button {
-  background-color: green;
+  background-color: $leaf;
   border: none;
   font-size: 32px;
 
@@ -168,7 +184,7 @@ input + input {
 }
 
 .guest-signin-button {
-  background-color: rgb(173, 216, 230);
+  background-color: $salmon;
   border: none;
 }
 

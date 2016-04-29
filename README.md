@@ -1,8 +1,8 @@
 # collaBase
 
-[Heroku link][heroku] Link to production site goes here
+[Heroku link][heroku] Link to production site
 
-[heroku]: http://www.herokuapp.com
+[heroku]: https://collabase.herokuapp.com
 
 ## Minimum Viable Product
 

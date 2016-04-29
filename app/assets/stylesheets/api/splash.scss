@@ -1,10 +1,21 @@
-.main {
-  height: 1400px;
-  width: 100%;
-  background-color: beige;
+//color palette
 
-  // background-size: cover;
-}
+$watermelon: #FF383F;
+$neutral: #EFEFEF;
+$sky: #CAEBF2;
+$carbon: #A9A9A9;
+
+//palette2
+$navy: #18121E;
+$gunmetal: #233237;
+$rustyred: #984843;
+$warmyellow: #EAC67A;
+
+//palette3
+$leaf: #66AB8C;
+$salmon: #FA7C92;
+$rain: #6EC4DB;
+$buttermilk: #FFF7C0;
 
 img.bg {
   min-height: 100%;
@@ -17,6 +28,12 @@ img.bg {
   left: 0
 }
 
+h1 {
+  font-size: 44px;
+  font-family: monospace;;
+  text-align: center;
+}
+
 @media screen and (max-width: 1024px){
   img.bg {
     left: 50%;
@@ -25,9 +42,34 @@ img.bg {
 }
 
 .tagline {
-  text-align: center;
-  font-family: sans-serif;
-  font-size: 50px;
-  color: lightgreen;
+  color: $neutral;
+}
 
+.startbutton {
+  margin: 10px;
+  width: auto;
+  padding: 15px;
+  font-size: 44px;
+  font-family: monospace;
+  text-align: center;
+  background-color: $leaf;
+  box-sizing: border-box;
+}
+
+.startbutton:hover{
+  color: lightgrey;
+}
+
+.startbutton:active{
+  color:$neutral
+}
+
+.content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 40%;
 }
