@@ -6,7 +6,7 @@ class Api::SessionsController < ApplicationController
       login(@user)
       render "api/users/show", locals: {show_projects: true}
     else
-      @errors = ['invalid credentials']
+      @errors = ['Invalid email or password']
       render "api/shared/error", status: 401
     end
   end

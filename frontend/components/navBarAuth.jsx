@@ -4,6 +4,7 @@ var CurrentUserState = require('../mixins/currentUserState');
 var SessionActions = require('../actions/sessionActions');
 var SignIn = require('../components/signIn')
 var Modal = require("react-modal");
+var history = require('react-router').hashHistory;
 
 var style = {
   overlay : {
@@ -17,14 +18,14 @@ var style = {
   },
   content : {
     position        : 'fixed',
-    top: 'auto',
-    left: '40%',
-    right: 'auto',
-    bottom: 'auto',
-    // top             : '100px',
-    // left            : '150px',
-    // right           : '150px',
-    // bottom          : '100px',
+    display: "flex",
+    flexdirection: "column",
+    alignitems: "center",
+    justifycontent: "center",
+    top             : '175px',
+    left            : '375px',
+    right           : '375px',
+    bottom          : '175px',
     border          : '1px solid #ccc',
     padding         : '20px',
     "zindex"         : 11
@@ -64,6 +65,7 @@ var NavBar = React.createClass({
 
   closeModal: function(){
     this.setState({modalOpen: false});
+
   },
 
   logout: function(e){
@@ -72,7 +74,10 @@ var NavBar = React.createClass({
   },
 
   componentWillUpdate: function() {
-    if (this.hasUser() && this.state.modalOpen) this.closeModal();
+    if (this.hasUser() && this.state.modalOpen) {
+      this.closeModal();
+
+    }
   },
 
   greeting: function(){

@@ -47,6 +47,7 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
 	var SplashPage = __webpack_require__(166);
+	var ProjectLandingPage = __webpack_require__(277);
 	var NavBar = __webpack_require__(167);
 	var Modal = __webpack_require__(198);
 	var ReactRouter = __webpack_require__(218),
@@ -66,8 +67,6 @@
 	    );
 	  }
 	});
-	// <NavBar />
-	// <IndexRoute component={SplashPage}></IndexRoute>
 	
 	var router = React.createElement(
 	  Router,
@@ -75,7 +74,8 @@
 	  React.createElement(
 	    Route,
 	    { path: '/', component: App },
-	    React.createElement(IndexRoute, { component: SplashPage })
+	    React.createElement(IndexRoute, { component: SplashPage }),
+	    React.createElement(Route, { path: '/users/:userid/project/:id', component: ProjectLandingPage })
 	  )
 	);
 	
@@ -20055,7 +20055,12 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(NavBar, null)
+	      React.createElement(NavBar, null),
+	      React.createElement(
+	        'h1',
+	        null,
+	        'collaBase: where teamwork goes to die'
+	      )
 	    );
 	  }
 	
@@ -20095,6 +20100,7 @@
 	var SessionActions = __webpack_require__(170);
 	var SignIn = __webpack_require__(197);
 	var Modal = __webpack_require__(198);
+	var history = __webpack_require__(218).hashHistory;
 	
 	var style = {
 	  overlay: {
@@ -20108,14 +20114,14 @@
 	  },
 	  content: {
 	    position: 'fixed',
-	    top: 'auto',
-	    left: '40%',
-	    right: 'auto',
-	    bottom: 'auto',
-	    // top             : '100px',
-	    // left            : '150px',
-	    // right           : '150px',
-	    // bottom          : '100px',
+	    display: "flex",
+	    flexdirection: "column",
+	    alignitems: "center",
+	    justifycontent: "center",
+	    top: '175px',
+	    left: '375px',
+	    right: '375px',
+	    bottom: '175px',
 	    border: '1px solid #ccc',
 	    padding: '20px',
 	    "zindex": 11
@@ -20165,7 +20171,9 @@
 	  },
 	
 	  componentWillUpdate: function () {
-	    if (this.hasUser() && this.state.modalOpen) this.closeModal();
+	    if (this.hasUser() && this.state.modalOpen) {
+	      this.closeModal();
+	    }
 	  },
 	
 	  greeting: function () {
@@ -20325,12 +20333,7 @@
 	  },
 	
 	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      this.errors,
-	      this.form()
-	    );
+	    return this.form();
 	  }
 	
 	});
@@ -27360,7 +27363,7 @@
 	        this.state.errors.map(function (error) {
 	          return React.createElement(
 	            'li',
-	            { key: 'error' },
+	            { key: 'error', className: 'signinerror' },
 	            error
 	          );
 	        })
@@ -27385,12 +27388,12 @@
 	      this.errors(),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit, className: 'authmodal-form' },
+	        { id: 'signinform', onSubmit: this.handleSubmit, className: 'authmodal-form' },
 	        React.createElement('input', { type: 'text', onInput: this.linkState, id: 'email', placeholder: 'Email', value: this.state.email }),
-	        React.createElement('input', { type: 'password', onInput: this.linkState, id: 'password', placeholder: 'Password', value: this.state.password }),
-	        React.createElement('input', { type: 'submit', value: 'Sign In' }),
-	        React.createElement('input', { onClick: this.guestLogin, type: 'button', value: 'Guest Login' })
+	        React.createElement('input', { type: 'password', onInput: this.linkState, id: 'password', placeholder: 'Password', value: this.state.password })
 	      ),
+	      React.createElement('button', { type: 'submit', value: 'Sign In' }),
+	      React.createElement('button', { onClick: this.guestLogin, type: 'button', value: 'Guest Login' }),
 	      React.createElement(
 	        'div',
 	        { className: 'authmodal-footer' },
@@ -34781,6 +34784,33 @@
 	
 	exports['default'] = _createRouterHistory2['default'](_historyLibCreateHashHistory2['default']);
 	module.exports = exports['default'];
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var NavBar = __webpack_require__(167);
+	
+	var ProjectLandingPage = React.createClass({
+	  displayName: 'ProjectLandingPage',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        null,
+	        'This is a landing page'
+	      ),
+	      React.createElement(NavBar, null)
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProjectLandingPage;
 
 /***/ }
 /******/ ]);

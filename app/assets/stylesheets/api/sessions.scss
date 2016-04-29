@@ -5,7 +5,7 @@
 
 // CSS Reset
 
-html, body, section, article, h1, h2, p, button {
+html, body, section, form, article, h1, h2, p, button {
     margin: 0;
     border: 0;
     padding: 0;
@@ -65,18 +65,25 @@ html, body, section, article, h1, h2, p, button {
 }
 
 .authmodal {
+  height: auto;
+  background-color: red;
   margin: auto;
   text-align: center;
-  font-size: 26px;
+  font-size: 32px;
   font-family: sans-serif;
   display: block;
 }
 
-
+.signinerror {
+  list-style: none;
+  font-size: 24px;
+  color: red;
+}
 
 .authmodal-form > input{
   margin: 5px;
-  font-size: 24px;
+  font-size: 32px;
+  text-align: center;
   display: block;
 }
 

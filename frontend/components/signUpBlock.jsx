@@ -56,10 +56,7 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <div>
-        {this.errors}
-        {this.form()}
-      </div>
+        this.form()
     );
   }
 
