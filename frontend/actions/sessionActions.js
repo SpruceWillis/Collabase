@@ -16,4 +16,4 @@ module.exports = {
   logout: function(){
     SessionApiUtil.logout();
   }
-}
+};

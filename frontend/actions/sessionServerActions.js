@@ -1,5 +1,5 @@
 var dispatcher = require('../dispatcher/dispatcher');
-var ActionTypes = require('../constants/ActionTypes');
+var ActionTypes = require('../constants/actionTypes');
 
 module.exports = {
   loginUser: function(user){

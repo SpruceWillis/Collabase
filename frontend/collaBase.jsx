@@ -25,7 +25,7 @@ var router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={SplashPage}></IndexRoute>
-      <Route path="/users/:userid/project/:id" component={ProjectLandingPage}></Route>
+      <Route path="/users/:userid/projects/:projectid" component={ProjectLandingPage}></Route>
     </Route>
   </Router>
 );

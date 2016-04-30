@@ -70,6 +70,7 @@ var NavBar = React.createClass({
   logout: function(e){
     e.preventDefault();
     SessionActions.logout();
+    history.push("/");
   },
 
   componentWillUpdate: function(nextProps, nextState) {
@@ -81,8 +82,8 @@ var NavBar = React.createClass({
   },
 
   redirectLogin: function(user){
-    console.log("/users/" + user.id + "/projects/" + user.projects[0].id);
-    // history.push("/users/" + user.id + "/projects/" + user.projects[0].id);
+    // console.log("/users/" + user.id + "/projects/" + user.projects[0].id);
+    history.push("/users/" + user.id + "/projects/" + user.projects[0].id);
   },
 
   greeting: function(){

@@ -85,7 +85,7 @@
     no-with: 2
     quotes: 0
     semi:
-      - 2
+      - 1
       - always
     strict: 0
     use-isnan: 1
