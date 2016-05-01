@@ -13,11 +13,15 @@ module.exports = {
 //how do we determine which project to fetch?
   componentDidMount: function(){
     this.projectListener = ProjectStore.addListener(this.update);
-    if (Object.keys(ProjectStore.currentProject()).length === 0){
       ProjectActions.fetchCurrentProject({
         project_id: this.props.params.projectid,
       });
-    }
+  },
+
+  componentWillReceiveProps: function(nextProps){
+    ProjectActions.fetchCurrentProject({
+      project_id: nextProps.params.projectid,
+    });
   },
 
   componentWillUnmount: function() {

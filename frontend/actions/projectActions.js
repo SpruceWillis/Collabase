@@ -5,8 +5,8 @@ var projectApiUtil = require('../util/projectApiUtil');
     projectApiUtil.fetchCurrentProject(data);
   },
 
-  updateProject: function(data){
-    projectApiUtil.updateProject(data);
+  updateProject: function(data, cb){
+    projectApiUtil.updateProject(data, cb);
   },
 
   createProject: function(data){
@@ -17,6 +17,9 @@ var projectApiUtil = require('../util/projectApiUtil');
     projectApiUtil.destroyProject(data);
   },
 
+  removeMember: function(data){
+    projectApiUtil.removeMember(data);
+  }
 
 };
 

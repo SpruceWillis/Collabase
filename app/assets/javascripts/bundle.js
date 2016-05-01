@@ -75,12 +75,12 @@
 	    Route,
 	    { path: '/', component: App },
 	    React.createElement(IndexRoute, { component: SplashPage }),
-	    React.createElement(Route, { path: '/users/:userid/projects/:projectid', component: ProjectLandingPage })
+	    React.createElement(Route, { path: '/users/:userid/projects/:projectid',
+	      component: ProjectLandingPage })
 	  )
 	);
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	  // debugger;
 	  Modal.setAppElement(document.body);
 	  ReactDOM.render(router, document.getElementById('root'));
 	});
@@ -34875,7 +34875,8 @@
 	      return React.createElement(
 	        'div',
 	        null,
-	        React.createElement(ProjectHeader, { project: this.state.currentProject })
+	        React.createElement(ProjectHeader, { project: this.state.currentProject,
+	          user_id: this.state.currentUser.id })
 	      );
 	    } else {
 	      return React.createElement(
@@ -34922,11 +34923,15 @@
 	  //how do we determine which project to fetch?
 	  componentDidMount: function () {
 	    this.projectListener = ProjectStore.addListener(this.update);
-	    if (Object.keys(ProjectStore.currentProject()).length === 0) {
-	      ProjectActions.fetchCurrentProject({
-	        project_id: this.props.params.projectid
-	      });
-	    }
+	    ProjectActions.fetchCurrentProject({
+	      project_id: this.props.params.projectid
+	    });
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    ProjectActions.fetchCurrentProject({
+	      project_id: nextProps.params.projectid
+	    });
 	  },
 	
 	  componentWillUnmount: function () {
@@ -34944,35 +34949,7 @@
 
 /***/ },
 /* 279 */,
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var projectApiUtil = __webpack_require__(281);
-	
-	var ProjectActions = {
-	  fetchCurrentProject: function (data) {
-	    projectApiUtil.fetchCurrentProject(data);
-	  },
-	
-	  updateProject: function (data) {
-	    projectApiUtil.updateProject(data);
-	  },
-	
-	  createProject: function (data) {
-	    projectApiUtil.createProject(data);
-	  },
-	
-	  destroyProject: function (data) {
-	    projectApiUtil.destroyProject(data);
-	  }
-	
-	};
-	
-	window.ProjectActions = ProjectActions;
-	
-	module.exports = ProjectActions;
-
-/***/ },
+/* 280 */,
 /* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -35010,13 +34987,13 @@
 	    });
 	  },
 	
-	  updateProject: function (data) {
+	  updateProject: function (data, cb) {
 	    $.ajax({
 	      url: '/api/projects/' + data.project_id,
 	      data: { project: data },
 	      method: "PATCH",
 	      success: function (response) {
-	        projectServerActions.receiveProject(response);
+	        projectServerActions.receiveProject(response, cb);
 	      },
 	      failure: function (response) {
 	        projectServerActions.handleErrors(response.responseJSON.errors);
@@ -35034,6 +35011,17 @@
 	        projectServerActions.handleErrors(response.responseJSON.errors);
 	      }
 	    });
+	  },
+	
+	  removeMember: function (data) {
+	    $.ajax({
+	      url: '/api/project_memberships',
+	      method: "DELETE",
+	      data: { project_membership: data },
+	      success: function (response) {
+	        projectServerActions.receiveProject(response);
+	      }
+	    });
 	  }
 	
 	};
@@ -35048,7 +35036,10 @@
 	var ActionTypes = __webpack_require__(177);
 	
 	module.exports = {
-	  receiveProject: function (response) {
+	  receiveProject: function (response, cb) {
+	    if (typeof cb !== "undefined") {
+	      cb();
+	    }
 	    dispatcher.dispatch({
 	      actionType: ActionTypes.RECEIVE_PROJECT,
 	      project: response
@@ -35160,8 +35151,8 @@
 	    projectApiUtil.fetchCurrentProject(data);
 	  },
 	
-	  updateProject: function (data) {
-	    projectApiUtil.updateProject(data);
+	  updateProject: function (data, cb) {
+	    projectApiUtil.updateProject(data, cb);
 	  },
 	
 	  createProject: function (data) {
@@ -35170,6 +35161,10 @@
 	
 	  destroyProject: function (data) {
 	    projectApiUtil.destroyProject(data);
+	  },
+	
+	  removeMember: function (data) {
+	    projectApiUtil.removeMember(data);
 	  }
 	
 	};
@@ -35183,7 +35178,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ProjectActions = __webpack_require__(280);
+	var ProjectActions = __webpack_require__(284);
 	var CurrentProjectState = __webpack_require__(278);
 	
 	var ProjectHeader = React.createClass({
@@ -35200,23 +35195,28 @@
 	  },
 	
 	  toggleEdit: function () {
-	    this.setState({
-	      edit: !this.state.edit
-	    });
+	    if (this.state.edit) {
+	      this.setState({ edit: false, success: true });
+	    } else {
+	      this.setState({ edit: true });
+	    }
 	  },
 	
-	  // componentWillMount: function() {
-	  //   this.setState({title: this.props.currentProject.title,
-	  // description: this.state.currentProject.description});
-	  // },
-	
 	  componentWillReceiveProps: function (nextProps) {
-	    this.setState({ edit: false });
+	    this.setState({
+	      title: nextProps.project.title,
+	      description: nextProps.project.description,
+	      project_id: nextProps.project.id
+	    });
 	  },
 	
 	  saveChanges: function (e) {
 	    e.preventDefault();
-	    ProjectActions.updateProject(this.state);
+	    ProjectActions.updateProject(this.state, this.saveAlert);
+	  },
+	
+	  saveAlert: function () {
+	    this.toggleEdit();
 	  },
 	
 	  linkState: function (e) {
@@ -35232,45 +35232,108 @@
 	    }
 	  },
 	
-	  members: function () {
-	    var memberInfo = this.props.project.members.map(function (member) {
+	  removeMember: function (member) {
+	    if (confirm('Are you sure you want to remove ' + member.name + ' from this project?')) {
+	      ProjectActions.removeMember({
+	        project_id: this.props.project.id,
+	        member_id: member.id
+	      });
+	    }
+	  },
+	
+	  success: function () {
+	    if (this.state.success) {
 	      return React.createElement(
-	        'li',
+	        'h3',
 	        null,
-	        member.name
+	        ' Changes successfully saved'
 	      );
+	    } else {
+	      return;
+	    }
+	  },
+	
+	  members: function () {
+	    var that = this;
+	    var memberInfo = this.props.project.members.map(function (member) {
+	      if (that.state.edit && member.id !== that.props.project.owner_id && member.id !== that.props.user_id) {
+	        return React.createElement(
+	          'li',
+	          { key: member.id },
+	          member.name,
+	          React.createElement(
+	            'button',
+	            { onClick: that.removeMember.bind(that, member) },
+	            'X'
+	          )
+	        );
+	      } else {
+	        return React.createElement(
+	          'li',
+	          { key: member.id },
+	          member.name
+	        );
+	      }
 	    });
 	    return React.createElement(
-	      'ul',
+	      'div',
 	      null,
-	      memberInfo
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Members'
+	      ),
+	      React.createElement(
+	        'ul',
+	        null,
+	        memberInfo
+	      )
 	    );
 	  },
 	
 	  titleBlock: function () {
+	
 	    if (this.state.edit) {
 	      return React.createElement(
 	        'div',
 	        null,
-	        React.createElement('input', { type: 'text', value: this.state.title,
-	          onChange: this.linkState, id: 'title' }),
-	        React.createElement('input', { type: 'text', value: this.state.description,
-	          onChange: this.linkState, id: 'description' }),
 	        React.createElement(
-	          'h2',
-	          null,
-	          'Members'
+	          'form',
+	          { id: 'editProjectForm', onSubmit: this.saveChanges },
+	          React.createElement(
+	            'label',
+	            null,
+	            'Project Title',
+	            React.createElement('input', { type: 'text', value: this.state.title,
+	              onChange: this.linkState, id: 'title' })
+	          ),
+	          React.createElement(
+	            'label',
+	            null,
+	            'Project Description',
+	            React.createElement('input', { type: 'text', value: this.state.description,
+	              onChange: this.linkState, id: 'description' })
+	          )
 	        ),
 	        this.members(),
 	        React.createElement(
-	          'button',
-	          { onClick: this.saveChanges },
-	          'Save'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.discardChanges },
-	          'Discard Changes'
+	          'div',
+	          null,
+	          React.createElement(
+	            'button',
+	            { type: 'submit', form: 'editProjectForm' },
+	            'Save'
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: this.discardChanges },
+	            'Discard Changes'
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: this.toggleEdit },
+	            'Done'
+	          )
 	        )
 	      );
 	    } else {
@@ -35292,11 +35355,6 @@
 	          null,
 	          this.props.project.description
 	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          'Members'
-	        ),
 	        this.members()
 	      );
 	    }
@@ -35306,6 +35364,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      this.success(),
 	      this.titleBlock()
 	    );
 	  }

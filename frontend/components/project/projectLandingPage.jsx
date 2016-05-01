@@ -15,7 +15,8 @@ var ProjectLandingPage = React.createClass({
   project: function(){
     if (this.hasProject()){
       return (<div>
-        <ProjectHeader project={this.state.currentProject} />
+        <ProjectHeader project={this.state.currentProject}
+          user_id={this.state.currentUser.id}/>
       </div>);
     } else {
       return (<div>Loading...</div>);

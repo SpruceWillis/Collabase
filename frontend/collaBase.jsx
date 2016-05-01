@@ -25,13 +25,13 @@ var router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={SplashPage}></IndexRoute>
-      <Route path="/users/:userid/projects/:projectid" component={ProjectLandingPage}></Route>
+      <Route path="/users/:userid/projects/:projectid"
+        component={ProjectLandingPage}></Route>
     </Route>
   </Router>
 );
 
 document.addEventListener('DOMContentLoaded', function(){
-  // debugger;
   Modal.setAppElement(document.body);
   ReactDOM.render(router, document.getElementById('root'));
 });
