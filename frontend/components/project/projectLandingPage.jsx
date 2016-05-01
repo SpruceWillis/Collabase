@@ -1,5 +1,6 @@
 var React = require('react');
-var NavBar = require('../navBar');
+var NavBar = require('../navBar'),
+    ProjectHeader = require('./projectHeader');
 var CurrentUserState = require('../../mixins/currentUserState');
 var CurrentProjectState = require('../../mixins/currentProjectState');
 
@@ -14,10 +15,10 @@ var ProjectLandingPage = React.createClass({
   project: function(){
     if (this.hasProject()){
       return (<div>
-        <div>{this.state.currentProject.description}</div>
+        <ProjectHeader project={this.state.currentProject} />
       </div>);
     } else {
-      return (<div>Loading...</div>)
+      return (<div>Loading...</div>);
     }
   },
 

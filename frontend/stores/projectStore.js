@@ -21,6 +21,12 @@ ProjectStore.__onDispatch = function(payload){
     case ActionTypes.LOGOUT:
       ProjectStore.logout();
       break;
+    case ActionTypes.PROJECT_ERROR:
+      ProjectStore.handleErrors(payload.errors);
+      break;
+    case ActionTypes.DESTROY_PROJECT:
+      ProjectStore.logout();
+      break;
     default:
 
   }
@@ -42,14 +48,28 @@ ProjectStore.currentProject = function(){
   }
 };
 
+ProjectStore.errors = function(){
+  return [].slice.call(_errors);
+};
+
+ProjectStore.handleErrors = function(errors){
+  _project = {};
+  localStorage.setItem('currentProject', JSON.stringify({}));
+  localStorage.getItem('currentProject');
+  _errors = errors;
+};
+
 ProjectStore.logout = function(){
   _project = {};
   localStorage.setItem('currentProject', JSON.stringify({}));
-}
+  _errors = [];
+};
 
 ProjectStore.errors = function () {
 
   return [].slice.call(_errors);
 };
+
+window.ProjectStore = ProjectStore;
 
 module.exports = ProjectStore;

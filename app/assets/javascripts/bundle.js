@@ -20133,6 +20133,7 @@
 	var SignUpBlock = __webpack_require__(169);
 	var CurrentUserState = __webpack_require__(196);
 	var SessionActions = __webpack_require__(170);
+	var ProjectActions = __webpack_require__(284);
 	var SignIn = __webpack_require__(256);
 	var Modal = __webpack_require__(257);
 	var history = __webpack_require__(197).hashHistory;
@@ -20214,8 +20215,11 @@
 	  },
 	
 	  redirectLogin: function (user) {
-	    // console.log("/users/" + user.id + "/projects/" + user.projects[0].id);
-	    history.push("/users/" + user.id + "/projects/" + user.projects[0].id);
+	    if (user.projects.length === 0) {
+	      alert("You don't have any projects!");
+	    } else {
+	      history.push("/users/" + user.id + "/projects/" + user.projects[0].id);
+	    }
 	  },
 	
 	  greeting: function () {
@@ -20813,7 +20817,9 @@
 	  LOGIN_USER: "LOGIN_USER",
 	  ERROR: "ERROR",
 	  LOGOUT: "LOGOUT",
-	  RECEIVE_PROJECT: "RECEIVE_PROJECT"
+	  RECEIVE_PROJECT: "RECEIVE_PROJECT",
+	  PROJECT_ERROR: "PROJECT_ERROR",
+	  DESTROY_PROJECT: "DESTROY_PROJECT"
 	};
 
 /***/ },
@@ -34849,7 +34855,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var NavBar = __webpack_require__(167);
+	var NavBar = __webpack_require__(167),
+	    ProjectHeader = __webpack_require__(285);
 	var CurrentUserState = __webpack_require__(196);
 	var CurrentProjectState = __webpack_require__(278);
 	
@@ -34868,11 +34875,7 @@
 	      return React.createElement(
 	        'div',
 	        null,
-	        React.createElement(
-	          'div',
-	          null,
-	          this.state.currentProject.description
-	        )
+	        React.createElement(ProjectHeader, { project: this.state.currentProject })
 	      );
 	    } else {
 	      return React.createElement(
@@ -34919,11 +34922,9 @@
 	  //how do we determine which project to fetch?
 	  componentDidMount: function () {
 	    this.projectListener = ProjectStore.addListener(this.update);
-	    debugger;
 	    if (Object.keys(ProjectStore.currentProject()).length === 0) {
 	      ProjectActions.fetchCurrentProject({
-	        project_id: this.props.params.projectid,
-	        user_id: this.props.params.userid
+	        project_id: this.props.params.projectid
 	      });
 	    }
 	  },
@@ -34943,17 +34944,49 @@
 
 /***/ },
 /* 279 */,
-/* 280 */,
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var projectApiUtil = __webpack_require__(281);
+	
+	var ProjectActions = {
+	  fetchCurrentProject: function (data) {
+	    projectApiUtil.fetchCurrentProject(data);
+	  },
+	
+	  updateProject: function (data) {
+	    projectApiUtil.updateProject(data);
+	  },
+	
+	  createProject: function (data) {
+	    projectApiUtil.createProject(data);
+	  },
+	
+	  destroyProject: function (data) {
+	    projectApiUtil.destroyProject(data);
+	  }
+	
+	};
+	
+	window.ProjectActions = ProjectActions;
+	
+	module.exports = ProjectActions;
+
+/***/ },
 /* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var projectServerActions = __webpack_require__(282);
+	var SessionStore = __webpack_require__(178);
 	
-	module.exports = {
+	function currentUser() {
+	  return SessionStore.currentUser();
+	}
+	
+	var ProjectApiUtil = {
 	  fetchCurrentProject: function (data) {
 	    $.ajax({
 	      url: '/api/projects/' + data.project_id,
-	      data: { user_id: data.user_id },
 	      method: "GET",
 	      success: function (response) {
 	        projectServerActions.receiveProject(response);
@@ -34962,8 +34995,50 @@
 	        projectServerActions.handleErrors(response.responseJSON.errors);
 	      }
 	    });
+	  },
+	
+	  createProject: function (data) {
+	    $.ajax({
+	      url: '/api/projects',
+	      data: { project: data },
+	      method: "POST",
+	      success: function (response) {
+	        projectServerActions.receiveProject(response);
+	      }, failure: function (response) {
+	        projectServerActions.handleErrors(response.responseJSON.console.errors);
+	      }
+	    });
+	  },
+	
+	  updateProject: function (data) {
+	    $.ajax({
+	      url: '/api/projects/' + data.project_id,
+	      data: { project: data },
+	      method: "PATCH",
+	      success: function (response) {
+	        projectServerActions.receiveProject(response);
+	      },
+	      failure: function (response) {
+	        projectServerActions.handleErrors(response.responseJSON.errors);
+	      }
+	    });
+	  },
+	
+	  destroyProject: function (data) {
+	    $.ajax({
+	      url: '/api/projects/' + data.project_id,
+	      method: "DELETE",
+	      success: function (response) {
+	        projectServerActions.destroyProject();
+	      }, failure: function (response) {
+	        projectServerActions.handleErrors(response.responseJSON.errors);
+	      }
+	    });
 	  }
+	
 	};
+	
+	module.exports = ProjectApiUtil;
 
 /***/ },
 /* 282 */
@@ -34977,6 +35052,19 @@
 	    dispatcher.dispatch({
 	      actionType: ActionTypes.RECEIVE_PROJECT,
 	      project: response
+	    });
+	  },
+	
+	  handleErrors: function (response) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.PROJECT_ERROR,
+	      errors: response
+	    });
+	  },
+	
+	  destroyProject: function (response) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.DESTROY_PROJECT
 	    });
 	  }
 	};
@@ -35008,6 +35096,12 @@
 	    case ActionTypes.LOGOUT:
 	      ProjectStore.logout();
 	      break;
+	    case ActionTypes.PROJECT_ERROR:
+	      ProjectStore.handleErrors(payload.errors);
+	      break;
+	    case ActionTypes.DESTROY_PROJECT:
+	      ProjectStore.logout();
+	      break;
 	    default:
 	
 	  }
@@ -35029,15 +35123,29 @@
 	  }
 	};
 	
+	ProjectStore.errors = function () {
+	  return [].slice.call(_errors);
+	};
+	
+	ProjectStore.handleErrors = function (errors) {
+	  _project = {};
+	  localStorage.setItem('currentProject', JSON.stringify({}));
+	  localStorage.getItem('currentProject');
+	  _errors = errors;
+	};
+	
 	ProjectStore.logout = function () {
 	  _project = {};
 	  localStorage.setItem('currentProject', JSON.stringify({}));
+	  _errors = [];
 	};
 	
 	ProjectStore.errors = function () {
 	
 	  return [].slice.call(_errors);
 	};
+	
+	window.ProjectStore = ProjectStore;
 	
 	module.exports = ProjectStore;
 
@@ -35047,12 +35155,164 @@
 
 	var projectApiUtil = __webpack_require__(281);
 	
-	module.exports = {
+	var ProjectActions = {
 	  fetchCurrentProject: function (data) {
-	    debugger;
 	    projectApiUtil.fetchCurrentProject(data);
+	  },
+	
+	  updateProject: function (data) {
+	    projectApiUtil.updateProject(data);
+	  },
+	
+	  createProject: function (data) {
+	    projectApiUtil.createProject(data);
+	  },
+	
+	  destroyProject: function (data) {
+	    projectApiUtil.destroyProject(data);
 	  }
+	
 	};
+	
+	window.ProjectActions = ProjectActions;
+	
+	module.exports = ProjectActions;
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ProjectActions = __webpack_require__(280);
+	var CurrentProjectState = __webpack_require__(278);
+	
+	var ProjectHeader = React.createClass({
+	  displayName: 'ProjectHeader',
+	
+	
+	  getInitialState: function () {
+	    return {
+	      edit: false,
+	      title: this.props.project.title,
+	      description: this.props.project.description,
+	      project_id: this.props.project.id
+	    };
+	  },
+	
+	  toggleEdit: function () {
+	    this.setState({
+	      edit: !this.state.edit
+	    });
+	  },
+	
+	  // componentWillMount: function() {
+	  //   this.setState({title: this.props.currentProject.title,
+	  // description: this.state.currentProject.description});
+	  // },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    this.setState({ edit: false });
+	  },
+	
+	  saveChanges: function (e) {
+	    e.preventDefault();
+	    ProjectActions.updateProject(this.state);
+	  },
+	
+	  linkState: function (e) {
+	    var newState = {};
+	    newState[e.target.id] = e.target.value;
+	    this.setState(newState);
+	  },
+	
+	  discardChanges: function (e) {
+	    e.preventDefault();
+	    if (confirm('Are you sure you want to discard changes?')) {
+	      this.toggleEdit(e);
+	    }
+	  },
+	
+	  members: function () {
+	    var memberInfo = this.props.project.members.map(function (member) {
+	      return React.createElement(
+	        'li',
+	        null,
+	        member.name
+	      );
+	    });
+	    return React.createElement(
+	      'ul',
+	      null,
+	      memberInfo
+	    );
+	  },
+	
+	  titleBlock: function () {
+	    if (this.state.edit) {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement('input', { type: 'text', value: this.state.title,
+	          onChange: this.linkState, id: 'title' }),
+	        React.createElement('input', { type: 'text', value: this.state.description,
+	          onChange: this.linkState, id: 'description' }),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Members'
+	        ),
+	        this.members(),
+	        React.createElement(
+	          'button',
+	          { onClick: this.saveChanges },
+	          'Save'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.discardChanges },
+	          'Discard Changes'
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.toggleEdit },
+	          'Edit'
+	        ),
+	        React.createElement(
+	          'h1',
+	          null,
+	          this.props.project.title
+	        ),
+	        React.createElement(
+	          'h1',
+	          null,
+	          this.props.project.description
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Members'
+	        ),
+	        this.members()
+	      );
+	    }
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      this.titleBlock()
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProjectHeader;
 
 /***/ }
 /******/ ]);

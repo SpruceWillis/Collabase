@@ -13,7 +13,7 @@ var SignIn = React.createClass({
 
   linkState: function(e){
     var newState = {};
-    newState[e.target.id] = e.target.value
+    newState[e.target.id] = e.target.value;
     this.setState(newState);
   },
 
@@ -28,7 +28,7 @@ var SignIn = React.createClass({
       return (
         <ul className="errorlist">
           {this.state.errors.map(function(error){
-            return <li key="error" className="signinerror">{error}</li>
+            return <li key="error" className="signinerror">{error}</li>;
           })}
         </ul>
       );

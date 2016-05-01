@@ -71,7 +71,7 @@ collaBase will allow users to do the following:
 - [x] CRUD API for projects (`ProjectsController`)
 - [x] jBuilder views for projects
 - [x] setup Webpack & Flux scaffold
-- [ ] setup `APIUtil` to interact with the API
+- [x] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
 <!-- Time elapsed: 3 days -->

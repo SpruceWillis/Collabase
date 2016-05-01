@@ -28,12 +28,6 @@ img.bg {
   left: 0
 }
 
-h1 {
-  font-size: 44px;
-  font-family: monospace;;
-  text-align: center;
-}
-
 @media screen and (max-width: 1024px){
   img.bg {
     left: 50%;
@@ -43,12 +37,15 @@ h1 {
 
 .tagline {
   color: $neutral;
+  font-size: 44px;
+  font-family: monospace;;
+  text-align: center;
 }
 
 .startbutton {
-  margin: 10px;
+  margin: 5px;
   width: auto;
-  padding: 15px;
+  padding: 10px;
   font-size: 44px;
   font-family: monospace;
   text-align: center;

@@ -1,8 +1,25 @@
 var projectApiUtil = require('../util/projectApiUtil');
 
-module.exports = {
+ var ProjectActions= {
   fetchCurrentProject: function(data){
-    debugger;
     projectApiUtil.fetchCurrentProject(data);
-  }
+  },
+
+  updateProject: function(data){
+    projectApiUtil.updateProject(data);
+  },
+
+  createProject: function(data){
+    projectApiUtil.createProject(data);
+  },
+
+  destroyProject: function(data){
+    projectApiUtil.destroyProject(data);
+  },
+
+
 };
+
+window.ProjectActions = ProjectActions;
+
+module.exports = ProjectActions;

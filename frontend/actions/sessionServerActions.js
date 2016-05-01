@@ -13,12 +13,12 @@ module.exports = {
     dispatcher.dispatch({
       actionType: ActionTypes.ERROR,
       errors: errors
-    })
+    });
   },
 
   logout: function(user){
     dispatcher.dispatch({
       actionType: ActionTypes.LOGOUT
-    })
+    });
   }
 };

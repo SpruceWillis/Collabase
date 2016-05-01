@@ -2,6 +2,7 @@ var React = require('react');
 var SignUpBlock = require('./signUpBlock');
 var CurrentUserState = require('../mixins/currentUserState');
 var SessionActions = require('../actions/sessionActions');
+var ProjectActions = require('../actions/projectActions');
 var SignIn = require('../components/signIn');
 var Modal = require("react-modal");
 var history = require('react-router').hashHistory;
@@ -82,8 +83,11 @@ var NavBar = React.createClass({
   },
 
   redirectLogin: function(user){
-    // console.log("/users/" + user.id + "/projects/" + user.projects[0].id);
-    history.push("/users/" + user.id + "/projects/" + user.projects[0].id);
+    if (user.projects.length === 0){
+      alert ("You don't have any projects!");
+    } else {
+      history.push("/users/" + user.id + "/projects/" + user.projects[0].id);
+    }
   },
 
   greeting: function(){
