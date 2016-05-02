@@ -1,3 +1,83 @@
 // Place all the styles related to the api/projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+//Color palette
+$watermelon: #FF383F;
+$neutral: #EFEFEF;
+$sky: #CAEBF2;
+$carbon: #A9A9A9;
+
+//palette2
+$navy: #18121E;
+$gunmetal: #233237;
+$rustyred: #984843;
+$warmyellow: #EAC67A;
+
+//palette3
+$leaf: #66AB8C;
+$salmon: #FA7C92;
+$rain: #6EC4DB;
+$buttermilk: #FFF7C0;
+
+.dropdown {
+  font-size: 16px;
+  color: white;
+  font-family: sans-serif;
+  display: inline-block;
+  position: relative;
+  padding: 5px;
+}
+
+.dropdown-content:hover {
+  display: inline-block;
+}
+
+.dropdown-content {
+  color: black;
+  list-style-type: none;
+  display: none;
+  position: absolute;
+  background-color: $neutral;
+  width: auto;
+  left: -1px;
+  padding-left: 0;
+  min-width: 160px;
+  margin: 5px 0;
+  z-index: 1
+}
+
+.new-project {
+
+}
+
+.dropdown:hover{
+  color: black;
+  background-color: $neutral;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 5px;
+  width: 100%;
+  min-width: 160px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.dropdown-item:hover {
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  background-color: #ffe6ff;
+}
+
+.new-project {
+  border-top: 1px solid black
+}
+
+.new-project:hover {
+  box-shadow: 0px -8px 16px 0px rgba(0,0,0,0.2);
+}

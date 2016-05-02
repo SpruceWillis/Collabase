@@ -1,8 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var SplashPage = require('./components/splashPage');
-var ProjectLandingPage = require('./components/project/projectLandingPage');
-var NavBar = require('./components/navBar');
+var SplashPage = require('./components/splashPage'),
+    ProjectLandingPage = require('./components/project/projectLandingPage'),
+     NavBar = require('./components/navBar'),
+     NewProjectPage = require('./components/project/newProjectPage');
 var Modal = require("react-modal");
 var ReactRouter = require('react-router'),
     Router = ReactRouter.Router,
@@ -27,6 +28,7 @@ var router = (
       <IndexRoute component={SplashPage}></IndexRoute>
       <Route path="/users/:userid/projects/:projectid"
         component={ProjectLandingPage}></Route>
+      <Route path="/users/:userid/projects/new" component={NewProjectPage}></Route>
     </Route>
   </Router>
 );

@@ -46,9 +46,10 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-	var SplashPage = __webpack_require__(166);
-	var ProjectLandingPage = __webpack_require__(280);
-	var NavBar = __webpack_require__(167);
+	var SplashPage = __webpack_require__(166),
+	    ProjectLandingPage = __webpack_require__(280),
+	    NavBar = __webpack_require__(167),
+	    NewProjectPage = __webpack_require__(291);
 	var Modal = __webpack_require__(260);
 	var ReactRouter = __webpack_require__(197),
 	    Router = ReactRouter.Router,
@@ -76,7 +77,8 @@
 	    { path: '/', component: App },
 	    React.createElement(IndexRoute, { component: SplashPage }),
 	    React.createElement(Route, { path: '/users/:userid/projects/:projectid',
-	      component: ProjectLandingPage })
+	      component: ProjectLandingPage }),
+	    React.createElement(Route, { path: '/users/:userid/projects/new', component: NewProjectPage })
 	  )
 	);
 	
@@ -20111,6 +20113,12 @@
 	    hashHistory.push('/');
 	  },
 	
+	  projectSelector: function () {
+	    if (!$.isEmptyObject(this.state.currentUser)) {
+	      return React.createElement(ProjectSelector, { user: this.state.currentUser });
+	    }
+	  },
+	
 	  mixins: [CurrentUserState],
 	
 	  render: function () {
@@ -20122,7 +20130,7 @@
 	        { className: 'logo group', onClick: this.toSplashPage },
 	        React.createElement('img', { src: 'https://placekitten.com/80/30', title: 'hello' })
 	      ),
-	      React.createElement(ProjectSelector, { user: this.state.currentUser }),
+	      this.projectSelector(),
 	      React.createElement(NavBarAuth, { ref: 'auth' })
 	    );
 	  }
@@ -35696,10 +35704,68 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PropTypes = React.PropTypes;
-	
+	var CurrentUserState = __webpack_require__(196);
+	var history = __webpack_require__(197).hashHistory;
 	var ProjectSelector = React.createClass({
 	  displayName: 'ProjectSelector',
+	
+	
+	  navigateToProject: function (id) {
+	    history.push('/users/' + this.props.user.id + '/projects/' + id.toString());
+	  },
+	
+	  projects: function () {
+	    var that = this;
+	    var projectListItems = this.props.user.projects.map(function (project) {
+	      return React.createElement(
+	        'li',
+	        { className: 'dropdown-item', key: project.id,
+	          onClick: that.navigateToProject.bind(that, project.id) },
+	        project.title
+	      );
+	    });
+	    return React.createElement(
+	      'ul',
+	      { className: 'dropdown-content' },
+	      projectListItems,
+	      React.createElement(
+	        'li',
+	        { onClick: this.navigateToNewProject, className: 'dropdown-item new-project' },
+	        'New Project'
+	      )
+	    );
+	  },
+	
+	  navigateToNewProject: function () {
+	    history.push('/users/' + this.props.user.id + '/projects/new');
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'dropdown' },
+	      'Projects',
+	      React.createElement(
+	        'div',
+	        null,
+	        this.projects()
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProjectSelector;
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var PropTypes = React.PropTypes;
+	
+	var NewProjectPage = React.createClass({
+	  displayName: 'NewProjectPage',
 	
 	
 	  render: function () {
@@ -35708,7 +35774,7 @@
 	
 	});
 	
-	module.exports = ProjectSelector;
+	module.exports = NewProjectPage;
 
 /***/ }
 /******/ ]);

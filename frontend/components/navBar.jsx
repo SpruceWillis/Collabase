@@ -9,6 +9,12 @@ var NavBar = React.createClass({
     hashHistory.push('/');
   },
 
+  projectSelector: function(){
+    if (!$.isEmptyObject(this.state.currentUser)){
+        return <ProjectSelector user={this.state.currentUser} />
+    }
+  },
+
   mixins: [CurrentUserState],
 
   render: function() {
@@ -17,7 +23,7 @@ var NavBar = React.createClass({
         <div className="logo group" onClick={this.toSplashPage}>
           <img src="https://placekitten.com/80/30" title="hello" />
         </div>
-        <ProjectSelector user={this.state.currentUser} />
+        {this.projectSelector()}
         <NavBarAuth ref="auth" />
       </div>
     );
