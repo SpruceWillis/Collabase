@@ -2,7 +2,8 @@ var Store = require('flux/utils').Store;
 var dispatcher = require('../dispatcher/dispatcher');
 var ActionTypes = require('../constants/actionTypes');
 
-if (localStorage.getItem('users') === "undefined"){
+if (localStorage.getItem('users') === "undefined"
+  || localStorage.getItem('users') === null){
   var _users = [];
   localStorage.setItem('users', JSON.stringify([]));
   localStorage.getItem('users');

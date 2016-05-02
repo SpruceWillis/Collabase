@@ -23,6 +23,10 @@ var ProjectAddMember = React.createClass({
     UserActions.fetchCurrentUsers(data);
   },
 
+  componentDidMount: function() {
+    this.updateName("");
+  },
+
   searchBar: function(){
     return <input type="text" value={this.state.name}
       onInput={this.handleInput} ></input>;

@@ -35412,6 +35412,10 @@
 	    UserActions.fetchCurrentUsers(data);
 	  },
 	
+	  componentDidMount: function () {
+	    this.updateName("");
+	  },
+	
 	  searchBar: function () {
 	    return React.createElement('input', { type: 'text', value: this.state.name,
 	      onInput: this.handleInput });
@@ -35501,7 +35505,7 @@
 	var dispatcher = __webpack_require__(173);
 	var ActionTypes = __webpack_require__(177);
 	
-	if (localStorage.getItem('users') === "undefined") {
+	if (localStorage.getItem('users') === "undefined" || localStorage.getItem('users') === null) {
 	  var _users = [];
 	  localStorage.setItem('users', JSON.stringify([]));
 	  localStorage.getItem('users');

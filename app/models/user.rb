@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_params(params)
+    
     users = User.all
     if (params[:name])
       users = users.where("LOWER(name) LIKE :query", query: "%#{params[:name].downcase}%")
