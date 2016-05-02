@@ -20,7 +20,7 @@ module.exports = {
 
   componentWillReceiveProps: function(nextProps){
     UserActions.fetchCurrentUsers({
-      user_params: nextProps.user_params,
+      user_params: nextProps.project.id,
     });
   },
 

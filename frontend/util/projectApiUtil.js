@@ -58,6 +58,19 @@ var ProjectApiUtil = {
     });
   },
 
+  addMember: function(data){
+    $.ajax({
+      url: '/api/project_memberships',
+      method: 'POST',
+      data: {project_membership: data},
+      success: function(response){
+        projectServerActions.receiveProject(response);
+      }, failure: function(response){
+        projectServerActions.handleErrors(response.responseJSON.errors);
+      }
+    })
+  },
+
   removeMember: function(data){
     $.ajax({
       url: '/api/project_memberships',
@@ -65,6 +78,8 @@ var ProjectApiUtil = {
       data: {project_membership: data},
       success: function(response){
         projectServerActions.receiveProject(response);
+      }, failure: function(response){
+        projectServerActions.handleErrors(response.responseJSON.errors);
       }
     });
   },

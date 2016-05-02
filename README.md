@@ -72,7 +72,7 @@ collaBase will allow users to do the following:
 - [x] jBuilder views for projects
 - [x] setup Webpack & Flux scaffold
 - [x] setup `APIUtil` to interact with the API
-- [ ] test out API interaction in the console.
+- [x] test out API interaction in the console.
 
 <!-- Time elapsed: 3 days -->
 
@@ -80,10 +80,10 @@ collaBase will allow users to do the following:
 
 **Objective:** Projects can be created, read, and edited through the user interface. Project membership can be edited through the interface.
 
-- [ ] setup the flux loop with skeleton files
-- [ ] setup React Router
+- [x] setup the flux loop with skeleton files
+- [x] setup React Router
 - implement each project component, building out the flux loop as needed.
-  - [ ] `ProjectLandingPage`
+  - [x] `ProjectLandingPage`
   - [ ] `NewProjectPage`
 - [ ] Pages are properly styled
 - [ ] save Project to database after form is submitted. Discard project if form is cancelled.

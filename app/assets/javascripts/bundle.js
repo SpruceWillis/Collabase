@@ -20100,6 +20100,8 @@
 
 	var React = __webpack_require__(1);
 	var NavBarAuth = __webpack_require__(168);
+	var ProjectSelector = __webpack_require__(290);
+	var CurrentUserState = __webpack_require__(196);
 	var hashHistory = __webpack_require__(197).hashHistory;
 	
 	var NavBar = React.createClass({
@@ -20108,6 +20110,9 @@
 	  toSplashPage: function () {
 	    hashHistory.push('/');
 	  },
+	
+	  mixins: [CurrentUserState],
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -20117,6 +20122,7 @@
 	        { className: 'logo group', onClick: this.toSplashPage },
 	        React.createElement('img', { src: 'https://placekitten.com/80/30', title: 'hello' })
 	      ),
+	      React.createElement(ProjectSelector, { user: this.state.currentUser }),
 	      React.createElement(NavBarAuth, { ref: 'auth' })
 	    );
 	  }
@@ -32836,6 +32842,10 @@
 	    projectApiUtil.destroyProject(data);
 	  },
 	
+	  addMember: function (data) {
+	    projectApiUtil.addMember(data);
+	  },
+	
 	  removeMember: function (data) {
 	    projectApiUtil.removeMember(data);
 	  }
@@ -32908,6 +32918,19 @@
 	    });
 	  },
 	
+	  addMember: function (data) {
+	    $.ajax({
+	      url: '/api/project_memberships',
+	      method: 'POST',
+	      data: { project_membership: data },
+	      success: function (response) {
+	        projectServerActions.receiveProject(response);
+	      }, failure: function (response) {
+	        projectServerActions.handleErrors(response.responseJSON.errors);
+	      }
+	    });
+	  },
+	
 	  removeMember: function (data) {
 	    $.ajax({
 	      url: '/api/project_memberships',
@@ -32915,6 +32938,8 @@
 	      data: { project_membership: data },
 	      success: function (response) {
 	        projectServerActions.receiveProject(response);
+	      }, failure: function (response) {
+	        projectServerActions.handleErrors(response.responseJSON.errors);
 	      }
 	    });
 	  }
@@ -35082,12 +35107,16 @@
 	  },
 	
 	  componentWillReceiveProps: function (nextProps) {
-	    debugger;
 	    this.setState({
 	      title: nextProps.project.title,
 	      description: nextProps.project.description,
-	      project_id: nextProps.project.id
+	      project_id: nextProps.project.id,
+	      edit: false
 	    });
+	  },
+	
+	  componentDidMount: function () {
+	    this.setState({ edit: false });
 	  },
 	
 	  saveChanges: function (e) {
@@ -35387,6 +35416,7 @@
 	var React = __webpack_require__(1);
 	var CurrentUserLookups = __webpack_require__(285);
 	var UserActions = __webpack_require__(287);
+	var ProjectActions = __webpack_require__(256);
 	var ProjectAddMember = React.createClass({
 	  displayName: 'ProjectAddMember',
 	
@@ -35421,8 +35451,13 @@
 	      onInput: this.handleInput });
 	  },
 	
-	  autoComplete: function (value) {
-	    this.updateName(value);
+	  addMember: function (member) {
+	    if (confirm("Add " + member.name + 'to this project?')) {
+	      ProjectActions.addMember({
+	        project_id: this.props.project.id,
+	        member_id: member.id
+	      });
+	    }
 	  },
 	
 	  potentialMembers: function () {
@@ -35430,8 +35465,17 @@
 	    var members = this.state.currentUsers.map(function (member) {
 	      return React.createElement(
 	        'li',
-	        { key: member.id, onClick: that.autoComplete.bind(that, member.name) },
-	        member.name
+	        { key: member.id },
+	        React.createElement(
+	          'div',
+	          null,
+	          member.name
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: that.addMember.bind(that, member) },
+	          'Add'
+	        )
 	      );
 	    });
 	    return React.createElement(
@@ -35445,6 +35489,11 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      React.createElement(
+	        'div',
+	        null,
+	        ' Add Project Members'
+	      ),
 	      this.searchBar(),
 	      this.potentialMembers()
 	    );
@@ -35480,7 +35529,7 @@
 	
 	  componentWillReceiveProps: function (nextProps) {
 	    UserActions.fetchCurrentUsers({
-	      user_params: nextProps.user_params
+	      user_params: nextProps.project.id
 	    });
 	  },
 	
@@ -35575,12 +35624,12 @@
 	
 	var UserActions = {
 	  fetchCurrentUsers: function (params) {
-	    if (params.name.length > 0) {
+	    if (typeof params.name !== "string" || params.name.length === 0) {
+	      UserActions.clearUsers();
+	    } else if (params.name.length > 0) {
 	      UserApiUtil.receiveUsers(params, function (data) {
 	        UserServerActions.receiveUsers(data);
 	      });
-	    } else {
-	      UserActions.clearUsers();
 	    }
 	  },
 	
@@ -35641,6 +35690,25 @@
 	};
 	
 	module.exports = UserServerActions;
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var PropTypes = React.PropTypes;
+	
+	var ProjectSelector = React.createClass({
+	  displayName: 'ProjectSelector',
+	
+	
+	  render: function () {
+	    return React.createElement('div', null);
+	  }
+	
+	});
+	
+	module.exports = ProjectSelector;
 
 /***/ }
 /******/ ]);

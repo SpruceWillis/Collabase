@@ -1,6 +1,7 @@
 var React = require('react');
 var CurrentUserLookups = require('../../mixins/currentUserLookups');
 var UserActions = require('../../actions/userActions');
+var ProjectActions = require('../../actions/projectActions');
 var ProjectAddMember = React.createClass({
 
   mixins: [CurrentUserLookups],
@@ -33,15 +34,22 @@ var ProjectAddMember = React.createClass({
       onInput={this.handleInput} ></input>;
   },
 
-  autoComplete: function(value){
-    this.updateName(value);
+  addMember: function(member){
+    if (confirm("Add " + member.name + 'to this project?')){
+      ProjectActions.addMember({
+        project_id: this.props.project.id,
+        member_id: member.id
+      });
+    }
   },
 
   potentialMembers: function(){
     var that = this;
     var members = this.state.currentUsers.map(function(member){
-      return <li key={member.id} onClick=
-        {that.autoComplete.bind(that,member.name)}>{member.name}</li>
+      return (<li key={member.id}>
+        <div >{member.name}</div>
+        <button onClick={that.addMember.bind(that,member)}>Add</button>
+      </li>);
     });
     return <ul>{members}</ul>;
   },
@@ -49,6 +57,7 @@ var ProjectAddMember = React.createClass({
   render: function() {
     return (
       <div >
+        <div> Add Project Members</div>
         {this.searchBar()}
         {this.potentialMembers()}
       </div>

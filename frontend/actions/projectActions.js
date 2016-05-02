@@ -17,6 +17,10 @@ var projectApiUtil = require('../util/projectApiUtil');
     projectApiUtil.destroyProject(data);
   },
 
+  addMember: function(data){
+    projectApiUtil.addMember(data);
+  },
+
   removeMember: function(data){
     projectApiUtil.removeMember(data);
   }
