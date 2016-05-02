@@ -47,9 +47,9 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
 	var SplashPage = __webpack_require__(166);
-	var ProjectLandingPage = __webpack_require__(277);
+	var ProjectLandingPage = __webpack_require__(280);
 	var NavBar = __webpack_require__(167);
-	var Modal = __webpack_require__(257);
+	var Modal = __webpack_require__(260);
 	var ReactRouter = __webpack_require__(197),
 	    Router = ReactRouter.Router,
 	    Route = ReactRouter.Route,
@@ -20133,9 +20133,9 @@
 	var SignUpBlock = __webpack_require__(169);
 	var CurrentUserState = __webpack_require__(196);
 	var SessionActions = __webpack_require__(170);
-	var ProjectActions = __webpack_require__(284);
-	var SignIn = __webpack_require__(256);
-	var Modal = __webpack_require__(257);
+	var ProjectActions = __webpack_require__(256);
+	var SignIn = __webpack_require__(259);
+	var Modal = __webpack_require__(260);
 	var history = __webpack_require__(197).hashHistory;
 	
 	var style = {
@@ -32817,6 +32817,148 @@
 /* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var projectApiUtil = __webpack_require__(257);
+	
+	var ProjectActions = {
+	  fetchCurrentProject: function (data) {
+	    projectApiUtil.fetchCurrentProject(data);
+	  },
+	
+	  updateProject: function (data, cb) {
+	    projectApiUtil.updateProject(data, cb);
+	  },
+	
+	  createProject: function (data) {
+	    projectApiUtil.createProject(data);
+	  },
+	
+	  destroyProject: function (data) {
+	    projectApiUtil.destroyProject(data);
+	  },
+	
+	  removeMember: function (data) {
+	    projectApiUtil.removeMember(data);
+	  }
+	
+	};
+	
+	module.exports = ProjectActions;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var projectServerActions = __webpack_require__(258);
+	var SessionStore = __webpack_require__(178);
+	
+	function currentUser() {
+	  return SessionStore.currentUser();
+	}
+	
+	var ProjectApiUtil = {
+	  fetchCurrentProject: function (data) {
+	    $.ajax({
+	      url: '/api/projects/' + data.project_id,
+	      method: "GET",
+	      success: function (response) {
+	        projectServerActions.receiveProject(response);
+	      },
+	      failure: function (response) {
+	        projectServerActions.handleErrors(response.responseJSON.errors);
+	      }
+	    });
+	  },
+	
+	  createProject: function (data) {
+	    $.ajax({
+	      url: '/api/projects',
+	      data: { project: data },
+	      method: "POST",
+	      success: function (response) {
+	        projectServerActions.receiveProject(response);
+	      }, failure: function (response) {
+	        projectServerActions.handleErrors(response.responseJSON.console.errors);
+	      }
+	    });
+	  },
+	
+	  updateProject: function (data, cb) {
+	    $.ajax({
+	      url: '/api/projects/' + data.project_id,
+	      data: { project: data },
+	      method: "PATCH",
+	      success: function (response) {
+	        projectServerActions.receiveProject(response, cb);
+	      },
+	      failure: function (response) {
+	        projectServerActions.handleErrors(response.responseJSON.errors);
+	      }
+	    });
+	  },
+	
+	  destroyProject: function (data) {
+	    $.ajax({
+	      url: '/api/projects/' + data.project_id,
+	      method: "DELETE",
+	      success: function (response) {
+	        projectServerActions.destroyProject();
+	      }, failure: function (response) {
+	        projectServerActions.handleErrors(response.responseJSON.errors);
+	      }
+	    });
+	  },
+	
+	  removeMember: function (data) {
+	    $.ajax({
+	      url: '/api/project_memberships',
+	      method: "DELETE",
+	      data: { project_membership: data },
+	      success: function (response) {
+	        projectServerActions.receiveProject(response);
+	      }
+	    });
+	  }
+	
+	};
+	
+	module.exports = ProjectApiUtil;
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var dispatcher = __webpack_require__(173);
+	var ActionTypes = __webpack_require__(177);
+	
+	module.exports = {
+	  receiveProject: function (response, cb) {
+	    if (typeof cb !== "undefined") {
+	      cb();
+	    }
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.RECEIVE_PROJECT,
+	      project: response
+	    });
+	  },
+	
+	  handleErrors: function (response) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.PROJECT_ERROR,
+	      errors: response
+	    });
+	  },
+	
+	  destroyProject: function (response) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.DESTROY_PROJECT
+	    });
+	  }
+	};
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var React = __webpack_require__(1);
 	var SessionActions = __webpack_require__(170);
 	
@@ -32909,25 +33051,25 @@
 	module.exports = SignIn;
 
 /***/ },
-/* 257 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(258);
+	module.exports = __webpack_require__(261);
 	
 
 
 /***/ },
-/* 258 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-	var ExecutionEnvironment = __webpack_require__(259);
-	var ModalPortal = React.createFactory(__webpack_require__(260));
-	var ariaAppHider = __webpack_require__(275);
-	var elementClass = __webpack_require__(276);
+	var ExecutionEnvironment = __webpack_require__(262);
+	var ModalPortal = React.createFactory(__webpack_require__(263));
+	var ariaAppHider = __webpack_require__(278);
+	var elementClass = __webpack_require__(279);
 	var renderSubtreeIntoContainer = __webpack_require__(32).unstable_renderSubtreeIntoContainer;
-	var Assign = __webpack_require__(264);
+	var Assign = __webpack_require__(267);
 	
 	var SafeHTMLElement = ExecutionEnvironment.canUseDOM ? window.HTMLElement : {};
 	var AppElement = ExecutionEnvironment.canUseDOM ? document.body : {appendChild: function() {}};
@@ -33035,7 +33177,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 259 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -33080,14 +33222,14 @@
 
 
 /***/ },
-/* 260 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var div = React.DOM.div;
-	var focusManager = __webpack_require__(261);
-	var scopeTab = __webpack_require__(263);
-	var Assign = __webpack_require__(264);
+	var focusManager = __webpack_require__(264);
+	var scopeTab = __webpack_require__(266);
+	var Assign = __webpack_require__(267);
 	
 	// so that our CSS is statically analyzable
 	var CLASS_NAMES = {
@@ -33272,10 +33414,10 @@
 
 
 /***/ },
-/* 261 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var findTabbable = __webpack_require__(262);
+	var findTabbable = __webpack_require__(265);
 	var modalElement = null;
 	var focusLaterElement = null;
 	var needToFocus = false;
@@ -33346,7 +33488,7 @@
 
 
 /***/ },
-/* 262 */
+/* 265 */
 /***/ function(module, exports) {
 
 	/*!
@@ -33402,10 +33544,10 @@
 
 
 /***/ },
-/* 263 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var findTabbable = __webpack_require__(262);
+	var findTabbable = __webpack_require__(265);
 	
 	module.exports = function(node, event) {
 	  var tabbable = findTabbable(node);
@@ -33427,7 +33569,7 @@
 
 
 /***/ },
-/* 264 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -33438,9 +33580,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseAssign = __webpack_require__(265),
-	    createAssigner = __webpack_require__(271),
-	    keys = __webpack_require__(267);
+	var baseAssign = __webpack_require__(268),
+	    createAssigner = __webpack_require__(274),
+	    keys = __webpack_require__(270);
 	
 	/**
 	 * A specialized version of `_.assign` for customizing assigned values without
@@ -33513,7 +33655,7 @@
 
 
 /***/ },
-/* 265 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -33524,8 +33666,8 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var baseCopy = __webpack_require__(266),
-	    keys = __webpack_require__(267);
+	var baseCopy = __webpack_require__(269),
+	    keys = __webpack_require__(270);
 	
 	/**
 	 * The base implementation of `_.assign` without support for argument juggling,
@@ -33546,7 +33688,7 @@
 
 
 /***/ },
-/* 266 */
+/* 269 */
 /***/ function(module, exports) {
 
 	/**
@@ -33584,7 +33726,7 @@
 
 
 /***/ },
-/* 267 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -33595,9 +33737,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var getNative = __webpack_require__(268),
-	    isArguments = __webpack_require__(269),
-	    isArray = __webpack_require__(270);
+	var getNative = __webpack_require__(271),
+	    isArguments = __webpack_require__(272),
+	    isArray = __webpack_require__(273);
 	
 	/** Used to detect unsigned integer values. */
 	var reIsUint = /^\d+$/;
@@ -33826,7 +33968,7 @@
 
 
 /***/ },
-/* 268 */
+/* 271 */
 /***/ function(module, exports) {
 
 	/**
@@ -33969,7 +34111,7 @@
 
 
 /***/ },
-/* 269 */
+/* 272 */
 /***/ function(module, exports) {
 
 	/**
@@ -34218,7 +34360,7 @@
 
 
 /***/ },
-/* 270 */
+/* 273 */
 /***/ function(module, exports) {
 
 	/**
@@ -34404,7 +34546,7 @@
 
 
 /***/ },
-/* 271 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -34415,9 +34557,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var bindCallback = __webpack_require__(272),
-	    isIterateeCall = __webpack_require__(273),
-	    restParam = __webpack_require__(274);
+	var bindCallback = __webpack_require__(275),
+	    isIterateeCall = __webpack_require__(276),
+	    restParam = __webpack_require__(277);
 	
 	/**
 	 * Creates a function that assigns properties of source object(s) to a given
@@ -34462,7 +34604,7 @@
 
 
 /***/ },
-/* 272 */
+/* 275 */
 /***/ function(module, exports) {
 
 	/**
@@ -34533,7 +34675,7 @@
 
 
 /***/ },
-/* 273 */
+/* 276 */
 /***/ function(module, exports) {
 
 	/**
@@ -34671,7 +34813,7 @@
 
 
 /***/ },
-/* 274 */
+/* 277 */
 /***/ function(module, exports) {
 
 	/**
@@ -34744,7 +34886,7 @@
 
 
 /***/ },
-/* 275 */
+/* 278 */
 /***/ function(module, exports) {
 
 	var _element = typeof document !== 'undefined' ? document.body : null;
@@ -34792,7 +34934,7 @@
 
 
 /***/ },
-/* 276 */
+/* 279 */
 /***/ function(module, exports) {
 
 	module.exports = function(opts) {
@@ -34857,14 +34999,14 @@
 
 
 /***/ },
-/* 277 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var NavBar = __webpack_require__(167),
-	    ProjectHeader = __webpack_require__(285);
+	    ProjectHeader = __webpack_require__(281);
 	var CurrentUserState = __webpack_require__(196);
-	var CurrentProjectState = __webpack_require__(278);
+	var CurrentProjectState = __webpack_require__(282);
 	
 	var ProjectLandingPage = React.createClass({
 	  displayName: 'ProjectLandingPage',
@@ -34911,278 +35053,13 @@
 	module.exports = ProjectLandingPage;
 
 /***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var ProjectStore = __webpack_require__(283);
-	var ProjectActions = __webpack_require__(284);
-	
-	module.exports = {
-	
-	  getInitialState: function () {
-	    return {
-	      currentProject: ProjectStore.currentProject(),
-	      projectErrors: ProjectStore.errors()
-	    };
-	  },
-	
-	  //how do we determine which project to fetch?
-	  componentDidMount: function () {
-	    this.projectListener = ProjectStore.addListener(this.update);
-	    ProjectActions.fetchCurrentProject({
-	      project_id: this.props.params.projectid
-	    });
-	  },
-	
-	  componentWillReceiveProps: function (nextProps) {
-	    ProjectActions.fetchCurrentProject({
-	      project_id: nextProps.params.projectid
-	    });
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.projectListener.remove();
-	  },
-	
-	  update: function () {
-	    this.setState({
-	      currentProject: ProjectStore.currentProject(),
-	      projectErrors: ProjectStore.errors()
-	    });
-	  }
-	
-	};
-
-/***/ },
-/* 279 */,
-/* 280 */,
 /* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var projectServerActions = __webpack_require__(282);
-	var SessionStore = __webpack_require__(178);
-	
-	function currentUser() {
-	  return SessionStore.currentUser();
-	}
-	
-	var ProjectApiUtil = {
-	  fetchCurrentProject: function (data) {
-	    $.ajax({
-	      url: '/api/projects/' + data.project_id,
-	      method: "GET",
-	      success: function (response) {
-	        projectServerActions.receiveProject(response);
-	      },
-	      failure: function (response) {
-	        projectServerActions.handleErrors(response.responseJSON.errors);
-	      }
-	    });
-	  },
-	
-	  createProject: function (data) {
-	    $.ajax({
-	      url: '/api/projects',
-	      data: { project: data },
-	      method: "POST",
-	      success: function (response) {
-	        projectServerActions.receiveProject(response);
-	      }, failure: function (response) {
-	        projectServerActions.handleErrors(response.responseJSON.console.errors);
-	      }
-	    });
-	  },
-	
-	  updateProject: function (data, cb) {
-	    $.ajax({
-	      url: '/api/projects/' + data.project_id,
-	      data: { project: data },
-	      method: "PATCH",
-	      success: function (response) {
-	        projectServerActions.receiveProject(response, cb);
-	      },
-	      failure: function (response) {
-	        projectServerActions.handleErrors(response.responseJSON.errors);
-	      }
-	    });
-	  },
-	
-	  destroyProject: function (data) {
-	    $.ajax({
-	      url: '/api/projects/' + data.project_id,
-	      method: "DELETE",
-	      success: function (response) {
-	        projectServerActions.destroyProject();
-	      }, failure: function (response) {
-	        projectServerActions.handleErrors(response.responseJSON.errors);
-	      }
-	    });
-	  },
-	
-	  removeMember: function (data) {
-	    $.ajax({
-	      url: '/api/project_memberships',
-	      method: "DELETE",
-	      data: { project_membership: data },
-	      success: function (response) {
-	        projectServerActions.receiveProject(response);
-	      }
-	    });
-	  }
-	
-	};
-	
-	module.exports = ProjectApiUtil;
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var dispatcher = __webpack_require__(173);
-	var ActionTypes = __webpack_require__(177);
-	
-	module.exports = {
-	  receiveProject: function (response, cb) {
-	    if (typeof cb !== "undefined") {
-	      cb();
-	    }
-	    dispatcher.dispatch({
-	      actionType: ActionTypes.RECEIVE_PROJECT,
-	      project: response
-	    });
-	  },
-	
-	  handleErrors: function (response) {
-	    dispatcher.dispatch({
-	      actionType: ActionTypes.PROJECT_ERROR,
-	      errors: response
-	    });
-	  },
-	
-	  destroyProject: function (response) {
-	    dispatcher.dispatch({
-	      actionType: ActionTypes.DESTROY_PROJECT
-	    });
-	  }
-	};
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(179).Store;
-	var dispatcher = __webpack_require__(173);
-	var ActionTypes = __webpack_require__(177);
-	
-	var ProjectStore = new Store(dispatcher);
-	if (localStorage.getItem('currentProject') === "undefined") {
-	  var _project = {};
-	  localStorage.setItem('currentProject', JSON.stringify({}));
-	  localStorage.getItem('currentProject');
-	} else {
-	  _project = JSON.parse(localStorage.getItem('currentProject'));
-	}
-	
-	var _errors = [];
-	
-	ProjectStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case ActionTypes.RECEIVE_PROJECT:
-	      ProjectStore.receiveProject(payload.project);
-	      break;
-	    case ActionTypes.LOGOUT:
-	      ProjectStore.logout();
-	      break;
-	    case ActionTypes.PROJECT_ERROR:
-	      ProjectStore.handleErrors(payload.errors);
-	      break;
-	    case ActionTypes.DESTROY_PROJECT:
-	      ProjectStore.logout();
-	      break;
-	    default:
-	
-	  }
-	};
-	
-	ProjectStore.receiveProject = function (project) {
-	  _project = project;
-	  localStorage.setItem('currentProject', JSON.stringify(project));
-	  localStorage.getItem('currentProject');
-	  _errors = [];
-	  ProjectStore.__emitChange();
-	};
-	
-	ProjectStore.currentProject = function () {
-	  if (localStorage.getItem('currentProject') === "undefined") {
-	    return {};
-	  } else {
-	    return JSON.parse(localStorage.getItem('currentProject'));
-	  }
-	};
-	
-	ProjectStore.errors = function () {
-	  return [].slice.call(_errors);
-	};
-	
-	ProjectStore.handleErrors = function (errors) {
-	  _project = {};
-	  localStorage.setItem('currentProject', JSON.stringify({}));
-	  localStorage.getItem('currentProject');
-	  _errors = errors;
-	};
-	
-	ProjectStore.logout = function () {
-	  _project = {};
-	  localStorage.setItem('currentProject', JSON.stringify({}));
-	  _errors = [];
-	};
-	
-	ProjectStore.errors = function () {
-	
-	  return [].slice.call(_errors);
-	};
-	
-	module.exports = ProjectStore;
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var projectApiUtil = __webpack_require__(281);
-	
-	var ProjectActions = {
-	  fetchCurrentProject: function (data) {
-	    projectApiUtil.fetchCurrentProject(data);
-	  },
-	
-	  updateProject: function (data, cb) {
-	    projectApiUtil.updateProject(data, cb);
-	  },
-	
-	  createProject: function (data) {
-	    projectApiUtil.createProject(data);
-	  },
-	
-	  destroyProject: function (data) {
-	    projectApiUtil.destroyProject(data);
-	  },
-	
-	  removeMember: function (data) {
-	    projectApiUtil.removeMember(data);
-	  }
-	
-	};
-	
-	module.exports = ProjectActions;
-
-/***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var React = __webpack_require__(1);
-	var ProjectActions = __webpack_require__(284);
-	var CurrentProjectState = __webpack_require__(278);
-	var ProjectAddMember = __webpack_require__(286);
+	var ProjectActions = __webpack_require__(256);
+	var CurrentProjectState = __webpack_require__(282);
+	var ProjectAddMember = __webpack_require__(284);
 	var ProjectHeader = React.createClass({
 	  displayName: 'ProjectHeader',
 	
@@ -35382,12 +35259,133 @@
 	module.exports = ProjectHeader;
 
 /***/ },
-/* 286 */
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ProjectStore = __webpack_require__(283);
+	var ProjectActions = __webpack_require__(256);
+	
+	module.exports = {
+	
+	  getInitialState: function () {
+	    return {
+	      currentProject: ProjectStore.currentProject(),
+	      projectErrors: ProjectStore.errors()
+	    };
+	  },
+	
+	  //how do we determine which project to fetch?
+	  componentDidMount: function () {
+	    this.projectListener = ProjectStore.addListener(this.update);
+	    ProjectActions.fetchCurrentProject({
+	      project_id: this.props.params.projectid
+	    });
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    ProjectActions.fetchCurrentProject({
+	      project_id: nextProps.params.projectid
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.projectListener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({
+	      currentProject: ProjectStore.currentProject(),
+	      projectErrors: ProjectStore.errors()
+	    });
+	  }
+	
+	};
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(179).Store;
+	var dispatcher = __webpack_require__(173);
+	var ActionTypes = __webpack_require__(177);
+	
+	var ProjectStore = new Store(dispatcher);
+	if (localStorage.getItem('currentProject') === "undefined") {
+	  var _project = {};
+	  localStorage.setItem('currentProject', JSON.stringify({}));
+	  localStorage.getItem('currentProject');
+	} else {
+	  _project = JSON.parse(localStorage.getItem('currentProject'));
+	}
+	
+	var _errors = [];
+	
+	ProjectStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case ActionTypes.RECEIVE_PROJECT:
+	      ProjectStore.receiveProject(payload.project);
+	      break;
+	    case ActionTypes.LOGOUT:
+	      ProjectStore.logout();
+	      break;
+	    case ActionTypes.PROJECT_ERROR:
+	      ProjectStore.handleErrors(payload.errors);
+	      break;
+	    case ActionTypes.DESTROY_PROJECT:
+	      ProjectStore.logout();
+	      break;
+	    default:
+	
+	  }
+	};
+	
+	ProjectStore.receiveProject = function (project) {
+	  _project = project;
+	  localStorage.setItem('currentProject', JSON.stringify(project));
+	  localStorage.getItem('currentProject');
+	  _errors = [];
+	  ProjectStore.__emitChange();
+	};
+	
+	ProjectStore.currentProject = function () {
+	  if (localStorage.getItem('currentProject') === "undefined") {
+	    return {};
+	  } else {
+	    return JSON.parse(localStorage.getItem('currentProject'));
+	  }
+	};
+	
+	ProjectStore.errors = function () {
+	  return [].slice.call(_errors);
+	};
+	
+	ProjectStore.handleErrors = function (errors) {
+	  _project = {};
+	  localStorage.setItem('currentProject', JSON.stringify({}));
+	  localStorage.getItem('currentProject');
+	  _errors = errors;
+	};
+	
+	ProjectStore.logout = function () {
+	  _project = {};
+	  localStorage.setItem('currentProject', JSON.stringify({}));
+	  _errors = [];
+	};
+	
+	ProjectStore.errors = function () {
+	
+	  return [].slice.call(_errors);
+	};
+	
+	module.exports = ProjectStore;
+
+/***/ },
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var CurrentUserLookups = __webpack_require__(287);
-	var UserActions = __webpack_require__(289);
+	var CurrentUserLookups = __webpack_require__(285);
+	var UserActions = __webpack_require__(287);
 	var ProjectAddMember = React.createClass({
 	  displayName: 'ProjectAddMember',
 	
@@ -35455,11 +35453,11 @@
 	module.exports = ProjectAddMember;
 
 /***/ },
-/* 287 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserStore = __webpack_require__(288);
-	var UserActions = __webpack_require__(289);
+	var UserStore = __webpack_require__(286);
+	var UserActions = __webpack_require__(287);
 	
 	module.exports = {
 	
@@ -35498,7 +35496,7 @@
 	};
 
 /***/ },
-/* 288 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(179).Store;
@@ -35565,12 +35563,12 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 289 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserApiUtil = __webpack_require__(290);
+	var UserApiUtil = __webpack_require__(288);
 	var dispatcher = __webpack_require__(173);
-	var UserServerActions = __webpack_require__(291);
+	var UserServerActions = __webpack_require__(289);
 	var ActionTypes = __webpack_require__(177);
 	
 	var UserActions = {
@@ -35594,10 +35592,10 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 290 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserServerActions = __webpack_require__(291);
+	var UserServerActions = __webpack_require__(289);
 	
 	var UserApiUtil = {
 	  receiveUsers: function (data, cb) {
@@ -35618,7 +35616,7 @@
 	module.exports = UserApiUtil;
 
 /***/ },
-/* 291 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var dispatcher = __webpack_require__(173);
