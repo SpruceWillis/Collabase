@@ -35082,6 +35082,7 @@
 	  },
 	
 	  componentWillReceiveProps: function (nextProps) {
+	    debugger;
 	    this.setState({
 	      title: nextProps.project.title,
 	      description: nextProps.project.description,
@@ -35407,6 +35408,7 @@
 	    if (this.state.same_organization) {
 	      data["organization"] = this.props.user.organization;
 	    }
+	    data["project_id"] = this.props.project.id;
 	    UserActions.fetchCurrentUsers(data);
 	  },
 	

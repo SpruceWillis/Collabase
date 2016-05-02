@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_params(params)
-    
-    users = User.all
+    project_memberships = ProjectMembership.where(project_id: params[:project_id]).pluck(:member_id)
+    users = User.where.not(id: project_memberships)
     if (params[:name])
       users = users.where("LOWER(name) LIKE :query", query: "%#{params[:name].downcase}%")
     end

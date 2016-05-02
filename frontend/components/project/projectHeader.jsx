@@ -22,6 +22,7 @@ var ProjectHeader = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
+    debugger;
     this.setState({
       title: nextProps.project.title,
       description: nextProps.project.description,
