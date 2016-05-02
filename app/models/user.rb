@@ -27,6 +27,17 @@ class User < ActiveRecord::Base
     @password = password
   end
 
+  def self.find_by_params(params)
+    users = User.all
+    if (params[:name])
+      users = users.where("LOWER(name) LIKE :query", query: "%#{params[:name].downcase}%")
+    end
+    if (params[:organization])
+      users = users.where("LOWER(organization) LIKE :query", query: "%#{params[:organization].downcase}")
+    end
+    users.limit(10)
+  end
+
   def self.find_by_credentials (email, password)
     user = User.find_by(email: email)
     return nil unless user

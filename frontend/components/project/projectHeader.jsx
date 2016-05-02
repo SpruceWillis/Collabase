@@ -1,7 +1,7 @@
 var React = require('react');
 var ProjectActions  = require('../../actions/projectActions');
 var CurrentProjectState = require('../../mixins/currentProjectState');
-
+var ProjectAddMember = require('./projectAddMember');
 var ProjectHeader = React.createClass({
 
   getInitialState: function(){
@@ -15,7 +15,7 @@ var ProjectHeader = React.createClass({
 
   toggleEdit: function(){
     if (this.state.edit){
-      this.setState({edit: false, success: true});
+      this.setState({edit: false});
     } else {
       this.setState({edit: true});
     }
@@ -36,6 +36,7 @@ var ProjectHeader = React.createClass({
   },
 
   saveAlert: function(){
+    alert('Changes successfully saved');
     this.toggleEdit();
   },
 
@@ -48,7 +49,7 @@ var ProjectHeader = React.createClass({
   discardChanges: function(e){
     e.preventDefault();
     if (confirm('Are you sure you want to discard changes?')){
-      this.toggleEdit(e);
+      this.toggleEdit(false);
     }
   },
 
@@ -75,7 +76,7 @@ var ProjectHeader = React.createClass({
     var memberInfo = this.props.project.members.map(function(member){
         if (that.state.edit
           && member.id !== that.props.project.owner_id
-          && member.id !== that.props.user_id){
+          && member.id !== that.props.user.id){
           return <li key={member.id}>
             {member.name}
             <button onClick={that.removeMember.bind(that, member)}>X</button>
@@ -106,11 +107,14 @@ var ProjectHeader = React.createClass({
               onChange={this.linkState} id="description" />
             </label>
           </form>
+          <div>
           {this.members()}
+          <ProjectAddMember project={this.props.project} user={this.props.user}/>
+          </div>
           <div>
             <button type="submit" form="editProjectForm">Save</button>
             <button onClick={this.discardChanges}>Discard Changes</button>
-            <button onClick={this.toggleEdit}>Done</button>
+            <button onClick={this.toggleEdit.bind(this, false)}>Done</button>
 
           </div>
         </div>

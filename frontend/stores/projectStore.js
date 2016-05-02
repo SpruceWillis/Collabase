@@ -70,6 +70,4 @@ ProjectStore.errors = function () {
   return [].slice.call(_errors);
 };
 
-window.ProjectStore = ProjectStore;
-
 module.exports = ProjectStore;

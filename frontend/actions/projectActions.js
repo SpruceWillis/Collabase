@@ -23,6 +23,4 @@ var projectApiUtil = require('../util/projectApiUtil');
 
 };
 
-window.ProjectActions = ProjectActions;
-
 module.exports = ProjectActions;

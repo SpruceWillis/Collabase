@@ -20151,13 +20151,16 @@
 	  content: {
 	    position: 'fixed',
 	    display: "flex",
-	    flexdirection: "column",
-	    alignitems: "center",
-	    justifycontent: "center",
-	    top: '125px',
-	    left: '375px',
-	    right: '375px',
-	    bottom: '125px',
+	    flexDirection: "column",
+	    alignItems: "center",
+	    justifyContent: "center",
+	    top: '25%',
+	    left: '37.5%',
+	    // right           : '375px',
+	    // bottom          : '125px',
+	    maxHeight: '400px',
+	    minWidth: '350px',
+	    maxWidth: '400px',
 	    border: '1px solid #ccc',
 	    padding: '20px',
 	    "zindex": 11
@@ -20819,7 +20822,10 @@
 	  LOGOUT: "LOGOUT",
 	  RECEIVE_PROJECT: "RECEIVE_PROJECT",
 	  PROJECT_ERROR: "PROJECT_ERROR",
-	  DESTROY_PROJECT: "DESTROY_PROJECT"
+	  DESTROY_PROJECT: "DESTROY_PROJECT",
+	  RECEIVE_USERS: "RECEIVE_USERS",
+	  USER_ERROR: "USER_ERROR",
+	  CLEAR_USERS: "CLEAR_USERS"
 	};
 
 /***/ },
@@ -34876,7 +34882,7 @@
 	        'div',
 	        null,
 	        React.createElement(ProjectHeader, { project: this.state.currentProject,
-	          user_id: this.state.currentUser.id })
+	          user: this.state.currentUser })
 	      );
 	    } else {
 	      return React.createElement(
@@ -35136,8 +35142,6 @@
 	  return [].slice.call(_errors);
 	};
 	
-	window.ProjectStore = ProjectStore;
-	
 	module.exports = ProjectStore;
 
 /***/ },
@@ -35169,8 +35173,6 @@
 	
 	};
 	
-	window.ProjectActions = ProjectActions;
-	
 	module.exports = ProjectActions;
 
 /***/ },
@@ -35180,7 +35182,7 @@
 	var React = __webpack_require__(1);
 	var ProjectActions = __webpack_require__(284);
 	var CurrentProjectState = __webpack_require__(278);
-	
+	var ProjectAddMember = __webpack_require__(286);
 	var ProjectHeader = React.createClass({
 	  displayName: 'ProjectHeader',
 	
@@ -35196,7 +35198,7 @@
 	
 	  toggleEdit: function () {
 	    if (this.state.edit) {
-	      this.setState({ edit: false, success: true });
+	      this.setState({ edit: false });
 	    } else {
 	      this.setState({ edit: true });
 	    }
@@ -35216,6 +35218,7 @@
 	  },
 	
 	  saveAlert: function () {
+	    alert('Changes successfully saved');
 	    this.toggleEdit();
 	  },
 	
@@ -35228,7 +35231,7 @@
 	  discardChanges: function (e) {
 	    e.preventDefault();
 	    if (confirm('Are you sure you want to discard changes?')) {
-	      this.toggleEdit(e);
+	      this.toggleEdit(false);
 	    }
 	  },
 	
@@ -35256,7 +35259,7 @@
 	  members: function () {
 	    var that = this;
 	    var memberInfo = this.props.project.members.map(function (member) {
-	      if (that.state.edit && member.id !== that.props.project.owner_id && member.id !== that.props.user_id) {
+	      if (that.state.edit && member.id !== that.props.project.owner_id && member.id !== that.props.user.id) {
 	        return React.createElement(
 	          'li',
 	          { key: member.id },
@@ -35315,7 +35318,12 @@
 	              onChange: this.linkState, id: 'description' })
 	          )
 	        ),
-	        this.members(),
+	        React.createElement(
+	          'div',
+	          null,
+	          this.members(),
+	          React.createElement(ProjectAddMember, { project: this.props.project, user: this.props.user })
+	        ),
 	        React.createElement(
 	          'div',
 	          null,
@@ -35331,7 +35339,7 @@
 	          ),
 	          React.createElement(
 	            'button',
-	            { onClick: this.toggleEdit },
+	            { onClick: this.toggleEdit.bind(this, false) },
 	            'Done'
 	          )
 	        )
@@ -35372,6 +35380,263 @@
 	});
 	
 	module.exports = ProjectHeader;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var CurrentUserLookups = __webpack_require__(287);
+	var UserActions = __webpack_require__(289);
+	var ProjectAddMember = React.createClass({
+	  displayName: 'ProjectAddMember',
+	
+	
+	  mixins: [CurrentUserLookups],
+	
+	  getInitialState: function () {
+	    return { name: "", same_organization: false };
+	  },
+	
+	  handleInput: function (e) {
+	    e.preventDefault();
+	    this.updateName(e.target.value);
+	  },
+	
+	  updateName: function (name) {
+	    var data = { name: name };
+	    this.setState(data);
+	    if (this.state.same_organization) {
+	      data["organization"] = this.props.user.organization;
+	    }
+	    UserActions.fetchCurrentUsers(data);
+	  },
+	
+	  searchBar: function () {
+	    return React.createElement('input', { type: 'text', value: this.state.name,
+	      onInput: this.handleInput });
+	  },
+	
+	  autoComplete: function (value) {
+	    this.updateName(value);
+	  },
+	
+	  potentialMembers: function () {
+	    var that = this;
+	    var members = this.state.currentUsers.map(function (member) {
+	      return React.createElement(
+	        'li',
+	        { key: member.id, onClick: that.autoComplete.bind(that, member.name) },
+	        member.name
+	      );
+	    });
+	    return React.createElement(
+	      'ul',
+	      null,
+	      members
+	    );
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      this.searchBar(),
+	      this.potentialMembers()
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProjectAddMember;
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserStore = __webpack_require__(288);
+	var UserActions = __webpack_require__(289);
+	
+	module.exports = {
+	
+	  getInitialState: function () {
+	    return {
+	      currentUsers: UserStore.currentUsers(),
+	      projectErrors: UserStore.errors()
+	    };
+	  },
+	
+	  //how do we determine which project to fetch?
+	  componentDidMount: function () {
+	    this.userListener = UserStore.addListener(this.update);
+	    // UserActions.fetchCurrentUsers({
+	    //   user_params: this.props.user_params,
+	    // });
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    UserActions.fetchCurrentUsers({
+	      user_params: nextProps.user_params
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.userListener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({
+	      currentUsers: UserStore.currentUsers(),
+	      projectErrors: UserStore.errors()
+	    });
+	  }
+	
+	};
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(179).Store;
+	var dispatcher = __webpack_require__(173);
+	var ActionTypes = __webpack_require__(177);
+	
+	if (localStorage.getItem('users') === "undefined") {
+	  var _users = [];
+	  localStorage.setItem('users', JSON.stringify([]));
+	  localStorage.getItem('users');
+	} else {
+	  _users = JSON.parse(localStorage.getItem('users'));
+	}
+	
+	var _errors = [];
+	
+	var UserStore = new Store(dispatcher);
+	
+	UserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case ActionTypes.RECEIVE_USERS:
+	      UserStore.receiveUsers(payload.users);
+	      break;
+	    case ActionTypes.USER_ERROR:
+	      UserStore.handleErrors(payload.errors);
+	      break;
+	    case ActionTypes.CLEAR_USERS:
+	      UserStore.clear();
+	      break;
+	  }
+	};
+	
+	UserStore.receiveUsers = function (users) {
+	  localStorage.setItem('users', JSON.stringify(users));
+	  localStorage.getItem('users');
+	  UserStore.__emitChange();
+	};
+	
+	UserStore.handleErrors = function (errors) {
+	  _errors = errors;
+	};
+	
+	UserStore.currentUsers = function () {
+	  if (localStorage.getItem('users') === "undefined") {
+	    return [];
+	  } else {
+	    return JSON.parse(localStorage.getItem('users'));
+	  }
+	};
+	
+	UserStore.errors = function () {
+	  return [].slice.call(_errors);
+	};
+	
+	UserStore.clear = function () {
+	  localStorage.setItem('users', JSON.stringify([]));
+	  localStorage.getItem('users');
+	  _errors = [];
+	  UserStore.__emitChange();
+	};
+	
+	window.UserStore = UserStore;
+	
+	module.exports = UserStore;
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserApiUtil = __webpack_require__(290);
+	var dispatcher = __webpack_require__(173);
+	var UserServerActions = __webpack_require__(291);
+	var ActionTypes = __webpack_require__(177);
+	
+	var UserActions = {
+	  fetchCurrentUsers: function (params) {
+	    if (params.name.length > 0) {
+	      UserApiUtil.receiveUsers(params, function (data) {
+	        UserServerActions.receiveUsers(data);
+	      });
+	    } else {
+	      UserActions.clearUsers();
+	    }
+	  },
+	
+	  clearUsers: function () {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.CLEAR_USERS
+	    });
+	  }
+	};
+	
+	module.exports = UserActions;
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserServerActions = __webpack_require__(291);
+	
+	var UserApiUtil = {
+	  receiveUsers: function (data, cb) {
+	    $.ajax({
+	      url: '/api/users',
+	      method: 'GET',
+	      data: { search_params: data },
+	      success: function (response) {
+	        cb(response);
+	      },
+	      failure: function (response) {
+	        UserServerActions.handleErrors(response);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = UserApiUtil;
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var dispatcher = __webpack_require__(173);
+	var ActionTypes = __webpack_require__(177);
+	
+	var UserServerActions = {
+	  receiveUsers: function (data) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.RECEIVE_USERS,
+	      users: data
+	    });
+	  },
+	
+	  handleErrors: function (data) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.USER_ERROR,
+	      errors: data
+	    });
+	  }
+	};
+	
+	module.exports = UserServerActions;
 
 /***/ }
 /******/ ]);
