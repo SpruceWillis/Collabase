@@ -76,9 +76,9 @@
 	    Route,
 	    { path: '/', component: App },
 	    React.createElement(IndexRoute, { component: SplashPage }),
+	    React.createElement(Route, { path: '/projects/new', component: NewProjectPage }),
 	    React.createElement(Route, { path: '/users/:userid/projects/:projectid',
-	      component: ProjectLandingPage }),
-	    React.createElement(Route, { path: '/users/:userid/projects/new', component: NewProjectPage })
+	      component: ProjectLandingPage })
 	  )
 	);
 	
@@ -35737,7 +35737,7 @@
 	  },
 	
 	  navigateToNewProject: function () {
-	    history.push('/users/' + this.props.user.id + '/projects/new');
+	    history.push('/projects/new');
 	  },
 	
 	  render: function () {
@@ -35762,14 +35762,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PropTypes = React.PropTypes;
+	var NavBar = __webpack_require__(167);
 	
 	var NewProjectPage = React.createClass({
 	  displayName: 'NewProjectPage',
 	
 	
 	  render: function () {
-	    return React.createElement('div', null);
+	    return React.createElement(NavBar, null);
 	  }
 	
 	});

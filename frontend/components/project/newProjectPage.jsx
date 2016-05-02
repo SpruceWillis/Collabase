@@ -1,11 +1,12 @@
 var React = require('react');
-var PropTypes = React.PropTypes;
+var NavBar = require('../navBar');
 
 var NewProjectPage = React.createClass({
 
   render: function() {
     return (
-      <div />
+      <NavBar />
+      
     );
   }
 

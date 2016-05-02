@@ -23,7 +23,7 @@ projects: function(){
 },
 
 navigateToNewProject: function(){
-  history.push('/users/' + this.props.user.id + '/projects/new');
+  history.push('/projects/new');
 },
 
   render: function() {
