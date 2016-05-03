@@ -87,6 +87,7 @@ var NavBar = React.createClass({
 
   redirectLogin: function(user){
     if (user.projects.length === 0){
+      history.push('/projects/new');
       alert ("You don't have any projects!");
     } else {
       history.push("/users/" + user.id + "/projects/" + user.projects[0].id);

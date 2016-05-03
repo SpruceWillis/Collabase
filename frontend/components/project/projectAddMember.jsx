@@ -46,19 +46,19 @@ var ProjectAddMember = React.createClass({
   potentialMembers: function(){
     var that = this;
     var members = this.state.currentUsers.map(function(member){
-      return (<li key={member.id}>
-        <div >{member.name}</div>
-        <button onClick={that.addMember.bind(that,member)}>Add</button>
-      </li>);
+      return (<li onClick={that.addMember.bind(that,member)}
+      className="found-member" key={member.id}>{member.name}</li>);
     });
-    return <ul className="results">{members}</ul>;
+    return <ul className="results group">{members}</ul>;
   },
 
   render: function() {
     return (
-      <div >
-        <div className="add-members-header"> Add Project Members</div>
-        {this.searchBar()}
+      <div className="add-members">
+        <div className="search-members">
+          <div className="add-members-header"> Add Project Members</div>
+          {this.searchBar()}
+        </div>
         {this.potentialMembers()}
       </div>
     );

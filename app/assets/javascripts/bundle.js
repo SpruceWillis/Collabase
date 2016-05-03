@@ -20233,6 +20233,7 @@
 	
 	  redirectLogin: function (user) {
 	    if (user.projects.length === 0) {
+	      history.push('/projects/new');
 	      alert("You don't have any projects!");
 	    } else {
 	      history.push("/users/" + user.id + "/projects/" + user.projects[0].id);
@@ -35573,22 +35574,14 @@
 	    var members = this.state.currentUsers.map(function (member) {
 	      return React.createElement(
 	        'li',
-	        { key: member.id },
-	        React.createElement(
-	          'div',
-	          null,
-	          member.name
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: that.addMember.bind(that, member) },
-	          'Add'
-	        )
+	        { onClick: that.addMember.bind(that, member),
+	          className: 'found-member', key: member.id },
+	        member.name
 	      );
 	    });
 	    return React.createElement(
 	      'ul',
-	      { className: 'results' },
+	      { className: 'results group' },
 	      members
 	    );
 	  },
@@ -35596,13 +35589,17 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'add-members' },
 	      React.createElement(
 	        'div',
-	        { className: 'add-members-header' },
-	        ' Add Project Members'
+	        { className: 'search-members' },
+	        React.createElement(
+	          'div',
+	          { className: 'add-members-header' },
+	          ' Add Project Members'
+	        ),
+	        this.searchBar()
 	      ),
-	      this.searchBar(),
 	      this.potentialMembers()
 	    );
 	  }
