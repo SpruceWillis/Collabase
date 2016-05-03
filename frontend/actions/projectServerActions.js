@@ -36,6 +36,6 @@ module.exports = {
     dispatcher.dispatch({
       actionType: ActionTypes.RECEIVE_PROJECT_AND_UDPATE,
       project: response
-    })
+    });
   }
 };

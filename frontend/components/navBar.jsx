@@ -11,7 +11,7 @@ var NavBar = React.createClass({
 
   projectSelector: function(){
     if (!$.isEmptyObject(this.state.currentUser)){
-        return <ProjectSelector user={this.state.currentUser} />
+        return <ProjectSelector user={this.state.currentUser} />;
     }
   },
 

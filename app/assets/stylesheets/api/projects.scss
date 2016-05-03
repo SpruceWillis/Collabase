@@ -47,10 +47,6 @@ $buttermilk: #FFF7C0;
   z-index: 1
 }
 
-.new-project {
-
-}
-
 .dropdown:hover{
   color: black;
   background-color: $neutral;
@@ -80,4 +76,84 @@ $buttermilk: #FFF7C0;
 
 .new-project:hover {
   box-shadow: 0px -8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.background {
+  height: 100vh;
+  background-color: $sky;
+}
+
+.project-header {
+  border: 1px solid lightgray;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 85%;
+  margin: 20px auto;
+  background-color: beige;
+  min-width: 400px;
+}
+
+.project-innerheader{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.project-innerheader > div > button {
+  width: auto;
+  margin: 20px 40px;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: sans-serif;
+  font-size: 24px;
+}
+
+.edit-project-button {
+  float: left;
+  border: 1px solid $leaf;
+  background-color: lightgreen;
+}
+
+.edit-project-button:hover {
+  color: $neutral;
+}
+
+.delete-project-button {
+  float: right;
+  border: 1px solid $salmon;
+  background-color: pink;
+}
+
+.delete-project-button:hover {
+  color: $neutral
+}
+
+.project-title {
+  margin: 10px auto;
+  width: auto;
+  font-size: 44px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.project-description {
+  margin: auto;
+  width: auto;
+  font-size: 32px;
+  font-family: sans-serif;
+}
+
+.project-member-header {
+  width: auto;
+  margin: 5px 0 0 40px;
+  font-size: 24px;
+  font-family: sans-serif;
+}
+
+.project-member-list {
+  font-family: sans-serif;
+  list-style-type: none;
+  padding-left: 40px;
 }

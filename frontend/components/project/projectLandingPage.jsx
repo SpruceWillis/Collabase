@@ -14,10 +14,9 @@ var ProjectLandingPage = React.createClass({
 
   project: function(){
     if (this.hasProject()){
-      return (<div>
+      return (
         <ProjectHeader project={this.state.currentProject}
-          user={this.state.currentUser}/>
-      </div>);
+          user={this.state.currentUser}/>);
     } else {
       return (<div>Loading...</div>);
     }
@@ -29,7 +28,7 @@ var ProjectLandingPage = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="background">
         <NavBar />
         {this.project()}
       </div>

@@ -71,7 +71,7 @@ var ProjectApiUtil = {
       }, failure: function(response){
         projectServerActions.handleErrors(response.responseJSON.errors);
       }
-    })
+    });
   },
 
   removeMember: function(data){

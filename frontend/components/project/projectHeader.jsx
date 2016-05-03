@@ -132,8 +132,8 @@ var ProjectHeader = React.createClass({
       }
     });
     return (<div>
-      <h2>Members</h2>
-      <ul>{memberInfo}</ul>
+      <h2 className="project-member-header">Members</h2>
+      <ul className="project-member-list">{memberInfo}</ul>
     </div>);
   },
 
@@ -161,17 +161,18 @@ var ProjectHeader = React.createClass({
             <button type="submit" form="editProjectForm">Save</button>
             <button onClick={this.discardChanges}>Discard Changes</button>
             <button onClick={this.toggleEdit.bind(this, false)}>Done</button>
-
           </div>
         </div>
       );
     } else {
       return (
-        <div>
-          <button onClick={this.toggleEdit}>Edit</button>
-          <button onClick={this.destroyProject}>Delete</button>
-          <h1>{this.props.project.title}</h1>
-          <h1>{this.props.project.description}</h1>
+        <div className="project-innerheader">
+          <div>
+            <button className="edit-project-button" onClick={this.toggleEdit}>Edit</button>
+            <button className="delete-project-button" onClick={this.destroyProject}>Delete</button>
+          </div>
+          <h1 className="project-title">{this.props.project.title}</h1>
+          <h2 className="project-description">{this.props.project.description}</h2>
           {this.members()}
         </div>
       );
@@ -180,10 +181,9 @@ var ProjectHeader = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="project-header">
         {this.success()}
         {this.titleBlock()}
-
       </div>
     );
   }

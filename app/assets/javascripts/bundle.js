@@ -35098,12 +35098,8 @@
 	
 	  project: function () {
 	    if (this.hasProject()) {
-	      return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(ProjectHeader, { project: this.state.currentProject,
-	          user: this.state.currentUser })
-	      );
+	      return React.createElement(ProjectHeader, { project: this.state.currentProject,
+	        user: this.state.currentUser });
 	    } else {
 	      return React.createElement(
 	        'div',
@@ -35120,7 +35116,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'background' },
 	      React.createElement(NavBar, null),
 	      this.project()
 	    );
@@ -35284,12 +35280,12 @@
 	      null,
 	      React.createElement(
 	        'h2',
-	        null,
+	        { className: 'project-member-header' },
 	        'Members'
 	      ),
 	      React.createElement(
 	        'ul',
-	        null,
+	        { className: 'project-member-list' },
 	        memberInfo
 	      )
 	    );
@@ -35348,25 +35344,29 @@
 	    } else {
 	      return React.createElement(
 	        'div',
-	        null,
+	        { className: 'project-innerheader' },
 	        React.createElement(
-	          'button',
-	          { onClick: this.toggleEdit },
-	          'Edit'
-	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.destroyProject },
-	          'Delete'
+	          'div',
+	          null,
+	          React.createElement(
+	            'button',
+	            { className: 'edit-project-button', onClick: this.toggleEdit },
+	            'Edit'
+	          ),
+	          React.createElement(
+	            'button',
+	            { className: 'delete-project-button', onClick: this.destroyProject },
+	            'Delete'
+	          )
 	        ),
 	        React.createElement(
 	          'h1',
-	          null,
+	          { className: 'project-title' },
 	          this.props.project.title
 	        ),
 	        React.createElement(
-	          'h1',
-	          null,
+	          'h2',
+	          { className: 'project-description' },
 	          this.props.project.description
 	        ),
 	        this.members()
@@ -35377,7 +35377,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'project-header' },
 	      this.success(),
 	      this.titleBlock()
 	    );
