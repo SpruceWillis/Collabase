@@ -156,4 +156,120 @@ $buttermilk: #FFF7C0;
   font-family: sans-serif;
   list-style-type: none;
   padding-left: 40px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $carbon;
+}
+
+//edit project part
+
+.edit-project-header{
+  margin: 10px;
+  font-family: sans-serif;
+}
+
+#editProjectForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 5px 0;
+  border-bottom: 1px solid $carbon;
+}
+
+.edit-project-title {
+  margin: 5px;
+  width: 400px;
+  font-size: 44px;
+  text-align: center;
+  border-radius: 10px;
+  border-style: groove;
+  border: 1px solid $neutral;
+  font-family: sans-serif;
+}
+
+.edit-project-description {
+  margin: 5px;
+  border-radius: 10px;
+  border-style: groove;
+  border: 1px solid $neutral;
+  width: 500px;
+  font-size: 32px;
+  text-align: center;
+  font-family: sans-serif;
+
+}
+
+.member-list-item {
+  width: 20%;
+  border-radius: 10px;
+  background-color: $leaf;
+  margin: 5px 0;
+  padding: 10px;
+}
+
+.member-list-item-edit {
+  width: 20%;
+  border-radius: 10px;
+  background-color: $leaf;
+  margin: 5px 0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.member-list-item-edit:hover {
+  background-color: $salmon;
+  color: white;
+}
+
+.member-list-name {
+  float: left
+}
+
+.member-list-remove {
+  float: right;
+  width: auto;
+}
+
+.add-members-header {
+  margin: 0 0 10px 40px;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+.search {
+  margin: 0 0 10px 40px;
+  font-family: sans-serif;
+  font-size: 18px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.edit-project-options {
+  display: flex;
+  flex-direction: row;
+  font-family: sans-serif;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.edit-project-options > button {
+  width: auto;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.edit-project-options > button:hover {
+  color: white;
+}
+
+.save-project-button {
+  background-color: palegreen;
+}
+
+.nosave-project-button {
+  background-color: pink;
+}
+
+.done-project-button {
+  background-color: lightblue;
 }

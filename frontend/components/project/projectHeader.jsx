@@ -123,17 +123,18 @@ var ProjectHeader = React.createClass({
         if (that.state.edit
           && member.id !== that.props.project.owner_id
           && member.id !== that.props.user.id){
-          return <li key={member.id}>
-            {member.name}
-            <button onClick={that.removeMember.bind(that, member)}>X</button>
+          return <li onClick={that.removeMember.bind(that, member)}
+             className="member-list-item-edit group" key={member.id}>
+            <div className="member-list-name">{member.name}</div>
+            <button className="member-list-remove">X</button>
           </li>;
       } else {
-        return <li key={member.id}>{member.name}</li>;
+        return <li className="member-list-item group" key={member.id}>{member.name}</li>;
       }
     });
     return (<div>
       <h2 className="project-member-header">Members</h2>
-      <ul className="project-member-list">{memberInfo}</ul>
+      <ul className="project-member-list group">{memberInfo}</ul>
     </div>);
   },
 
@@ -143,24 +144,26 @@ var ProjectHeader = React.createClass({
     if (this.state.edit){
       return(
         <div>
+          <div className="edit-project-header">Editing Project</div>
           <form id="editProjectForm" onSubmit={this.saveChanges}>
-            <label>Project Title
             <input type="text" value={this.state.title}
-              onChange={this.linkState} id="title"/>
-            </label>
-            <label>Project Description
-            <input type="text" value={this.state.description}
-              onChange={this.linkState} id="description" />
-            </label>
+              onChange={this.linkState} placeholder="Title"
+              maxLength="40" className="edit-project-title" id="title"/>
+            <input maxLength="100" type="text" value={this.state.description}
+              onChange={this.linkState} placeholder="Description"
+              className="edit-project-description" id="description" />
           </form>
           <div>
           {this.members()}
           <ProjectAddMember project={this.props.project} user={this.props.user}/>
           </div>
-          <div>
-            <button type="submit" form="editProjectForm">Save</button>
-            <button onClick={this.discardChanges}>Discard Changes</button>
-            <button onClick={this.toggleEdit.bind(this, false)}>Done</button>
+          <div className="edit-project-options">
+            <button className="save-project-button"
+              type="submit" form="editProjectForm">Save</button>
+            <button className="nosave-project-button"
+              onClick={this.discardChanges}>Discard Changes</button>
+            <button className="done-project-button"
+              onClick={this.toggleEdit.bind(this, false)}>Done</button>
           </div>
         </div>
       );
@@ -168,8 +171,10 @@ var ProjectHeader = React.createClass({
       return (
         <div className="project-innerheader">
           <div>
-            <button className="edit-project-button" onClick={this.toggleEdit}>Edit</button>
-            <button className="delete-project-button" onClick={this.destroyProject}>Delete</button>
+            <button className="edit-project-button"
+              onClick={this.toggleEdit}>Edit</button>
+            <button className="delete-project-button"
+              onClick={this.destroyProject}>Delete</button>
           </div>
           <h1 className="project-title">{this.props.project.title}</h1>
           <h2 className="project-description">{this.props.project.description}</h2>

@@ -30,8 +30,8 @@ var ProjectAddMember = React.createClass({
   },
 
   searchBar: function(){
-    return <input type="text" value={this.state.name}
-      onInput={this.handleInput} ></input>;
+    return <input type="text" value={this.state.name} className="search"
+      onInput={this.handleInput} placeholder="Name"></input>;
   },
 
   addMember: function(member){
@@ -51,13 +51,13 @@ var ProjectAddMember = React.createClass({
         <button onClick={that.addMember.bind(that,member)}>Add</button>
       </li>);
     });
-    return <ul>{members}</ul>;
+    return <ul className="results">{members}</ul>;
   },
 
   render: function() {
     return (
       <div >
-        <div> Add Project Members</div>
+        <div className="add-members-header"> Add Project Members</div>
         {this.searchBar()}
         {this.potentialMembers()}
       </div>

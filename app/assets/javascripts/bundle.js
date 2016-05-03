@@ -35259,18 +35259,23 @@
 	      if (that.state.edit && member.id !== that.props.project.owner_id && member.id !== that.props.user.id) {
 	        return React.createElement(
 	          'li',
-	          { key: member.id },
-	          member.name,
+	          { onClick: that.removeMember.bind(that, member),
+	            className: 'member-list-item-edit group', key: member.id },
+	          React.createElement(
+	            'div',
+	            { className: 'member-list-name' },
+	            member.name
+	          ),
 	          React.createElement(
 	            'button',
-	            { onClick: that.removeMember.bind(that, member) },
+	            { className: 'member-list-remove' },
 	            'X'
 	          )
 	        );
 	      } else {
 	        return React.createElement(
 	          'li',
-	          { key: member.id },
+	          { className: 'member-list-item group', key: member.id },
 	          member.name
 	        );
 	      }
@@ -35285,7 +35290,7 @@
 	      ),
 	      React.createElement(
 	        'ul',
-	        { className: 'project-member-list' },
+	        { className: 'project-member-list group' },
 	        memberInfo
 	      )
 	    );
@@ -35298,22 +35303,19 @@
 	        'div',
 	        null,
 	        React.createElement(
+	          'div',
+	          { className: 'edit-project-header' },
+	          'Editing Project'
+	        ),
+	        React.createElement(
 	          'form',
 	          { id: 'editProjectForm', onSubmit: this.saveChanges },
-	          React.createElement(
-	            'label',
-	            null,
-	            'Project Title',
-	            React.createElement('input', { type: 'text', value: this.state.title,
-	              onChange: this.linkState, id: 'title' })
-	          ),
-	          React.createElement(
-	            'label',
-	            null,
-	            'Project Description',
-	            React.createElement('input', { type: 'text', value: this.state.description,
-	              onChange: this.linkState, id: 'description' })
-	          )
+	          React.createElement('input', { type: 'text', value: this.state.title,
+	            onChange: this.linkState, placeholder: 'Title',
+	            maxLength: '40', className: 'edit-project-title', id: 'title' }),
+	          React.createElement('input', { maxLength: '100', type: 'text', value: this.state.description,
+	            onChange: this.linkState, placeholder: 'Description',
+	            className: 'edit-project-description', id: 'description' })
 	        ),
 	        React.createElement(
 	          'div',
@@ -35323,20 +35325,23 @@
 	        ),
 	        React.createElement(
 	          'div',
-	          null,
+	          { className: 'edit-project-options' },
 	          React.createElement(
 	            'button',
-	            { type: 'submit', form: 'editProjectForm' },
+	            { className: 'save-project-button',
+	              type: 'submit', form: 'editProjectForm' },
 	            'Save'
 	          ),
 	          React.createElement(
 	            'button',
-	            { onClick: this.discardChanges },
+	            { className: 'nosave-project-button',
+	              onClick: this.discardChanges },
 	            'Discard Changes'
 	          ),
 	          React.createElement(
 	            'button',
-	            { onClick: this.toggleEdit.bind(this, false) },
+	            { className: 'done-project-button',
+	              onClick: this.toggleEdit.bind(this, false) },
 	            'Done'
 	          )
 	        )
@@ -35350,12 +35355,14 @@
 	          null,
 	          React.createElement(
 	            'button',
-	            { className: 'edit-project-button', onClick: this.toggleEdit },
+	            { className: 'edit-project-button',
+	              onClick: this.toggleEdit },
 	            'Edit'
 	          ),
 	          React.createElement(
 	            'button',
-	            { className: 'delete-project-button', onClick: this.destroyProject },
+	            { className: 'delete-project-button',
+	              onClick: this.destroyProject },
 	            'Delete'
 	          )
 	        ),
@@ -35548,8 +35555,8 @@
 	  },
 	
 	  searchBar: function () {
-	    return React.createElement('input', { type: 'text', value: this.state.name,
-	      onInput: this.handleInput });
+	    return React.createElement('input', { type: 'text', value: this.state.name, className: 'search',
+	      onInput: this.handleInput, placeholder: 'Name' });
 	  },
 	
 	  addMember: function (member) {
@@ -35581,7 +35588,7 @@
 	    });
 	    return React.createElement(
 	      'ul',
-	      null,
+	      { className: 'results' },
 	      members
 	    );
 	  },
@@ -35592,7 +35599,7 @@
 	      null,
 	      React.createElement(
 	        'div',
-	        null,
+	        { className: 'add-members-header' },
 	        ' Add Project Members'
 	      ),
 	      this.searchBar(),
