@@ -16,6 +16,7 @@ var _errors = [];
 ProjectStore.__onDispatch = function(payload){
   switch (payload.actionType) {
     case ActionTypes.RECEIVE_PROJECT:
+    case ActionTypes.RECEIVE_PROJECT_AND_UDPATE:
       ProjectStore.receiveProject(payload.project);
       break;
     case ActionTypes.LOGOUT:
@@ -63,6 +64,7 @@ ProjectStore.logout = function(){
   _project = {};
   localStorage.setItem('currentProject', JSON.stringify({}));
   _errors = [];
+  ProjectStore.__emitChange();
 };
 
 ProjectStore.errors = function () {

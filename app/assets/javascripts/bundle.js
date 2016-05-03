@@ -20839,7 +20839,8 @@
 	  DESTROY_PROJECT: "DESTROY_PROJECT",
 	  RECEIVE_USERS: "RECEIVE_USERS",
 	  USER_ERROR: "USER_ERROR",
-	  CLEAR_USERS: "CLEAR_USERS"
+	  CLEAR_USERS: "CLEAR_USERS",
+	  RECEIVE_PROJECT_AND_UDPATE: "RECEIVE_PROJECT_AND_UDPATE"
 	};
 
 /***/ },
@@ -20871,6 +20872,12 @@
 	      break;
 	    case ActionTypes.LOGOUT:
 	      SessionStore.logout();
+	      break;
+	    case ActionTypes.RECEIVE_PROJECT_AND_UDPATE:
+	      SessionStore.addProject(payload.project);
+	      break;
+	    case ActionTypes.DESTROY_PROJECT:
+	      SessionStore.removeProject(payload.project);
 	      break;
 	  }
 	};
@@ -20904,6 +20911,27 @@
 	  } else {
 	    return JSON.parse(localStorage.getItem('currentUser'));
 	  }
+	};
+	
+	SessionStore.addProject = function (project) {
+	  _user = JSON.parse(localStorage.getItem('currentUser'));
+	  _user.projects.push(project);
+	  localStorage.setItem('currentUser', JSON.stringify(_user));
+	  localStorage.getItem('currentUser');
+	  SessionStore.__emitChange();
+	};
+	
+	SessionStore.removeProject = function (project) {
+	  _user = JSON.parse(localStorage.getItem('currentUser'));
+	  for (var i = 0; i < _user.projects.length; i++) {
+	    if (_user.projects[i].id === project.id) {
+	      _user.projects.splice(i, 1);
+	      break;
+	    }
+	  }
+	  localStorage.setItem('currentUser', JSON.stringify(_user));
+	  localStorage.getItem('currentUser');
+	  SessionStore.__emitChange();
 	};
 	
 	SessionStore.errors = function () {
@@ -32842,12 +32870,12 @@
 	    projectApiUtil.updateProject(data, cb);
 	  },
 	
-	  createProject: function (data) {
-	    projectApiUtil.createProject(data);
+	  createProject: function (data, cb) {
+	    projectApiUtil.createProject(data, cb);
 	  },
 	
-	  destroyProject: function (data) {
-	    projectApiUtil.destroyProject(data);
+	  destroyProject: function (data, cb) {
+	    projectApiUtil.destroyProject(data, cb);
 	  },
 	
 	  addMember: function (data) {
@@ -32887,13 +32915,13 @@
 	    });
 	  },
 	
-	  createProject: function (data) {
+	  createProject: function (data, cb) {
 	    $.ajax({
 	      url: '/api/projects',
 	      data: { project: data },
 	      method: "POST",
 	      success: function (response) {
-	        projectServerActions.receiveProject(response);
+	        projectServerActions.receiveProjectAndUpdateUser(response, cb);
 	      }, failure: function (response) {
 	        projectServerActions.handleErrors(response.responseJSON.console.errors);
 	      }
@@ -32914,12 +32942,15 @@
 	    });
 	  },
 	
-	  destroyProject: function (data) {
+	  destroyProject: function (data, cb) {
+	    if (typeof cb !== "undefined") {
+	      cb(data);
+	    }
 	    $.ajax({
 	      url: '/api/projects/' + data.project_id,
 	      method: "DELETE",
 	      success: function (response) {
-	        projectServerActions.destroyProject();
+	        projectServerActions.destroyProject(response);
 	      }, failure: function (response) {
 	        projectServerActions.handleErrors(response.responseJSON.errors);
 	      }
@@ -32966,7 +32997,7 @@
 	module.exports = {
 	  receiveProject: function (response, cb) {
 	    if (typeof cb !== "undefined") {
-	      cb();
+	      cb(response);
 	    }
 	    dispatcher.dispatch({
 	      actionType: ActionTypes.RECEIVE_PROJECT,
@@ -32981,9 +33012,23 @@
 	    });
 	  },
 	
-	  destroyProject: function (response) {
+	  destroyProject: function (response, cb) {
+	    if (typeof cb !== "undefined") {
+	      cb(response);
+	    }
 	    dispatcher.dispatch({
-	      actionType: ActionTypes.DESTROY_PROJECT
+	      actionType: ActionTypes.DESTROY_PROJECT,
+	      project: response
+	    });
+	  },
+	
+	  receiveProjectAndUpdateUser: function (response, cb) {
+	    if (typeof cb !== "undefined") {
+	      cb(response);
+	    }
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.RECEIVE_PROJECT_AND_UDPATE,
+	      project: response
 	    });
 	  }
 	};
@@ -35093,6 +35138,8 @@
 	var ProjectActions = __webpack_require__(256);
 	var CurrentProjectState = __webpack_require__(282);
 	var ProjectAddMember = __webpack_require__(284);
+	var history = __webpack_require__(197).hashHistory;
+	
 	var ProjectHeader = React.createClass({
 	  displayName: 'ProjectHeader',
 	
@@ -35114,6 +35161,10 @@
 	    }
 	  },
 	
+	  // componentWillMount: function() {
+	  //   window.addEventListener("beforeunload", this.confirmPageLeaving);
+	  // },
+	
 	  componentWillReceiveProps: function (nextProps) {
 	    this.setState({
 	      title: nextProps.project.title,
@@ -35124,13 +35175,27 @@
 	  },
 	
 	  componentDidMount: function () {
+	
 	    this.setState({ edit: false });
 	  },
+	
+	  // componentWillUnmount: function() {
+	  //   window.removeEventListener("beforeunload", this.confirmPageLeaving.bind(this));
+	  // },
 	
 	  saveChanges: function (e) {
 	    e.preventDefault();
 	    ProjectActions.updateProject(this.state, this.saveAlert);
 	  },
+	
+	  // confirmPageLeaving: function(){
+	  //   debugger;
+	  //   if (this.state.edit){
+	  //     return "Are you sure you want to continue? Any unsaved changes will be lost.";
+	  //   } else {
+	  //     return;
+	  //   }
+	  // },
 	
 	  saveAlert: function () {
 	    alert('Changes successfully saved');
@@ -35168,6 +35233,27 @@
 	      );
 	    } else {
 	      return;
+	    }
+	  },
+	
+	  destroyProject: function () {
+	    if (confirm("Are you sure you want to delete this project?")) {
+	      ProjectActions.destroyProject({ project_id: this.props.project.id }, this.redirectOnDeletion);
+	    }
+	  },
+	
+	  redirectOnDeletion: function (project) {
+	    var nextId = -1;
+	    for (var i = 0; i < this.props.user.projects.length; i++) {
+	      if (this.props.user.projects[i].id !== project.id) {
+	        nextId = this.props.user.projects[i].id;
+	        break;
+	      }
+	    }
+	    if (nextId >= 0) {
+	      history.push('/users/' + this.props.user.id + '/projects/' + nextId);
+	    } else {
+	      history.push('/projects/new');
 	    }
 	  },
 	
@@ -35269,6 +35355,11 @@
 	          'Edit'
 	        ),
 	        React.createElement(
+	          'button',
+	          { onClick: this.destroyProject },
+	          'Delete'
+	        ),
+	        React.createElement(
 	          'h1',
 	          null,
 	          this.props.project.title
@@ -35361,6 +35452,7 @@
 	ProjectStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case ActionTypes.RECEIVE_PROJECT:
+	    case ActionTypes.RECEIVE_PROJECT_AND_UDPATE:
 	      ProjectStore.receiveProject(payload.project);
 	      break;
 	    case ActionTypes.LOGOUT:
@@ -35408,6 +35500,7 @@
 	  _project = {};
 	  localStorage.setItem('currentProject', JSON.stringify({}));
 	  _errors = [];
+	  ProjectStore.__emitChange();
 	};
 	
 	ProjectStore.errors = function () {
@@ -35763,13 +35856,95 @@
 
 	var React = __webpack_require__(1);
 	var NavBar = __webpack_require__(167);
+	var history = __webpack_require__(197).hashHistory;
+	var ProjectActions = __webpack_require__(256);
 	
 	var NewProjectPage = React.createClass({
 	  displayName: 'NewProjectPage',
 	
 	
+	  getInitialState: function () {
+	    return {
+	      title: "",
+	      description: ""
+	    };
+	  },
+	
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	    ProjectActions.createProject(this.state, this.redirectToProject);
+	  },
+	
+	  redirectToProject: function (response) {
+	    history.push('users/' + response.owner_id + '/projects/' + response.id);
+	    alert('Project successfully created');
+	  },
+	
+	  updateTitle: function (e) {
+	    e.preventDefault();
+	    this.setState({ title: e.target.value });
+	  },
+	
+	  updateDescription: function (e) {
+	    e.preventDefault();
+	    this.setState({ description: e.target.value });
+	  },
+	
+	  projectForm: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit, id: 'newProjectForm' },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Title',
+	          React.createElement('input', { type: 'text', onChange: this.updateTitle, value: this.state.title })
+	        ),
+	        React.createElement(
+	          'label',
+	          null,
+	          'Description',
+	          React.createElement('input', { type: 'text', onChange: this.updateDescription, value: this.state.description })
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'button',
+	            { type: 'submit', form: 'newProjectForm' },
+	            'Create Project'
+	          ),
+	          React.createElement(
+	            'button',
+	            { onClick: this.cancel },
+	            'Cancel'
+	          )
+	        )
+	      )
+	    );
+	  },
+	
+	  cancel: function () {
+	    if (confirm("Are you sure you want to leave this page?" + "Any information you have will be lost.")) {
+	      history.goBack();
+	    }
+	  },
+	
 	  render: function () {
-	    return React.createElement(NavBar, null);
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(NavBar, null),
+	      this.projectForm(),
+	      React.createElement(
+	        'div',
+	        null,
+	        'You\'ll get the chance to add additional members later.'
+	      )
+	    );
 	  }
 	
 	});

@@ -59,6 +59,7 @@ UserStore.clear = function(){
   UserStore.__emitChange();
 };
 
+
 window.UserStore = UserStore;
 
 module.exports = UserStore;

@@ -4,7 +4,7 @@ var ActionTypes = require('../constants/actionTypes');
 module.exports = {
   receiveProject: function(response, cb){
     if (typeof cb !== "undefined"){
-      cb();
+      cb(response);
     }
     dispatcher.dispatch({
       actionType: ActionTypes.RECEIVE_PROJECT,
@@ -19,9 +19,23 @@ module.exports = {
     });
   },
 
-  destroyProject: function(response){
+  destroyProject: function(response, cb){
+    if(typeof cb !== "undefined"){
+      cb(response);
+    }
     dispatcher.dispatch({
       actionType: ActionTypes.DESTROY_PROJECT,
+      project: response
     });
+  },
+
+  receiveProjectAndUpdateUser: function(response, cb){
+    if (typeof cb !== "undefined"){
+      cb(response);
+    }
+    dispatcher.dispatch({
+      actionType: ActionTypes.RECEIVE_PROJECT_AND_UDPATE,
+      project: response
+    })
   }
 };

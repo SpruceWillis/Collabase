@@ -9,12 +9,12 @@ var projectApiUtil = require('../util/projectApiUtil');
     projectApiUtil.updateProject(data, cb);
   },
 
-  createProject: function(data){
-    projectApiUtil.createProject(data);
+  createProject: function(data, cb){
+    projectApiUtil.createProject(data, cb);
   },
 
-  destroyProject: function(data){
-    projectApiUtil.destroyProject(data);
+  destroyProject: function(data, cb){
+    projectApiUtil.destroyProject(data, cb);
   },
 
   addMember: function(data){

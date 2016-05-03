@@ -24,6 +24,12 @@ SessionStore.__onDispatch = function(payload){
     case ActionTypes.LOGOUT:
       SessionStore.logout();
       break;
+    case ActionTypes.RECEIVE_PROJECT_AND_UDPATE:
+      SessionStore.addProject(payload.project);
+      break;
+    case ActionTypes.DESTROY_PROJECT:
+      SessionStore.removeProject(payload.project);
+      break;
   }
 };
 
@@ -57,6 +63,28 @@ SessionStore.currentUser = function(){
   } else {
     return (JSON.parse(localStorage.getItem('currentUser')));
   }
+};
+
+
+SessionStore.addProject = function(project){
+  _user = JSON.parse(localStorage.getItem('currentUser'));
+  _user.projects.push(project);
+  localStorage.setItem('currentUser', JSON.stringify(_user));
+  localStorage.getItem('currentUser');
+  SessionStore.__emitChange();
+};
+
+SessionStore.removeProject = function(project){
+  _user = JSON.parse(localStorage.getItem('currentUser'));
+  for (var i = 0; i < _user.projects.length; i++){
+    if (_user.projects[i].id === project.id){
+      _user.projects.splice(i, 1);
+      break;
+    }
+  }
+  localStorage.setItem('currentUser', JSON.stringify(_user));
+  localStorage.getItem('currentUser');
+  SessionStore.__emitChange();
 };
 
 SessionStore.errors = function () {

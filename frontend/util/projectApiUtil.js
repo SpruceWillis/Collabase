@@ -19,13 +19,13 @@ var ProjectApiUtil = {
     });
   },
 
-  createProject: function(data){
+  createProject: function(data, cb){
     $.ajax({
       url: '/api/projects',
       data: {project: data},
       method: "POST",
       success: function(response){
-        projectServerActions.receiveProject(response);
+        projectServerActions.receiveProjectAndUpdateUser(response, cb);
       }, failure: function(response){
         projectServerActions.handleErrors(response.responseJSON.console.errors);
       }
@@ -46,12 +46,15 @@ var ProjectApiUtil = {
     });
   },
 
-  destroyProject: function(data){
+  destroyProject: function(data, cb){
+    if (typeof cb !== "undefined"){
+      cb(data);
+    }
     $.ajax({
       url: '/api/projects/' + data.project_id,
       method: "DELETE",
       success: function(response){
-        projectServerActions.destroyProject();
+        projectServerActions.destroyProject(response);
       }, failure: function(response){
         projectServerActions.handleErrors(response.responseJSON.errors);
       }

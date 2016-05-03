@@ -2,6 +2,8 @@ var React = require('react');
 var ProjectActions  = require('../../actions/projectActions');
 var CurrentProjectState = require('../../mixins/currentProjectState');
 var ProjectAddMember = require('./projectAddMember');
+var history = require('react-router').hashHistory;
+
 var ProjectHeader = React.createClass({
 
   getInitialState: function(){
@@ -21,6 +23,10 @@ var ProjectHeader = React.createClass({
     }
   },
 
+  // componentWillMount: function() {
+  //   window.addEventListener("beforeunload", this.confirmPageLeaving);
+  // },
+
   componentWillReceiveProps: function(nextProps) {
     this.setState({
       title: nextProps.project.title,
@@ -31,14 +37,27 @@ var ProjectHeader = React.createClass({
   },
 
   componentDidMount: function() {
+
     this.setState({edit: false});
   },
+
+  // componentWillUnmount: function() {
+  //   window.removeEventListener("beforeunload", this.confirmPageLeaving.bind(this));
+  // },
 
   saveChanges: function(e){
     e.preventDefault();
     ProjectActions.updateProject(this.state, this.saveAlert);
-
   },
+
+  // confirmPageLeaving: function(){
+  //   debugger;
+  //   if (this.state.edit){
+  //     return "Are you sure you want to continue? Any unsaved changes will be lost.";
+  //   } else {
+  //     return;
+  //   }
+  // },
 
   saveAlert: function(){
     alert('Changes successfully saved');
@@ -73,6 +92,28 @@ var ProjectHeader = React.createClass({
       return <h3> Changes successfully saved</h3>;
     } else {
       return;
+    }
+  },
+
+  destroyProject: function(){
+    if (confirm("Are you sure you want to delete this project?")){
+      ProjectActions.destroyProject({project_id: this.props.project.id},
+      this.redirectOnDeletion);
+    }
+  },
+
+  redirectOnDeletion: function(project){
+    var nextId = -1;
+    for (var i = 0; i < this.props.user.projects.length; i++){
+      if (this.props.user.projects[i].id !== project.id){
+        nextId = this.props.user.projects[i].id;
+        break;
+      }
+    }
+    if (nextId >= 0){
+      history.push('/users/' + this.props.user.id + '/projects/' + nextId);
+    } else {
+      history.push('/projects/new');
     }
   },
 
@@ -128,6 +169,7 @@ var ProjectHeader = React.createClass({
       return (
         <div>
           <button onClick={this.toggleEdit}>Edit</button>
+          <button onClick={this.destroyProject}>Delete</button>
           <h1>{this.props.project.title}</h1>
           <h1>{this.props.project.description}</h1>
           {this.members()}
