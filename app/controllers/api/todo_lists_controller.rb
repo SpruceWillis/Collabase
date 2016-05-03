@@ -1,8 +1,9 @@
 class Api::TodoListsController < ApplicationController
+  #TODO: validate that the user is on a project before being allowed to perform these actions.
   def create
     @todo_list = TodoList.new(todo_list_params)
     @todo_list.project_id = params[:project_id]
-    @todo_list.user_id = 1
+    @todo_list.user_id = current_user.id
     if (@todo_list.save)
       render "api/todo_lists/show"
     else

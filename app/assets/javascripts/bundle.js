@@ -49,7 +49,8 @@
 	var SplashPage = __webpack_require__(166),
 	    ProjectLandingPage = __webpack_require__(280),
 	    NavBar = __webpack_require__(167),
-	    NewProjectPage = __webpack_require__(291);
+	    NewProjectPage = __webpack_require__(291),
+	    ProjectTodosPage = __webpack_require__(292);
 	var Modal = __webpack_require__(260);
 	var ReactRouter = __webpack_require__(197),
 	    Router = ReactRouter.Router,
@@ -78,7 +79,9 @@
 	    React.createElement(IndexRoute, { component: SplashPage }),
 	    React.createElement(Route, { path: '/projects/new', component: NewProjectPage }),
 	    React.createElement(Route, { path: '/users/:userid/projects/:projectid',
-	      component: ProjectLandingPage })
+	      component: ProjectLandingPage }),
+	    React.createElement(Route, { path: '/users/:userid/projects/:projectid/todos',
+	      component: ProjectTodosPage })
 	  )
 	);
 	
@@ -20841,7 +20844,8 @@
 	  RECEIVE_USERS: "RECEIVE_USERS",
 	  USER_ERROR: "USER_ERROR",
 	  CLEAR_USERS: "CLEAR_USERS",
-	  RECEIVE_PROJECT_AND_UDPATE: "RECEIVE_PROJECT_AND_UDPATE"
+	  RECEIVE_PROJECT_AND_UDPATE: "RECEIVE_PROJECT_AND_UDPATE",
+	  RECIEVE_TODOS: "RECEIVE_TODOS"
 	};
 
 /***/ },
@@ -35954,6 +35958,29 @@
 	});
 	
 	module.exports = NewProjectPage;
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var PropTypes = React.PropTypes;
+	
+	var ProjectTodosPage = React.createClass({
+	  displayName: 'ProjectTodosPage',
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      'Hello'
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProjectTodosPage;
 
 /***/ }
 /******/ ]);
