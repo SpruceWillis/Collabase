@@ -1,6 +1,7 @@
 var React = require('react');
 var NavBar = require('../navBar'),
-    ProjectHeader = require('./projectHeader');
+    ProjectHeader = require('./projectHeader'),
+    ProjectNavigation = require('./ProjectNavigation');
 var CurrentUserState = require('../../mixins/currentUserState');
 var CurrentProjectState = require('../../mixins/currentProjectState');
 
@@ -22,6 +23,17 @@ var ProjectLandingPage = React.createClass({
     }
   },
 
+  projectNavigation: function(){
+    if (this.hasProject()){
+      return (
+        <ProjectNavigation project={this.state.currentProject}
+          user={this.state.currentUser} />
+      );
+    } else {
+      return;
+    }
+  },
+
   hasProject: function(){
     return !($.isEmptyObject(this.state.currentProject));
   },
@@ -31,6 +43,7 @@ var ProjectLandingPage = React.createClass({
       <div className="background">
         <NavBar />
         {this.project()}
+        {this.projectNavigation()}
       </div>
     );
   }

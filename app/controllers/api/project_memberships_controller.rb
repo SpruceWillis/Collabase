@@ -19,7 +19,7 @@ class Api::ProjectMembershipsController < ApplicationController
       render "api/projects/show", locals: {show_members: true}
     else
       @errors = @pm.errors.full_messages
-      render "api/shared/errors", status: 422
+      render "api/shared/error", status: 422
     end
   end
 

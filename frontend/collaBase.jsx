@@ -3,7 +3,9 @@ var ReactDOM = require('react-dom');
 var SplashPage = require('./components/splashPage'),
     ProjectLandingPage = require('./components/project/projectLandingPage'),
      NavBar = require('./components/navBar'),
-     NewProjectPage = require('./components/project/newProjectPage');
+     NewProjectPage = require('./components/project/newProjectPage'),
+     ProjectTodosPage = require('./components/todos/projectTodosPage'),
+     TodoPage = require('./components/todos/todoPage');
 var Modal = require("react-modal");
 var ReactRouter = require('react-router'),
     Router = ReactRouter.Router,
@@ -29,6 +31,10 @@ var router = (
       <Route path="/projects/new" component={NewProjectPage}></Route>
       <Route path="/users/:userid/projects/:projectid"
         component={ProjectLandingPage}></Route>
+      <Route path="/users/:userid/projects/:projectid/todos"
+        component={ProjectTodosPage} />
+      <Route path="/users/:userid/projects/:projectid/todos/:todoid"
+        component={TodoPage} />
     </Route>
   </Router>
 );
