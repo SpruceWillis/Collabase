@@ -5,9 +5,9 @@ var ActionTypes = require('../constants/actionTypes');
 
 var UserActions = {
   fetchCurrentUsers: function(params){
-    if (typeof params.name !== "string" || params.name.length === 0){
+    if (typeof params.name !== "string"){
       UserActions.clearUsers();
-    } else if (params.name.length > 0){
+    } else {
       UserApiUtil.receiveUsers(params, function(data){
         UserServerActions.receiveUsers(data);
       });

@@ -35629,19 +35629,27 @@
 	
 	  potentialMembers: function () {
 	    var that = this;
-	    var members = this.state.currentUsers.map(function (member) {
+	    if (this.state.currentUsers.length > 0) {
+	      var members = this.state.currentUsers.map(function (member) {
+	        return React.createElement(
+	          'li',
+	          { onClick: that.addMember.bind(that, member),
+	            className: 'found-member', key: member.id },
+	          member.name
+	        );
+	      });
 	      return React.createElement(
-	        'li',
-	        { onClick: that.addMember.bind(that, member),
-	          className: 'found-member', key: member.id },
-	        member.name
+	        'ul',
+	        { className: 'results group' },
+	        members
 	      );
-	    });
-	    return React.createElement(
-	      'ul',
-	      { className: 'results group' },
-	      members
-	    );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'no-members' },
+	        ' No members found'
+	      );
+	    }
 	  },
 	
 	  render: function () {
@@ -35787,9 +35795,9 @@
 	
 	var UserActions = {
 	  fetchCurrentUsers: function (params) {
-	    if (typeof params.name !== "string" || params.name.length === 0) {
+	    if (typeof params.name !== "string") {
 	      UserActions.clearUsers();
-	    } else if (params.name.length > 0) {
+	    } else {
 	      UserApiUtil.receiveUsers(params, function (data) {
 	        UserServerActions.receiveUsers(data);
 	      });
