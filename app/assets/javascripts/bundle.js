@@ -35872,10 +35872,13 @@
 	
 	  handleSubmit: function (e) {
 	    e.preventDefault();
-	    ProjectActions.createProject(this.state, this.redirectToProject);
+	    if (this.state.title !== "" && this.state.description !== "") {
+	      ProjectActions.createProject(this.state, this.redirectToProject);
+	    }
 	  },
 	
 	  redirectToProject: function (response) {
+	    debugger;
 	    history.push('users/' + response.owner_id + '/projects/' + response.id);
 	    alert('Project successfully created');
 	  },
@@ -35898,17 +35901,17 @@
 	        'form',
 	        { onSubmit: this.handleSubmit, id: 'editProjectForm' },
 	        React.createElement('input', { type: 'text', onChange: this.updateTitle, placeholder: 'Title',
-	          className: 'edit-project-title', value: this.state.title }),
+	          className: 'edit-project-title', value: this.state.title, required: true }),
 	        React.createElement('input', { type: 'text', onChange: this.updateDescription,
 	          className: 'edit-project-description', placeholder: 'Description',
-	          value: this.state.description }),
+	          value: this.state.description, required: true }),
 	        React.createElement(
 	          'div',
 	          { className: 'new-project-buttons' },
 	          React.createElement(
 	            'button',
 	            { className: 'create-project-button',
-	              type: 'submit', form: 'newProjectForm' },
+	              type: 'submit', form: 'editProjectForm' },
 	            'Create Project'
 	          ),
 	          React.createElement(

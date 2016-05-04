@@ -14,10 +14,13 @@ var NewProjectPage = React.createClass({
 
   handleSubmit: function(e){
     e.preventDefault();
-    ProjectActions.createProject(this.state, this.redirectToProject);
+    if (this.state.title !== "" && this.state.description !== ""){
+      ProjectActions.createProject(this.state, this.redirectToProject);
+    }
   },
 
   redirectToProject: function(response){
+    debugger;
     history.push('users/' + response.owner_id + '/projects/' + response.id);
     alert('Project successfully created');
   },
@@ -37,13 +40,13 @@ var NewProjectPage = React.createClass({
       <div className="project-header">
         <form onSubmit={this.handleSubmit} id="editProjectForm">
             <input  type="text" onChange={this.updateTitle} placeholder="Title"
-              className="edit-project-title" value={this.state.title}></input>
+              className="edit-project-title" value={this.state.title} required></input>
             <input type="text" onChange={this.updateDescription}
               className="edit-project-description" placeholder="Description"
-               value={this.state.description}></input>
+               value={this.state.description} required></input>
             <div className="new-project-buttons">
               <button className="create-project-button"
-                type="submit" form="newProjectForm">Create Project</button>
+                type="submit" form="editProjectForm">Create Project</button>
               <button className="cancel-project-button"
                 onClick={this.cancel}>Cancel</button>
           </div>
