@@ -79,6 +79,7 @@ TodoStore.allTodos = function(){
 };
 
 TodoStore.currentTodo = function(id){
+  id = parseInt(id);
   var _todos = TodoStore.get(todos);
   for (var i = 0; i < _todos.length; i++){
     if (_todos[i].id === id) {

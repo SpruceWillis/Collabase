@@ -15,7 +15,6 @@ var TodoApiUtil = {
   },
 
   createTodoList: function(data, cb){
-    debugger;
     $.ajax({
       url: '/api/projects/' + data.projectid + '/todo_lists',
       method: 'POST',

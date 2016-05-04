@@ -4,7 +4,6 @@ var history = require('react-router').hashHistory;
 var EditTodo = React.createClass({
 
   getInitialState: function() {
-    debugger;
     if (this.props.new){
       return {
         title: "",
@@ -17,7 +16,8 @@ var EditTodo = React.createClass({
         title: this.props.todo.title,
         description: this.props.todo.description,
         completed: this.props.todo.completed,
-        id: this.props.todo.id
+        id: this.props.todo.id,
+        cancel: this.props.cancel
       };
     }
   },
@@ -26,7 +26,7 @@ var EditTodo = React.createClass({
     if (this.props.new) {
       return "New";
     } else {
-      return "Edit";
+      return "Update";
     }
   },
 
@@ -34,8 +34,15 @@ var EditTodo = React.createClass({
     if (this.props.new){
       return;
     } else {
-      return <button className="todolist-cancel">Cancel</button>
+      return <button onClick={this.cancel}
+        className="todolist-cancel">Cancel</button>;
     }
+  },
+
+  cancel: function(e){
+    debugger;
+    e.preventDefault();
+    this.props.cancel();
   },
 
   updateTitle: function(e){
@@ -61,7 +68,6 @@ var EditTodo = React.createClass({
     if (this.props.new){
       TodoApiUtil.createTodoList(this.state, this.todoRedirect);
     } else {
-
       TodoApiUtil.updateTodoList(this.state);
     }
   },

@@ -50,7 +50,8 @@
 	    ProjectLandingPage = __webpack_require__(280),
 	    NavBar = __webpack_require__(167),
 	    NewProjectPage = __webpack_require__(291),
-	    ProjectTodosPage = __webpack_require__(292);
+	    ProjectTodosPage = __webpack_require__(292),
+	    TodoPage = __webpack_require__(301);
 	var Modal = __webpack_require__(260);
 	var ReactRouter = __webpack_require__(197),
 	    Router = ReactRouter.Router,
@@ -81,7 +82,9 @@
 	    React.createElement(Route, { path: '/users/:userid/projects/:projectid',
 	      component: ProjectLandingPage }),
 	    React.createElement(Route, { path: '/users/:userid/projects/:projectid/todos',
-	      component: ProjectTodosPage })
+	      component: ProjectTodosPage }),
+	    React.createElement(Route, { path: '/users/:userid/projects/:projectid/todos/:todoid',
+	      component: TodoPage })
 	  )
 	);
 	
@@ -36189,6 +36192,7 @@
 	};
 	
 	TodoStore.currentTodo = function (id) {
+	  id = parseInt(id);
 	  var _todos = TodoStore.get(todos);
 	  for (var i = 0; i < _todos.length; i++) {
 	    if (_todos[i].id === id) {
@@ -36262,7 +36266,6 @@
 	  },
 	
 	  createTodoList: function (data, cb) {
-	    debugger;
 	    $.ajax({
 	      url: '/api/projects/' + data.projectid + '/todo_lists',
 	      method: 'POST',
@@ -36336,7 +36339,6 @@
 	
 	
 	  getInitialState: function () {
-	    debugger;
 	    if (this.props.new) {
 	      return {
 	        title: "",
@@ -36349,7 +36351,8 @@
 	        title: this.props.todo.title,
 	        description: this.props.todo.description,
 	        completed: this.props.todo.completed,
-	        id: this.props.todo.id
+	        id: this.props.todo.id,
+	        cancel: this.props.cancel
 	      };
 	    }
 	  },
@@ -36358,7 +36361,7 @@
 	    if (this.props.new) {
 	      return "New";
 	    } else {
-	      return "Edit";
+	      return "Update";
 	    }
 	  },
 	
@@ -36368,10 +36371,17 @@
 	    } else {
 	      return React.createElement(
 	        'button',
-	        { className: 'todolist-cancel' },
+	        { onClick: this.cancel,
+	          className: 'todolist-cancel' },
 	        'Cancel'
 	      );
 	    }
+	  },
+	
+	  cancel: function (e) {
+	    debugger;
+	    e.preventDefault();
+	    this.props.cancel();
 	  },
 	
 	  updateTitle: function (e) {
@@ -36396,7 +36406,6 @@
 	    if (this.props.new) {
 	      TodoApiUtil.createTodoList(this.state, this.todoRedirect);
 	    } else {
-	
 	      TodoApiUtil.updateTodoList(this.state);
 	    }
 	  },
@@ -36439,6 +36448,94 @@
 	});
 	
 	module.exports = EditTodo;
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var TodoStore = __webpack_require__(295);
+	var EditTodo = __webpack_require__(300);
+	var TodoPage = React.createClass({
+	  displayName: 'TodoPage',
+	
+	
+	  getInitialState: function () {
+	    return {
+	      todo: TodoStore.currentTodo(this.props.params.todoid),
+	      edit: false
+	    };
+	  },
+	
+	  componentWillMount: function () {
+	    this.listener = TodoStore.addListener(this.update);
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    this.setState({
+	      todo: TodoStore.currentTodo(nextProps.params.todoid),
+	      edit: false
+	    });
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({
+	      todo: TodoStore.currentTodo(this.props.params.todoid)
+	    });
+	  },
+	
+	  enableEdit: function () {
+	    this.setState({ edit: true });
+	  },
+	
+	  cancel: function (e) {
+	    e.preventDefault();
+	    this.setState({ edit: true });
+	  },
+	
+	  edit: function () {
+	    if (this.state.edit) {
+	      var boundClick = this.cancel.bind(this);
+	      return React.createElement(EditTodo, { 'new': false, todo: this.state.todo,
+	        cancel: boundClick });
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'button',
+	          { onClick: this.enableEdit },
+	          'Edit'
+	        ),
+	        React.createElement(
+	          'h1',
+	          null,
+	          this.state.todo.title
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          this.state.todo.description
+	        )
+	      );
+	    }
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      this.edit()
+	    );
+	  }
+	
+	});
+	
+	module.exports = TodoPage;
 
 /***/ }
 /******/ ]);
