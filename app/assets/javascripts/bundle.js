@@ -20846,6 +20846,7 @@
 	  CLEAR_USERS: "CLEAR_USERS",
 	  RECEIVE_PROJECT_AND_UDPATE: "RECEIVE_PROJECT_AND_UDPATE",
 	  RECEIVE_TODOS: "RECEIVE_TODOS",
+	  RECEIVE_TODO: "RECEIVE_TODO",
 	  TODO_ERROR: "TODO_ERROR"
 	};
 
@@ -35978,7 +35979,8 @@
 	var React = __webpack_require__(1);
 	var TodoStore = __webpack_require__(295);
 	var NavBar = __webpack_require__(167),
-	    TodoPreview = __webpack_require__(298);
+	    TodoPreview = __webpack_require__(298),
+	    EditTodo = __webpack_require__(300);
 	var TodoServerActions = __webpack_require__(296);
 	var TodoActions = __webpack_require__(294);
 	
@@ -36044,7 +36046,8 @@
 	      null,
 	      React.createElement(NavBar, null),
 	      this.todos(),
-	      React.createElement(NewTodo, { edit: true, project: this.props.project })
+	      React.createElement(EditTodo, { userid: this.props.params.userid, 'new': true,
+	        project: this.props.params.projectid })
 	    );
 	  }
 	
@@ -36092,6 +36095,14 @@
 	var TodoActions = {
 	  getTodos: function (data, cb) {
 	    TodoApiUtil.getTodos(data, cb);
+	  },
+	
+	  createTodoList: function (data, cb) {
+	    TodoApiUtil.createTodo(data, cb);
+	  },
+	
+	  updateTodoList: function (data, cb) {
+	    TodoApiUtil.updateTodo(data, cb);
 	  }
 	};
 	
@@ -36140,11 +36151,32 @@
 	    case ActionTypes.TODO_ERROR:
 	      TodoStore.handleErrors(payload.errors);
 	      break;
+	    case ActionTypes.RECEIVE_TODO:
+	      TodoStore.receiveTodo(payload.todo);
+	      break;
 	  }
+	};
+	
+	TodoStore.receiveTodo = function (todo) {
+	  var found = false;
+	  var _todos = TodoStore.get(todos);
+	  for (var i = 0; i < _todos.length; i++) {
+	    if (_todos[i].id === todo.id) {
+	      _todos[i] = todo;
+	      found = true;
+	      break;
+	    }
+	  }
+	  if (!found) {
+	    _todos.push(todo);
+	  }
+	  TodoStore.save(_todos);
+	  TodoStore.__emitChange();
 	};
 	
 	TodoStore.handleErrors = function (errs) {
 	  TodoStore.save(errors, errs);
+	  TodoStore.__emitChange();
 	};
 	
 	TodoStore.receiveTodos = function (data) {
@@ -36159,7 +36191,7 @@
 	TodoStore.currentTodo = function (id) {
 	  var _todos = TodoStore.get(todos);
 	  for (var i = 0; i < _todos.length; i++) {
-	    if (todos[i].id === id) {
+	    if (_todos[i].id === id) {
 	      return _todos[i];
 	    }
 	  }
@@ -36168,8 +36200,6 @@
 	TodoStore.errors = function () {
 	  return TodoStore.get(errors);
 	};
-	
-	window.TodoStore = TodoStore;
 	
 	module.exports = TodoStore;
 
@@ -36188,6 +36218,16 @@
 	    dispatcher.dispatch({
 	      actionType: ActionTypes.RECEIVE_TODOS,
 	      todos: data
+	    });
+	  },
+	
+	  receiveTodo: function (data, cb) {
+	    if (typeof cb !== 'undefined') {
+	      cb(data);
+	    }
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.RECEIVE_TODO,
+	      todo: data
 	    });
 	  },
 	
@@ -36214,6 +36254,21 @@
 	      method: 'GET',
 	      success: function (response) {
 	        TodoServerActions.receiveTodos(response, cb);
+	      },
+	      failure: function (errors) {
+	        TodoServerActions.handleErrors(errors);
+	      }
+	    });
+	  },
+	
+	  createTodoList: function (data, cb) {
+	    debugger;
+	    $.ajax({
+	      url: '/api/projects/' + data.projectid + '/todo_lists',
+	      method: 'POST',
+	      data: { todo_list: data },
+	      success: function (response) {
+	        TodoServerActions.receiveTodo(response, cb);
 	      },
 	      failure: function (errors) {
 	        TodoServerActions.handleErrors(errors);
@@ -36267,6 +36322,123 @@
 	});
 	
 	module.exports = TodoPreview;
+
+/***/ },
+/* 299 */,
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var TodoApiUtil = __webpack_require__(297);
+	var history = __webpack_require__(197).hashHistory;
+	var EditTodo = React.createClass({
+	  displayName: 'EditTodo',
+	
+	
+	  getInitialState: function () {
+	    debugger;
+	    if (this.props.new) {
+	      return {
+	        title: "",
+	        description: "",
+	        completed: false,
+	        projectid: this.props.project
+	      };
+	    } else {
+	      return {
+	        title: this.props.todo.title,
+	        description: this.props.todo.description,
+	        completed: this.props.todo.completed,
+	        id: this.props.todo.id
+	      };
+	    }
+	  },
+	
+	  buttonText: function () {
+	    if (this.props.new) {
+	      return "New";
+	    } else {
+	      return "Edit";
+	    }
+	  },
+	
+	  cancelButton: function () {
+	    if (this.props.new) {
+	      return;
+	    } else {
+	      return React.createElement(
+	        'button',
+	        { className: 'todolist-cancel' },
+	        'Cancel'
+	      );
+	    }
+	  },
+	
+	  updateTitle: function (e) {
+	    e.preventDefault();
+	    this.setState({ title: e.target.value });
+	  },
+	
+	  updateDescription: function (e) {
+	    e.preventDefault();
+	    this.setState({ description: e.target.value });
+	  },
+	
+	  updateCompletion: function (e) {
+	    this.setState({ completed: e.target.checked });
+	  },
+	
+	  todoRedirect: function (todo) {
+	    history.push('/users/' + this.props.userid + '/projects/' + todo.project_id + '/todos/' + todo.id);
+	  },
+	
+	  handleSubmit: function () {
+	    if (this.props.new) {
+	      TodoApiUtil.createTodoList(this.state, this.todoRedirect);
+	    } else {
+	
+	      TodoApiUtil.updateTodoList(this.state);
+	    }
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit, className: 'edit-todolist-form',
+	          id: 'edit' },
+	        React.createElement('input', { type: 'text', value: this.state.title, placeholder: 'title',
+	          onChange: this.updateTitle,
+	          className: 'edit-todolist-title' }),
+	        React.createElement('input', { type: 'text', value: this.state.description,
+	          onChange: this.updateDescription,
+	          className: 'edit-todolist-description', placeholder: 'description' }),
+	        React.createElement(
+	          'label',
+	          { 'for': 'completed' },
+	          'Completed',
+	          React.createElement('input', { type: 'checkbox', onClick: this.updateCompletion,
+	            value: this.state.completed, id: 'completed' })
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'button',
+	            { className: 'todolist-save' },
+	            this.buttonText()
+	          ),
+	          this.cancelButton()
+	        )
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = EditTodo;
 
 /***/ }
 /******/ ]);

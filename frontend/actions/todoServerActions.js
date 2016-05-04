@@ -12,11 +12,21 @@ var TodoServerActions = {
     });
   },
 
+  receiveTodo: function(data, cb){
+    if (typeof cb !== 'undefined'){
+      cb(data);
+    }
+    dispatcher.dispatch({
+      actionType: ActionTypes.RECEIVE_TODO,
+      todo: data
+    });
+  },
+
   handleErrors: function(errors){
     dispatcher.dispatch({
       actionType: ActionTypes.TODO_ERROR,
       errors: errors
-    })
+    });
   }
 };
 

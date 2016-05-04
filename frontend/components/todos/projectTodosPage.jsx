@@ -1,7 +1,8 @@
 var React = require('react');
 var TodoStore = require('../../stores/todoStore');
 var NavBar = require('../navBar'),
-    TodoPreview = require('./todoPreview');
+    TodoPreview = require('./todoPreview'),
+    EditTodo = require('./editTodo');
 var TodoServerActions = require('../../actions/todoServerActions');
 var TodoActions = require('../../actions/todoActions');
 
@@ -52,7 +53,8 @@ var ProjectTodosPage = React.createClass({
       <div>
         <NavBar />
         {this.todos()}
-        <NewTodo edit={true} project={this.props.project} />
+        <EditTodo userid={this.props.params.userid} new={true}
+          project={this.props.params.projectid} />
       </div>
     );
   }

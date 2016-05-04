@@ -41,11 +41,32 @@ TodoStore.__onDispatch = function(payload){
     case ActionTypes.TODO_ERROR:
       TodoStore.handleErrors(payload.errors);
       break;
+    case ActionTypes.RECEIVE_TODO:
+      TodoStore.receiveTodo(payload.todo);
+      break;
   }
+};
+
+TodoStore.receiveTodo = function(todo){
+  var found = false;
+  var _todos = TodoStore.get(todos);
+  for (var i = 0; i < _todos.length; i++){
+    if (_todos[i].id === todo.id){
+      _todos[i] = todo;
+      found = true;
+      break;
+    }
+  }
+  if (!found){
+    _todos.push(todo);
+  }
+  TodoStore.save(_todos);
+  TodoStore.__emitChange();
 };
 
 TodoStore.handleErrors = function(errs){
   TodoStore.save(errors, errs);
+  TodoStore.__emitChange();
 };
 
 TodoStore.receiveTodos = function(data){
@@ -60,7 +81,7 @@ TodoStore.allTodos = function(){
 TodoStore.currentTodo = function(id){
   var _todos = TodoStore.get(todos);
   for (var i = 0; i < _todos.length; i++){
-    if (todos[i].id === id) {
+    if (_todos[i].id === id) {
       return _todos[i];
     }
   }
@@ -69,7 +90,5 @@ TodoStore.currentTodo = function(id){
 TodoStore.errors = function(){
   return TodoStore.get(errors);
 };
-
-window.TodoStore = TodoStore;
 
 module.exports = TodoStore;

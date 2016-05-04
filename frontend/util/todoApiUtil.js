@@ -12,6 +12,21 @@ var TodoApiUtil = {
         TodoServerActions.handleErrors(errors);
       }
     });
+  },
+
+  createTodoList: function(data, cb){
+    debugger;
+    $.ajax({
+      url: '/api/projects/' + data.projectid + '/todo_lists',
+      method: 'POST',
+      data: {todo_list: data},
+      success: function(response){
+        TodoServerActions.receiveTodo(response, cb);
+      },
+      failure: function(errors){
+        TodoServerActions.handleErrors(errors);
+      }
+    });
   }
 };
 
