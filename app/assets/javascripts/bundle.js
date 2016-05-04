@@ -35371,10 +35371,10 @@
 	          { id: 'editProjectForm', onSubmit: this.saveChanges },
 	          React.createElement('input', { type: 'text', value: this.state.title,
 	            onChange: this.linkState, placeholder: 'Title',
-	            maxLength: '40', className: 'edit-project-title', id: 'title' }),
+	            maxLength: '40', className: 'edit-project-title', id: 'title', required: true }),
 	          React.createElement('input', { maxLength: '100', type: 'text', value: this.state.description,
 	            onChange: this.linkState, placeholder: 'Description',
-	            className: 'edit-project-description', id: 'description' })
+	            className: 'edit-project-description', id: 'description', required: true })
 	        ),
 	        React.createElement(
 	          'div',

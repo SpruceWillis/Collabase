@@ -148,10 +148,10 @@ var ProjectHeader = React.createClass({
           <form id="editProjectForm" onSubmit={this.saveChanges}>
             <input type="text" value={this.state.title}
               onChange={this.linkState} placeholder="Title"
-              maxLength="40" className="edit-project-title" id="title"/>
+              maxLength="40" className="edit-project-title" id="title" required/>
             <input maxLength="100" type="text" value={this.state.description}
               onChange={this.linkState} placeholder="Description"
-              className="edit-project-description" id="description" />
+              className="edit-project-description" id="description" required/>
           </form>
           <div>
           {this.members()}
