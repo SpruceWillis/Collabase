@@ -35158,10 +35158,6 @@
 	    }
 	  },
 	
-	  // componentWillMount: function() {
-	  //   window.addEventListener("beforeunload", this.confirmPageLeaving);
-	  // },
-	
 	  componentWillReceiveProps: function (nextProps) {
 	    this.setState({
 	      title: nextProps.project.title,
@@ -35897,35 +35893,35 @@
 	  projectForm: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'project-header' },
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit, id: 'newProjectForm' },
-	        React.createElement(
-	          'label',
-	          null,
-	          'Title',
-	          React.createElement('input', { type: 'text', onChange: this.updateTitle, value: this.state.title })
-	        ),
-	        React.createElement(
-	          'label',
-	          null,
-	          'Description',
-	          React.createElement('input', { type: 'text', onChange: this.updateDescription, value: this.state.description })
-	        ),
+	        { onSubmit: this.handleSubmit, id: 'editProjectForm' },
+	        React.createElement('input', { type: 'text', onChange: this.updateTitle, placeholder: 'Title',
+	          className: 'edit-project-title', value: this.state.title }),
+	        React.createElement('input', { type: 'text', onChange: this.updateDescription,
+	          className: 'edit-project-description', placeholder: 'Description',
+	          value: this.state.description }),
 	        React.createElement(
 	          'div',
-	          null,
+	          { className: 'new-project-buttons' },
 	          React.createElement(
 	            'button',
-	            { type: 'submit', form: 'newProjectForm' },
+	            { className: 'create-project-button',
+	              type: 'submit', form: 'newProjectForm' },
 	            'Create Project'
 	          ),
 	          React.createElement(
 	            'button',
-	            { onClick: this.cancel },
+	            { className: 'cancel-project-button',
+	              onClick: this.cancel },
 	            'Cancel'
 	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'new-member-clause' },
+	          'You\'ll get the chance to add additional members later.'
 	        )
 	      )
 	    );
@@ -35940,14 +35936,9 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'background' },
 	      React.createElement(NavBar, null),
-	      this.projectForm(),
-	      React.createElement(
-	        'div',
-	        null,
-	        'You\'ll get the chance to add additional members later.'
-	      )
+	      this.projectForm()
 	    );
 	  }
 	

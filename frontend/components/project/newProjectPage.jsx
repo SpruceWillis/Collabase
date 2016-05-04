@@ -34,17 +34,21 @@ var NewProjectPage = React.createClass({
 
   projectForm: function(){
     return (
-      <div>
-        <form onSubmit={this.handleSubmit} id="newProjectForm">
-          <label>Title
-            <input  type="text" onChange={this.updateTitle} value={this.state.title}></input>
-          </label>
-          <label>Description
-            <input type="text" onChange={this.updateDescription} value={this.state.description}></input>
-          </label>
-          <div>
-            <button type="submit" form="newProjectForm">Create Project</button>
-            <button onClick={this.cancel}>Cancel</button>
+      <div className="project-header">
+        <form onSubmit={this.handleSubmit} id="editProjectForm">
+            <input  type="text" onChange={this.updateTitle} placeholder="Title"
+              className="edit-project-title" value={this.state.title}></input>
+            <input type="text" onChange={this.updateDescription}
+              className="edit-project-description" placeholder="Description"
+               value={this.state.description}></input>
+            <div className="new-project-buttons">
+              <button className="create-project-button"
+                type="submit" form="newProjectForm">Create Project</button>
+              <button className="cancel-project-button"
+                onClick={this.cancel}>Cancel</button>
+          </div>
+          <div className="new-member-clause">
+            You'll get the chance to add additional members later.
           </div>
         </form>
       </div>);
@@ -59,10 +63,9 @@ var NewProjectPage = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="background">
         <NavBar />
-        {this.projectForm()}
-        <div>You'll get the chance to add additional members later.</div>
+          {this.projectForm()}
       </div>
 
     );

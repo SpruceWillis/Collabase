@@ -315,3 +315,31 @@ $buttermilk: #FFF7C0;
 .found-member:hover {
   color: white;
 }
+
+.new-project-buttons > button {
+  width: auto;
+  font-family: sans-serif;
+  white-space: nowrap;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.new-project-buttons > button:hover {
+  color: white;
+}
+
+.create-project-button {
+  background-color: palegreen;
+  border: 1px solid $leaf;
+}
+
+.cancel-project-button {
+  background-color: pink;
+  border: 1px solid $salmon
+}
+
+.new-member-clause {
+  font-family: sans-serif;
+}

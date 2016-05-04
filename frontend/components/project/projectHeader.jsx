@@ -23,10 +23,6 @@ var ProjectHeader = React.createClass({
     }
   },
 
-  // componentWillMount: function() {
-  //   window.addEventListener("beforeunload", this.confirmPageLeaving);
-  // },
-
   componentWillReceiveProps: function(nextProps) {
     this.setState({
       title: nextProps.project.title,
