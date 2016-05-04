@@ -20845,7 +20845,8 @@
 	  USER_ERROR: "USER_ERROR",
 	  CLEAR_USERS: "CLEAR_USERS",
 	  RECEIVE_PROJECT_AND_UDPATE: "RECEIVE_PROJECT_AND_UDPATE",
-	  RECIEVE_TODOS: "RECEIVE_TODOS"
+	  RECEIVE_TODOS: "RECEIVE_TODOS",
+	  TODO_ERROR: "TODO_ERROR"
 	};
 
 /***/ },
@@ -35087,7 +35088,8 @@
 
 	var React = __webpack_require__(1);
 	var NavBar = __webpack_require__(167),
-	    ProjectHeader = __webpack_require__(281);
+	    ProjectHeader = __webpack_require__(281),
+	    ProjectNavigation = __webpack_require__(293);
 	var CurrentUserState = __webpack_require__(196);
 	var CurrentProjectState = __webpack_require__(282);
 	
@@ -35114,6 +35116,15 @@
 	    }
 	  },
 	
+	  projectNavigation: function () {
+	    if (this.hasProject()) {
+	      return React.createElement(ProjectNavigation, { project: this.state.currentProject,
+	        user: this.state.currentUser });
+	    } else {
+	      return;
+	    }
+	  },
+	
 	  hasProject: function () {
 	    return !$.isEmptyObject(this.state.currentProject);
 	  },
@@ -35123,7 +35134,8 @@
 	      'div',
 	      { className: 'background' },
 	      React.createElement(NavBar, null),
-	      this.project()
+	      this.project(),
+	      this.projectNavigation()
 	    );
 	  }
 	
@@ -35964,23 +35976,295 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var PropTypes = React.PropTypes;
+	var TodoStore = __webpack_require__(295);
+	var NavBar = __webpack_require__(167),
+	    TodoPreview = __webpack_require__(298);
+	var TodoServerActions = __webpack_require__(296);
+	var TodoActions = __webpack_require__(294);
 	
 	var ProjectTodosPage = React.createClass({
 	  displayName: 'ProjectTodosPage',
 	
 	
+	  getInitialState: function () {
+	    return {
+	      todos: TodoStore.allTodos(),
+	      errors: TodoStore.errors()
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.listener = TodoStore.addListener(this.update);
+	    TodoActions.getTodos(this.props.params);
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    TodoActions.getTodos(nextProps.params);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	
+	  update: function () {
+	    this.setState({
+	      todos: TodoStore.allTodos(),
+	      errors: TodoStore.errors()
+	    });
+	  },
+	
+	  todos: function () {
+	    var that = this;
+	    if (this.state.todos.length === 0) {
+	      return React.createElement(
+	        'div',
+	        null,
+	        'No todos found!'
+	      );
+	    } else {
+	      var todoItems = this.state.todos.map(function (todo) {
+	        return React.createElement(
+	          'li',
+	          { key: todo.id },
+	          React.createElement(TodoPreview, { userid: that.props.params.userid, todo: todo })
+	        );
+	      });
+	      return React.createElement(
+	        'ul',
+	        null,
+	        todoItems
+	      );
+	    }
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
-	      'Hello'
+	      React.createElement(NavBar, null),
+	      this.todos()
 	    );
 	  }
 	
 	});
 	
 	module.exports = ProjectTodosPage;
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var history = __webpack_require__(197).hashHistory;
+	
+	var ProjectNavigation = React.createClass({
+	  displayName: 'ProjectNavigation',
+	
+	
+	  gotoTodos: function () {
+	    history.push('/users/' + this.props.user.id + '/projects/' + this.props.project.id + '/todos');
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.gotoTodos },
+	        'Todos'
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProjectNavigation;
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var TodoApiUtil = __webpack_require__(297);
+	
+	var TodoActions = {
+	  getTodos: function (data, cb) {
+	    TodoApiUtil.getTodos(data, cb);
+	  }
+	};
+	
+	module.exports = TodoActions;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(179).Store;
+	var dispatcher = __webpack_require__(173);
+	var ActionTypes = __webpack_require__(177);
+	
+	var TodoStore = new Store(dispatcher);
+	
+	var todos = "todos";
+	var currentTodo = "currentTodo";
+	var errors = "errors";
+	
+	TodoStore.save = function (key, value) {
+	  localStorage.setItem(key, JSON.stringify(value));
+	  localStorage.getItem(key);
+	};
+	
+	TodoStore.get = function (key) {
+	  return JSON.parse(localStorage.getItem(key));
+	};
+	
+	if (localStorage.getItem(todos) === "undefined" || localStorage.getItem(todos) === null) {
+	  TodoStore.save(todos, []);
+	}
+	
+	if (localStorage.getItem(currentTodo) === null) {
+	  TodoStore.save(currentTodo, 0);
+	}
+	
+	if (localStorage.getItem(errors) === "undefined" || localStorage.getItem(errors) === null) {
+	  TodoStore.save(errors, []);
+	}
+	
+	TodoStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case ActionTypes.RECEIVE_TODOS:
+	      TodoStore.receiveTodos(payload.todos);
+	      break;
+	    case ActionTypes.TODO_ERROR:
+	      TodoStore.handleErrors(payload.errors);
+	      break;
+	  }
+	};
+	
+	TodoStore.handleErrors = function (errs) {
+	  TodoStore.save(errors, errs);
+	};
+	
+	TodoStore.receiveTodos = function (data) {
+	  TodoStore.save(todos, data);
+	  TodoStore.__emitChange();
+	};
+	
+	TodoStore.allTodos = function () {
+	  return TodoStore.get(todos);
+	};
+	
+	TodoStore.currentTodo = function (id) {
+	  var _todos = TodoStore.get(todos);
+	  for (var i = 0; i < _todos.length; i++) {
+	    if (todos[i].id === id) {
+	      return _todos[i];
+	    }
+	  }
+	};
+	
+	TodoStore.errors = function () {
+	  return TodoStore.get(errors);
+	};
+	
+	window.TodoStore = TodoStore;
+	
+	module.exports = TodoStore;
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var dispatcher = __webpack_require__(173);
+	var ActionTypes = __webpack_require__(177);
+	
+	var TodoServerActions = {
+	  receiveTodos: function (data, cb) {
+	    if (typeof cb !== 'undefined') {
+	      cb(data);
+	    }
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.RECEIVE_TODOS,
+	      todos: data
+	    });
+	  },
+	
+	  handleErrors: function (errors) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.TODO_ERROR,
+	      errors: errors
+	    });
+	  }
+	};
+	
+	module.exports = TodoServerActions;
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var TodoServerActions = __webpack_require__(296);
+	
+	var TodoApiUtil = {
+	  getTodos: function (data, cb) {
+	    $.ajax({
+	      url: '/api/projects/' + data.projectid + '/todo_lists',
+	      method: 'GET',
+	      success: function (response) {
+	        TodoServerActions.receiveTodos(response, cb);
+	      },
+	      failure: function (errors) {
+	        TodoServerActions.handleErrors(errors);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = TodoApiUtil;
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var history = __webpack_require__(197).hashHistory;
+	
+	var TodoPreview = React.createClass({
+	  displayName: 'TodoPreview',
+	
+	
+	  handleClick: function () {
+	    history.push('/users/' + this.props.userid + '/projects/' + this.props.todo.project_id + '/todos/' + this.props.todo.id);
+	  },
+	
+	  thisClass: function () {
+	    if (this.props.todo.completed) {
+	      return "todo-completed";
+	    } else {
+	      return "todo-incomplete";
+	    }
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { onClick: this.handleClick, className: this.thisClass() },
+	      React.createElement(
+	        'h1',
+	        null,
+	        this.props.todo.title
+	      ),
+	      React.createElement(
+	        'h2',
+	        null,
+	        this.props.todo.description
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = TodoPreview;
 
 /***/ }
 /******/ ]);

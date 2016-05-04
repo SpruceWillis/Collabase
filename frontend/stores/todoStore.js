@@ -1,4 +1,4 @@
-var Store = require('react/utils').Store;
+var Store = require('flux/utils').Store;
 var dispatcher = require('../dispatcher/dispatcher');
 var ActionTypes = require('../constants/actionTypes');
 
@@ -34,10 +34,26 @@ if (localStorage.getItem(errors) === "undefined" ||
 }
 
 TodoStore.__onDispatch = function(payload){
-
+  switch(payload.actionType){
+    case ActionTypes.RECEIVE_TODOS:
+      TodoStore.receiveTodos(payload.todos);
+      break;
+    case ActionTypes.TODO_ERROR:
+      TodoStore.handleErrors(payload.errors);
+      break;
+  }
 };
 
-TodoStore.getTodos = function(){
+TodoStore.handleErrors = function(errs){
+  TodoStore.save(errors, errs);
+}
+
+TodoStore.receiveTodos = function(data){
+  TodoStore.save(todos, data);
+  TodoStore.__emitChange();
+};
+
+TodoStore.allTodos = function(){
   return TodoStore.get(todos);
 };
 
@@ -53,5 +69,7 @@ TodoStore.currentTodo = function(id){
 TodoStore.errors = function(){
   return TodoStore.get(errors);
 };
+
+window.TodoStore = TodoStore;
 
 module.exports = TodoStore;
