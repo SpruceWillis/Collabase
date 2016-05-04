@@ -36026,7 +36026,8 @@
 	        return React.createElement(
 	          'li',
 	          { key: todo.id },
-	          React.createElement(TodoPreview, { userid: that.props.params.userid, todo: todo })
+	          React.createElement(TodoPreview, {
+	            userid: that.props.params.userid, todo: todo })
 	        );
 	      });
 	      return React.createElement(
@@ -36042,7 +36043,8 @@
 	      'div',
 	      null,
 	      React.createElement(NavBar, null),
-	      this.todos()
+	      this.todos(),
+	      React.createElement(NewTodo, { edit: true, project: this.props.project })
 	    );
 	  }
 	

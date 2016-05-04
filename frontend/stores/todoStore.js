@@ -46,7 +46,7 @@ TodoStore.__onDispatch = function(payload){
 
 TodoStore.handleErrors = function(errs){
   TodoStore.save(errors, errs);
-}
+};
 
 TodoStore.receiveTodos = function(data){
   TodoStore.save(todos, data);

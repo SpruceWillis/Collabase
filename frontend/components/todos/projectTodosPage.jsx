@@ -10,7 +10,7 @@ var ProjectTodosPage = React.createClass({
   getInitialState: function() {
     return {
       todos: TodoStore.allTodos(),
-      errors: TodoStore.errors()
+      errors: TodoStore.errors(),
     };
   },
 
@@ -40,7 +40,8 @@ var ProjectTodosPage = React.createClass({
       return <div>No todos found!</div>;
     } else {
       var todoItems = this.state.todos.map(function(todo){
-        return <li key={todo.id}><TodoPreview userid={that.props.params.userid} todo={todo}/></li>;
+        return <li key={todo.id}><TodoPreview
+          userid={that.props.params.userid} todo={todo}/></li>;
       });
       return <ul>{todoItems}</ul>;
     }
@@ -51,6 +52,7 @@ var ProjectTodosPage = React.createClass({
       <div>
         <NavBar />
         {this.todos()}
+        <NewTodo edit={true} project={this.props.project} />
       </div>
     );
   }
