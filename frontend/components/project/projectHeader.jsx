@@ -15,12 +15,14 @@ var ProjectHeader = React.createClass({
     });
   },
 
-  toggleEdit: function(){
-    if (this.state.edit){
-      this.setState({edit: false});
-    } else {
-      this.setState({edit: true});
-    }
+  toggleEdit: function(save){
+    // if (this.state.edit){
+    //   this.setState({edit: false});
+    // } else {
+    //   this.setState({edit: true});
+    // }
+    if (save) this.saveChanges();
+    this.setState({edit: !this.state.edit});
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -42,7 +44,9 @@ var ProjectHeader = React.createClass({
   // },
 
   saveChanges: function(e){
-    e.preventDefault();
+    if (e){
+      e.preventDefault();
+    }
     ProjectActions.updateProject(this.state, this.saveAlert);
   },
 
@@ -159,7 +163,7 @@ var ProjectHeader = React.createClass({
             <button className="nosave-project-button"
               onClick={this.discardChanges}>Discard Changes</button>
             <button className="done-project-button"
-              onClick={this.toggleEdit.bind(this, false)}>Done</button>
+              onClick={this.toggleEdit.bind(this, true)}>Save and Finish</button>
           </div>
         </div>
       );
@@ -168,7 +172,7 @@ var ProjectHeader = React.createClass({
         <div className="project-innerheader">
           <div>
             <button className="edit-project-button"
-              onClick={this.toggleEdit}>Edit</button>
+              onClick={this.toggleEdit.bind(this, false)}>Edit</button>
             <button className="delete-project-button"
               onClick={this.destroyProject}>Delete</button>
           </div>

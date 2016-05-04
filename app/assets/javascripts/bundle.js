@@ -47,7 +47,7 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
 	var SplashPage = __webpack_require__(166),
-	    ProjectLandingPage = __webpack_require__(280),
+	    ProjectLandingPage = __webpack_require__(281),
 	    NavBar = __webpack_require__(167),
 	    NewProjectPage = __webpack_require__(291);
 	var Modal = __webpack_require__(260);
@@ -20102,7 +20102,7 @@
 
 	var React = __webpack_require__(1);
 	var NavBarAuth = __webpack_require__(168);
-	var ProjectSelector = __webpack_require__(290);
+	var ProjectSelector = __webpack_require__(280);
 	var CurrentUserState = __webpack_require__(196);
 	var hashHistory = __webpack_require__(197).hashHistory;
 	
@@ -35082,10 +35082,68 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var NavBar = __webpack_require__(167),
-	    ProjectHeader = __webpack_require__(281);
 	var CurrentUserState = __webpack_require__(196);
-	var CurrentProjectState = __webpack_require__(282);
+	var history = __webpack_require__(197).hashHistory;
+	var ProjectSelector = React.createClass({
+	  displayName: 'ProjectSelector',
+	
+	
+	  navigateToProject: function (id) {
+	    history.push('/users/' + this.props.user.id + '/projects/' + id.toString());
+	  },
+	
+	  projects: function () {
+	    var that = this;
+	    var projectListItems = this.props.user.projects.map(function (project) {
+	      return React.createElement(
+	        'li',
+	        { className: 'dropdown-item', key: project.id,
+	          onClick: that.navigateToProject.bind(that, project.id) },
+	        project.title
+	      );
+	    });
+	    return React.createElement(
+	      'ul',
+	      { className: 'dropdown-content' },
+	      projectListItems,
+	      React.createElement(
+	        'li',
+	        { onClick: this.navigateToNewProject, className: 'dropdown-item new-project' },
+	        'New Project'
+	      )
+	    );
+	  },
+	
+	  navigateToNewProject: function () {
+	    history.push('/projects/new');
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'dropdown' },
+	      'Projects',
+	      React.createElement(
+	        'div',
+	        null,
+	        this.projects()
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProjectSelector;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var NavBar = __webpack_require__(167),
+	    ProjectHeader = __webpack_require__(282);
+	var CurrentUserState = __webpack_require__(196);
+	var CurrentProjectState = __webpack_require__(283);
 	
 	var ProjectLandingPage = React.createClass({
 	  displayName: 'ProjectLandingPage',
@@ -35128,13 +35186,13 @@
 	module.exports = ProjectLandingPage;
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ProjectActions = __webpack_require__(256);
-	var CurrentProjectState = __webpack_require__(282);
-	var ProjectAddMember = __webpack_require__(284);
+	var CurrentProjectState = __webpack_require__(283);
+	var ProjectAddMember = __webpack_require__(285);
 	var history = __webpack_require__(197).hashHistory;
 	
 	var ProjectHeader = React.createClass({
@@ -35150,12 +35208,14 @@
 	    };
 	  },
 	
-	  toggleEdit: function () {
-	    if (this.state.edit) {
-	      this.setState({ edit: false });
-	    } else {
-	      this.setState({ edit: true });
-	    }
+	  toggleEdit: function (save) {
+	    // if (this.state.edit){
+	    //   this.setState({edit: false});
+	    // } else {
+	    //   this.setState({edit: true});
+	    // }
+	    if (save) this.saveChanges();
+	    this.setState({ edit: !this.state.edit });
 	  },
 	
 	  componentWillReceiveProps: function (nextProps) {
@@ -35177,7 +35237,9 @@
 	  // },
 	
 	  saveChanges: function (e) {
-	    e.preventDefault();
+	    if (e) {
+	      e.preventDefault();
+	    }
 	    ProjectActions.updateProject(this.state, this.saveAlert);
 	  },
 	
@@ -35338,8 +35400,8 @@
 	          React.createElement(
 	            'button',
 	            { className: 'done-project-button',
-	              onClick: this.toggleEdit.bind(this, false) },
-	            'Done'
+	              onClick: this.toggleEdit.bind(this, true) },
+	            'Save and Finish'
 	          )
 	        )
 	      );
@@ -35353,7 +35415,7 @@
 	          React.createElement(
 	            'button',
 	            { className: 'edit-project-button',
-	              onClick: this.toggleEdit },
+	              onClick: this.toggleEdit.bind(this, false) },
 	            'Edit'
 	          ),
 	          React.createElement(
@@ -35392,10 +35454,10 @@
 	module.exports = ProjectHeader;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ProjectStore = __webpack_require__(283);
+	var ProjectStore = __webpack_require__(284);
 	var ProjectActions = __webpack_require__(256);
 	
 	module.exports = {
@@ -35435,7 +35497,7 @@
 	};
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(179).Store;
@@ -35515,12 +35577,12 @@
 	module.exports = ProjectStore;
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var CurrentUserLookups = __webpack_require__(285);
-	var UserActions = __webpack_require__(287);
+	var CurrentUserLookups = __webpack_require__(286);
+	var UserActions = __webpack_require__(288);
 	var ProjectActions = __webpack_require__(256);
 	var ProjectAddMember = React.createClass({
 	  displayName: 'ProjectAddMember',
@@ -35605,11 +35667,11 @@
 	module.exports = ProjectAddMember;
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserStore = __webpack_require__(286);
-	var UserActions = __webpack_require__(287);
+	var UserStore = __webpack_require__(287);
+	var UserActions = __webpack_require__(288);
 	
 	module.exports = {
 	
@@ -35648,7 +35710,7 @@
 	};
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(179).Store;
@@ -35715,12 +35777,12 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserApiUtil = __webpack_require__(288);
+	var UserApiUtil = __webpack_require__(289);
 	var dispatcher = __webpack_require__(173);
-	var UserServerActions = __webpack_require__(289);
+	var UserServerActions = __webpack_require__(290);
 	var ActionTypes = __webpack_require__(177);
 	
 	var UserActions = {
@@ -35744,10 +35806,10 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserServerActions = __webpack_require__(289);
+	var UserServerActions = __webpack_require__(290);
 	
 	var UserApiUtil = {
 	  receiveUsers: function (data, cb) {
@@ -35768,7 +35830,7 @@
 	module.exports = UserApiUtil;
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var dispatcher = __webpack_require__(173);
@@ -35791,64 +35853,6 @@
 	};
 	
 	module.exports = UserServerActions;
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var CurrentUserState = __webpack_require__(196);
-	var history = __webpack_require__(197).hashHistory;
-	var ProjectSelector = React.createClass({
-	  displayName: 'ProjectSelector',
-	
-	
-	  navigateToProject: function (id) {
-	    history.push('/users/' + this.props.user.id + '/projects/' + id.toString());
-	  },
-	
-	  projects: function () {
-	    var that = this;
-	    var projectListItems = this.props.user.projects.map(function (project) {
-	      return React.createElement(
-	        'li',
-	        { className: 'dropdown-item', key: project.id,
-	          onClick: that.navigateToProject.bind(that, project.id) },
-	        project.title
-	      );
-	    });
-	    return React.createElement(
-	      'ul',
-	      { className: 'dropdown-content' },
-	      projectListItems,
-	      React.createElement(
-	        'li',
-	        { onClick: this.navigateToNewProject, className: 'dropdown-item new-project' },
-	        'New Project'
-	      )
-	    );
-	  },
-	
-	  navigateToNewProject: function () {
-	    history.push('/projects/new');
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'dropdown' },
-	      'Projects',
-	      React.createElement(
-	        'div',
-	        null,
-	        this.projects()
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = ProjectSelector;
 
 /***/ },
 /* 291 */
