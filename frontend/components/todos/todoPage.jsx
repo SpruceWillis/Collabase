@@ -1,6 +1,7 @@
 var React = require('react');
 var TodoStore = require('../../stores/todoStore');
 var EditTodo = require('./editTodo');
+var TodoActions = require('../../actions/todoActions');
 var TodoPage = React.createClass({
 
   getInitialState: function() {
@@ -12,6 +13,7 @@ var TodoPage = React.createClass({
 
   componentWillMount: function() {
     this.listener = TodoStore.addListener(this.update);
+    TodoActions.getTodo(this.props.params.todoid);
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -35,10 +37,11 @@ var TodoPage = React.createClass({
     this.setState({edit: true});
   },
 
-  cancel: function(e){
-    e.preventDefault();
-    this.setState({edit: true});
+  cancel: function(){
+    this.setState({edit: false});
   },
+
+
 
   edit: function(){
     if (this.state.edit){
@@ -50,7 +53,6 @@ var TodoPage = React.createClass({
         <button onClick={this.enableEdit}>Edit</button>
         <h1>{this.state.todo.title}</h1>
         <h2>{this.state.todo.description}</h2>
-
       </div>);
     }
   },

@@ -17,5 +17,5 @@ class Project < ActiveRecord::Base
     source: :member
 
   has_many :todo_lists
-  
+
 end

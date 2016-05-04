@@ -13,13 +13,23 @@ var TodoServerActions = {
   },
 
   receiveTodo: function(data, cb){
-    if (typeof cb !== 'undefined'){
-      cb(data);
-    }
     dispatcher.dispatch({
       actionType: ActionTypes.RECEIVE_TODO,
       todo: data
     });
+    if (typeof cb !== 'undefined'){
+      cb(data);
+    }
+  },
+
+  removeTodo: function(data, cb){
+    dispatcher.dispatch({
+      actionType: ActionTypes.DESTROY_TODO,
+      todo: data
+    });
+    if (typeof cb !== 'undefined'){
+      cb(data)
+    }
   },
 
   handleErrors: function(errors){

@@ -8,7 +8,6 @@ var todos = "todos";
 var currentTodo = "currentTodo";
 var errors = "errors";
 
-
 TodoStore.save = function(key, value){
   localStorage.setItem(key, JSON.stringify(value));
   localStorage.getItem(key);
@@ -44,6 +43,8 @@ TodoStore.__onDispatch = function(payload){
     case ActionTypes.RECEIVE_TODO:
       TodoStore.receiveTodo(payload.todo);
       break;
+    case ActionTypes.DESTROY_TODO:
+      TodoStore.destroyTodo(payload.todo);
   }
 };
 
@@ -60,7 +61,7 @@ TodoStore.receiveTodo = function(todo){
   if (!found){
     _todos.push(todo);
   }
-  TodoStore.save(_todos);
+  TodoStore.save(todos, _todos);
   TodoStore.__emitChange();
 };
 
@@ -91,5 +92,7 @@ TodoStore.currentTodo = function(id){
 TodoStore.errors = function(){
   return TodoStore.get(errors);
 };
+
+window.TodoStore = TodoStore;
 
 module.exports = TodoStore;

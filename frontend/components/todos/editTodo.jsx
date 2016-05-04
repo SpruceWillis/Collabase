@@ -1,5 +1,6 @@
 var React = require('react');
 var TodoApiUtil = require('../../util/todoApiUtil');
+var TodoActions = require('../../actions/todoActions');
 var history = require('react-router').hashHistory;
 var EditTodo = React.createClass({
 
@@ -17,6 +18,7 @@ var EditTodo = React.createClass({
         description: this.props.todo.description,
         completed: this.props.todo.completed,
         id: this.props.todo.id,
+        projectid: this.props.todo.project_id,
         cancel: this.props.cancel
       };
     }
@@ -40,7 +42,6 @@ var EditTodo = React.createClass({
   },
 
   cancel: function(e){
-    debugger;
     e.preventDefault();
     this.props.cancel();
   },
@@ -66,22 +67,45 @@ var EditTodo = React.createClass({
 
   handleSubmit: function(){
     if (this.props.new){
-      TodoApiUtil.createTodoList(this.state, this.todoRedirect);
+      TodoActions.createTodoList(this.state, this.todoRedirect);
     } else {
-      TodoApiUtil.updateTodoList(this.state);
+      TodoActions.updateTodoList(this.state);
     }
+  },
+
+  header: function(){
+    if (this.props.new){
+      return;
+    } else {
+      return (<div>
+        <div>Editing Todo-List</div>
+        <button onClick={this.destroy}>Delete</button>
+      </div>);
+    }
+  },
+
+  redirectOnRemoval: function(){
+    history.push('/users/' + this.props.userid + '/projects/' +
+    todo.project_id + '/todos')
+    alert ('Todo-list removed');
+  },
+
+  destroy: function(e){
+    e.preventDefault();
+    TodoActions.destroyTodoList(this.state, this.redirectOnRemoval);
   },
 
   render: function() {
     return (
       <div>
+        {this.header()}
         <form onSubmit={this.handleSubmit} className="edit-todolist-form"
           id="edit">
           <input type="text" value={this.state.title} placeholder="title"
-            onChange={this.updateTitle}
+            onChange={this.updateTitle} required
             className="edit-todolist-title"></input>
           <input type="text" value={this.state.description}
-            onChange={this.updateDescription}
+            onChange={this.updateDescription} required
             className="edit-todolist-description" placeholder="description">
           </input>
           <label for="completed">Completed

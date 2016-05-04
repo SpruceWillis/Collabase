@@ -47,11 +47,11 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
 	var SplashPage = __webpack_require__(166),
-	    ProjectLandingPage = __webpack_require__(280),
+	    ProjectLandingPage = __webpack_require__(281),
 	    NavBar = __webpack_require__(167),
 	    NewProjectPage = __webpack_require__(291),
-	    ProjectTodosPage = __webpack_require__(292),
-	    TodoPage = __webpack_require__(301);
+	    ProjectTodosPage = __webpack_require__(293),
+	    TodoPage = __webpack_require__(300);
 	var Modal = __webpack_require__(260);
 	var ReactRouter = __webpack_require__(197),
 	    Router = ReactRouter.Router,
@@ -20108,7 +20108,7 @@
 
 	var React = __webpack_require__(1);
 	var NavBarAuth = __webpack_require__(168);
-	var ProjectSelector = __webpack_require__(290);
+	var ProjectSelector = __webpack_require__(280);
 	var CurrentUserState = __webpack_require__(196);
 	var hashHistory = __webpack_require__(197).hashHistory;
 	
@@ -20850,7 +20850,8 @@
 	  RECEIVE_PROJECT_AND_UDPATE: "RECEIVE_PROJECT_AND_UDPATE",
 	  RECEIVE_TODOS: "RECEIVE_TODOS",
 	  RECEIVE_TODO: "RECEIVE_TODO",
-	  TODO_ERROR: "TODO_ERROR"
+	  TODO_ERROR: "TODO_ERROR",
+	  DESTROY_TODO: "DESTROY_TODO"
 	};
 
 /***/ },
@@ -35091,11 +35092,69 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var NavBar = __webpack_require__(167),
-	    ProjectHeader = __webpack_require__(281),
-	    ProjectNavigation = __webpack_require__(293);
 	var CurrentUserState = __webpack_require__(196);
-	var CurrentProjectState = __webpack_require__(282);
+	var history = __webpack_require__(197).hashHistory;
+	var ProjectSelector = React.createClass({
+	  displayName: 'ProjectSelector',
+	
+	
+	  navigateToProject: function (id) {
+	    history.push('/users/' + this.props.user.id + '/projects/' + id.toString());
+	  },
+	
+	  projects: function () {
+	    var that = this;
+	    var projectListItems = this.props.user.projects.map(function (project) {
+	      return React.createElement(
+	        'li',
+	        { className: 'dropdown-item', key: project.id,
+	          onClick: that.navigateToProject.bind(that, project.id) },
+	        project.title
+	      );
+	    });
+	    return React.createElement(
+	      'ul',
+	      { className: 'dropdown-content' },
+	      projectListItems,
+	      React.createElement(
+	        'li',
+	        { onClick: this.navigateToNewProject, className: 'dropdown-item new-project' },
+	        'New Project'
+	      )
+	    );
+	  },
+	
+	  navigateToNewProject: function () {
+	    history.push('/projects/new');
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'dropdown' },
+	      'Projects',
+	      React.createElement(
+	        'div',
+	        null,
+	        this.projects()
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProjectSelector;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var NavBar = __webpack_require__(167),
+	    ProjectHeader = __webpack_require__(282),
+	    ProjectNavigation = __webpack_require__(292);
+	var CurrentUserState = __webpack_require__(196);
+	var CurrentProjectState = __webpack_require__(283);
 	
 	var ProjectLandingPage = React.createClass({
 	  displayName: 'ProjectLandingPage',
@@ -35148,13 +35207,13 @@
 	module.exports = ProjectLandingPage;
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ProjectActions = __webpack_require__(256);
-	var CurrentProjectState = __webpack_require__(282);
-	var ProjectAddMember = __webpack_require__(284);
+	var CurrentProjectState = __webpack_require__(283);
+	var ProjectAddMember = __webpack_require__(285);
 	var history = __webpack_require__(197).hashHistory;
 	
 	var ProjectHeader = React.createClass({
@@ -35416,10 +35475,10 @@
 	module.exports = ProjectHeader;
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ProjectStore = __webpack_require__(283);
+	var ProjectStore = __webpack_require__(284);
 	var ProjectActions = __webpack_require__(256);
 	
 	module.exports = {
@@ -35459,7 +35518,7 @@
 	};
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(179).Store;
@@ -35539,12 +35598,12 @@
 	module.exports = ProjectStore;
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var CurrentUserLookups = __webpack_require__(285);
-	var UserActions = __webpack_require__(287);
+	var CurrentUserLookups = __webpack_require__(286);
+	var UserActions = __webpack_require__(288);
 	var ProjectActions = __webpack_require__(256);
 	var ProjectAddMember = React.createClass({
 	  displayName: 'ProjectAddMember',
@@ -35629,11 +35688,11 @@
 	module.exports = ProjectAddMember;
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserStore = __webpack_require__(286);
-	var UserActions = __webpack_require__(287);
+	var UserStore = __webpack_require__(287);
+	var UserActions = __webpack_require__(288);
 	
 	module.exports = {
 	
@@ -35672,7 +35731,7 @@
 	};
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(179).Store;
@@ -35739,12 +35798,12 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserApiUtil = __webpack_require__(288);
+	var UserApiUtil = __webpack_require__(289);
 	var dispatcher = __webpack_require__(173);
-	var UserServerActions = __webpack_require__(289);
+	var UserServerActions = __webpack_require__(290);
 	var ActionTypes = __webpack_require__(177);
 	
 	var UserActions = {
@@ -35768,10 +35827,10 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var UserServerActions = __webpack_require__(289);
+	var UserServerActions = __webpack_require__(290);
 	
 	var UserApiUtil = {
 	  receiveUsers: function (data, cb) {
@@ -35792,7 +35851,7 @@
 	module.exports = UserApiUtil;
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var dispatcher = __webpack_require__(173);
@@ -35815,64 +35874,6 @@
 	};
 	
 	module.exports = UserServerActions;
-
-/***/ },
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var CurrentUserState = __webpack_require__(196);
-	var history = __webpack_require__(197).hashHistory;
-	var ProjectSelector = React.createClass({
-	  displayName: 'ProjectSelector',
-	
-	
-	  navigateToProject: function (id) {
-	    history.push('/users/' + this.props.user.id + '/projects/' + id.toString());
-	  },
-	
-	  projects: function () {
-	    var that = this;
-	    var projectListItems = this.props.user.projects.map(function (project) {
-	      return React.createElement(
-	        'li',
-	        { className: 'dropdown-item', key: project.id,
-	          onClick: that.navigateToProject.bind(that, project.id) },
-	        project.title
-	      );
-	    });
-	    return React.createElement(
-	      'ul',
-	      { className: 'dropdown-content' },
-	      projectListItems,
-	      React.createElement(
-	        'li',
-	        { onClick: this.navigateToNewProject, className: 'dropdown-item new-project' },
-	        'New Project'
-	      )
-	    );
-	  },
-	
-	  navigateToNewProject: function () {
-	    history.push('/projects/new');
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'dropdown' },
-	      'Projects',
-	      React.createElement(
-	        'div',
-	        null,
-	        this.projects()
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = ProjectSelector;
 
 /***/ },
 /* 291 */
@@ -35980,12 +35981,43 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var TodoStore = __webpack_require__(295);
+	var history = __webpack_require__(197).hashHistory;
+	
+	var ProjectNavigation = React.createClass({
+	  displayName: 'ProjectNavigation',
+	
+	
+	  gotoTodos: function () {
+	    history.push('/users/' + this.props.user.id + '/projects/' + this.props.project.id + '/todos');
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.gotoTodos },
+	        'Todos'
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProjectNavigation;
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var TodoStore = __webpack_require__(294);
 	var NavBar = __webpack_require__(167),
-	    TodoPreview = __webpack_require__(298),
-	    EditTodo = __webpack_require__(300);
-	var TodoServerActions = __webpack_require__(296);
-	var TodoActions = __webpack_require__(294);
+	    TodoPreview = __webpack_require__(295),
+	    EditTodo = __webpack_require__(296);
+	var TodoServerActions = __webpack_require__(298);
+	var TodoActions = __webpack_require__(299);
 	
 	var ProjectTodosPage = React.createClass({
 	  displayName: 'ProjectTodosPage',
@@ -36059,60 +36091,7 @@
 	module.exports = ProjectTodosPage;
 
 /***/ },
-/* 293 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var history = __webpack_require__(197).hashHistory;
-	
-	var ProjectNavigation = React.createClass({
-	  displayName: 'ProjectNavigation',
-	
-	
-	  gotoTodos: function () {
-	    history.push('/users/' + this.props.user.id + '/projects/' + this.props.project.id + '/todos');
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'button',
-	        { onClick: this.gotoTodos },
-	        'Todos'
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = ProjectNavigation;
-
-/***/ },
 /* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var TodoApiUtil = __webpack_require__(297);
-	
-	var TodoActions = {
-	  getTodos: function (data, cb) {
-	    TodoApiUtil.getTodos(data, cb);
-	  },
-	
-	  createTodoList: function (data, cb) {
-	    TodoApiUtil.createTodo(data, cb);
-	  },
-	
-	  updateTodoList: function (data, cb) {
-	    TodoApiUtil.updateTodo(data, cb);
-	  }
-	};
-	
-	module.exports = TodoActions;
-
-/***/ },
-/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(179).Store;
@@ -36157,6 +36136,8 @@
 	    case ActionTypes.RECEIVE_TODO:
 	      TodoStore.receiveTodo(payload.todo);
 	      break;
+	    case ActionTypes.DESTROY_TODO:
+	      TodoStore.destroyTodo(payload.todo);
 	  }
 	};
 	
@@ -36173,7 +36154,7 @@
 	  if (!found) {
 	    _todos.push(todo);
 	  }
-	  TodoStore.save(_todos);
+	  TodoStore.save(todos, _todos);
 	  TodoStore.__emitChange();
 	};
 	
@@ -36205,85 +36186,12 @@
 	  return TodoStore.get(errors);
 	};
 	
+	window.TodoStore = TodoStore;
+	
 	module.exports = TodoStore;
 
 /***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var dispatcher = __webpack_require__(173);
-	var ActionTypes = __webpack_require__(177);
-	
-	var TodoServerActions = {
-	  receiveTodos: function (data, cb) {
-	    if (typeof cb !== 'undefined') {
-	      cb(data);
-	    }
-	    dispatcher.dispatch({
-	      actionType: ActionTypes.RECEIVE_TODOS,
-	      todos: data
-	    });
-	  },
-	
-	  receiveTodo: function (data, cb) {
-	    if (typeof cb !== 'undefined') {
-	      cb(data);
-	    }
-	    dispatcher.dispatch({
-	      actionType: ActionTypes.RECEIVE_TODO,
-	      todo: data
-	    });
-	  },
-	
-	  handleErrors: function (errors) {
-	    dispatcher.dispatch({
-	      actionType: ActionTypes.TODO_ERROR,
-	      errors: errors
-	    });
-	  }
-	};
-	
-	module.exports = TodoServerActions;
-
-/***/ },
-/* 297 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var TodoServerActions = __webpack_require__(296);
-	
-	var TodoApiUtil = {
-	  getTodos: function (data, cb) {
-	    $.ajax({
-	      url: '/api/projects/' + data.projectid + '/todo_lists',
-	      method: 'GET',
-	      success: function (response) {
-	        TodoServerActions.receiveTodos(response, cb);
-	      },
-	      failure: function (errors) {
-	        TodoServerActions.handleErrors(errors);
-	      }
-	    });
-	  },
-	
-	  createTodoList: function (data, cb) {
-	    $.ajax({
-	      url: '/api/projects/' + data.projectid + '/todo_lists',
-	      method: 'POST',
-	      data: { todo_list: data },
-	      success: function (response) {
-	        TodoServerActions.receiveTodo(response, cb);
-	      },
-	      failure: function (errors) {
-	        TodoServerActions.handleErrors(errors);
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = TodoApiUtil;
-
-/***/ },
-/* 298 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -36327,12 +36235,12 @@
 	module.exports = TodoPreview;
 
 /***/ },
-/* 299 */,
-/* 300 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var TodoApiUtil = __webpack_require__(297);
+	var TodoActions = __webpack_require__(299);
 	var history = __webpack_require__(197).hashHistory;
 	var EditTodo = React.createClass({
 	  displayName: 'EditTodo',
@@ -36352,6 +36260,7 @@
 	        description: this.props.todo.description,
 	        completed: this.props.todo.completed,
 	        id: this.props.todo.id,
+	        projectid: this.props.todo.project_id,
 	        cancel: this.props.cancel
 	      };
 	    }
@@ -36379,7 +36288,6 @@
 	  },
 	
 	  cancel: function (e) {
-	    debugger;
 	    e.preventDefault();
 	    this.props.cancel();
 	  },
@@ -36404,25 +36312,57 @@
 	
 	  handleSubmit: function () {
 	    if (this.props.new) {
-	      TodoApiUtil.createTodoList(this.state, this.todoRedirect);
+	      TodoActions.createTodoList(this.state, this.todoRedirect);
 	    } else {
-	      TodoApiUtil.updateTodoList(this.state);
+	      TodoActions.updateTodoList(this.state);
 	    }
+	  },
+	
+	  header: function () {
+	    if (this.props.new) {
+	      return;
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          null,
+	          'Editing Todo-List'
+	        ),
+	        React.createElement(
+	          'button',
+	          { onClick: this.destroy },
+	          'Delete'
+	        )
+	      );
+	    }
+	  },
+	
+	  redirectOnRemoval: function () {
+	    history.push('/users/' + this.props.userid + '/projects/' + todo.project_id + '/todos');
+	    alert('Todo-list removed');
+	  },
+	
+	  destroy: function (e) {
+	    e.preventDefault();
+	    TodoActions.destroyTodoList(this.state, this.redirectOnRemoval);
 	  },
 	
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
+	      this.header(),
 	      React.createElement(
 	        'form',
 	        { onSubmit: this.handleSubmit, className: 'edit-todolist-form',
 	          id: 'edit' },
 	        React.createElement('input', { type: 'text', value: this.state.title, placeholder: 'title',
-	          onChange: this.updateTitle,
+	          onChange: this.updateTitle, required: true,
 	          className: 'edit-todolist-title' }),
 	        React.createElement('input', { type: 'text', value: this.state.description,
-	          onChange: this.updateDescription,
+	          onChange: this.updateDescription, required: true,
 	          className: 'edit-todolist-description', placeholder: 'description' }),
 	        React.createElement(
 	          'label',
@@ -36450,12 +36390,167 @@
 	module.exports = EditTodo;
 
 /***/ },
-/* 301 */
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var TodoServerActions = __webpack_require__(298);
+	
+	var TodoApiUtil = {
+	  getTodos: function (data, cb) {
+	    $.ajax({
+	      url: '/api/projects/' + data.projectid + '/todo_lists',
+	      method: 'GET',
+	      success: function (response) {
+	        TodoServerActions.receiveTodos(response, cb);
+	      },
+	      failure: function (errors) {
+	        TodoServerActions.handleErrors(errors);
+	      }
+	    });
+	  },
+	
+	  createTodoList: function (data, cb) {
+	    $.ajax({
+	      url: '/api/projects/' + data.projectid + '/todo_lists',
+	      method: 'POST',
+	      data: { todo_list: data },
+	      success: function (response) {
+	        TodoServerActions.receiveTodo(response, cb);
+	      },
+	      failure: function (errors) {
+	        TodoServerActions.handleErrors(errors);
+	      }
+	    });
+	  },
+	
+	  updateTodoList: function (data, cb) {
+	    $.ajax({
+	      url: '/api/projects/' + data.projectid + '/todo_lists/' + data.id,
+	      method: "PATCH",
+	      data: { todo_list: data },
+	      success: function (response) {
+	        TodoServerActions.receiveTodo(response, cb);
+	      },
+	      failure: function (errors) {
+	        TodoServerActions.handleErrors(errors);
+	      }
+	    });
+	  },
+	
+	  getTodoList: function (data, cb) {
+	    $.ajax({
+	      url: 'api/projects/' + data.projectid + '/todo_lists/' + data.id,
+	      method: "GET",
+	      success: function (response) {
+	        TodoServerActions.receiveTodo(response, cb);
+	      },
+	      failure: function (errors) {
+	        TodoServerActions.handleErrors(errors);
+	      }
+	    });
+	  },
+	
+	  destroyTodoList: function (data, cb) {
+	    $.ajax({
+	      url: 'api/projects/' + data.projectid + '/todo_lists/' + data.id,
+	      method: "DELETE",
+	      success: function (response) {
+	        TodoServerActions.removeTodo(response, cb);
+	      }, failure: function (errors) {
+	        TodoServerActions.handleErrors(errors);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = TodoApiUtil;
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var dispatcher = __webpack_require__(173);
+	var ActionTypes = __webpack_require__(177);
+	
+	var TodoServerActions = {
+	  receiveTodos: function (data, cb) {
+	    if (typeof cb !== 'undefined') {
+	      cb(data);
+	    }
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.RECEIVE_TODOS,
+	      todos: data
+	    });
+	  },
+	
+	  receiveTodo: function (data, cb) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.RECEIVE_TODO,
+	      todo: data
+	    });
+	    if (typeof cb !== 'undefined') {
+	      cb(data);
+	    }
+	  },
+	
+	  removeTodo: function (data, cb) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.DESTROY_TODO,
+	      todo: data
+	    });
+	    if (typeof cb !== 'undefined') {
+	      cb(data);
+	    }
+	  },
+	
+	  handleErrors: function (errors) {
+	    dispatcher.dispatch({
+	      actionType: ActionTypes.TODO_ERROR,
+	      errors: errors
+	    });
+	  }
+	};
+	
+	module.exports = TodoServerActions;
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var TodoApiUtil = __webpack_require__(297);
+	
+	var TodoActions = {
+	  getTodos: function (data, cb) {
+	    TodoApiUtil.getTodos(data, cb);
+	  },
+	
+	  getTodo: function (data, cb) {
+	    TodoApiUtil.getTodoList(data, cb);
+	  },
+	
+	  destroyTodoList: function (data, cb) {
+	    TodoApiUtil.destroyTodoList(data, cb);
+	  },
+	
+	  createTodoList: function (data, cb) {
+	    TodoApiUtil.createTodoList(data, cb);
+	  },
+	
+	  updateTodoList: function (data, cb) {
+	    TodoApiUtil.updateTodoList(data, cb);
+	  }
+	};
+	
+	module.exports = TodoActions;
+
+/***/ },
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var TodoStore = __webpack_require__(295);
-	var EditTodo = __webpack_require__(300);
+	var TodoStore = __webpack_require__(294);
+	var EditTodo = __webpack_require__(296);
+	var TodoActions = __webpack_require__(299);
 	var TodoPage = React.createClass({
 	  displayName: 'TodoPage',
 	
@@ -36469,6 +36564,7 @@
 	
 	  componentWillMount: function () {
 	    this.listener = TodoStore.addListener(this.update);
+	    TodoActions.getTodo(this.props.params.todoid);
 	  },
 	
 	  componentWillReceiveProps: function (nextProps) {
@@ -36492,9 +36588,8 @@
 	    this.setState({ edit: true });
 	  },
 	
-	  cancel: function (e) {
-	    e.preventDefault();
-	    this.setState({ edit: true });
+	  cancel: function () {
+	    this.setState({ edit: false });
 	  },
 	
 	  edit: function () {

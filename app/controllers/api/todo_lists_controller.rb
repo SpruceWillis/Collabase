@@ -8,7 +8,7 @@ class Api::TodoListsController < ApplicationController
       render "api/todo_lists/show"
     else
       @errors = @todo_list.errors.full_messages
-      render "api/shared/errors", status: 422
+      render "api/shared/error", status: 422
     end
   end
 
@@ -19,7 +19,7 @@ class Api::TodoListsController < ApplicationController
       render "api/todo_lists/index"
     else
       @errors = ['resource not found']
-      render "api/shared/errors", status: 404
+      render "api/shared/error", status: 404
     end
   end
 
@@ -29,7 +29,7 @@ class Api::TodoListsController < ApplicationController
       render "api/todo_lists/show"
     else
       @errors = ['resource not found']
-      render "api/shared/errors", status: 404
+      render "api/shared/error", status: 404
     end
   end
 
@@ -39,7 +39,7 @@ class Api::TodoListsController < ApplicationController
       render "api/todo_lists/show"
     else
       @errors = @todo_list.errors.full_messages
-      render "api/shared/errors", status: 422
+      render "api/shared/error", status: 422
     end
   end
 
@@ -49,7 +49,7 @@ class Api::TodoListsController < ApplicationController
     render "api/todo_lists/show"
   else
     @errors = ['resource not found']
-    render "api/shared/errors", status: 404
+    render "api/shared/error", status: 404
   end
   end
 
