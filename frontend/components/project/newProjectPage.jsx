@@ -20,7 +20,6 @@ var NewProjectPage = React.createClass({
   },
 
   redirectToProject: function(response){
-    debugger;
     history.push('users/' + response.owner_id + '/projects/' + response.id);
     alert('Project successfully created');
   },

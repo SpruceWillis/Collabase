@@ -9,11 +9,11 @@ var TodoItemDisplay = React.createClass({
     };
   },
 
-  
+
 
   render: function() {
     return (
-      <div />
+      <div>{this.props.todoItem.title}</div>
     );
   }
 

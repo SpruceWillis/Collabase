@@ -7,6 +7,7 @@ var TodoStore = new Store(dispatcher);
 var todos = "todos";
 var currentTodo = "currentTodo";
 var errors = "errors";
+var todoKeys = "todoKeys";
 
 TodoStore.save = function(key, value){
   localStorage.setItem(key, JSON.stringify(value));
@@ -21,6 +22,11 @@ TodoStore.get = function(key){
 if (localStorage.getItem(todos) === "undefined" ||
   localStorage.getItem(todos) === null){
   TodoStore.save(todos, []);
+}
+
+if (localStorage.getItem(todoKeys) === "undefined"){
+  localStorage.setItem(todoKeys, JSON.stringify({}));
+  localStorage.getItem(todoKeys);
 }
 
 if (localStorage.getItem(currentTodo) === null){
@@ -45,23 +51,23 @@ TodoStore.__onDispatch = function(payload){
       break;
     case ActionTypes.DESTROY_TODO:
       TodoStore.removeTodo(payload.todo);
+      break;
+    case ActionTypes.RECEIVE_PROJECT:
+      TodoStore.receiveTodos(payload.project.todo_lists);
+      break;
   }
 };
 
 TodoStore.receiveTodo = function(todo){
-  var found = false;
-  var _todos = TodoStore.get(todos);
-  for (var i = 0; i < _todos.length; i++){
-    if (_todos[i].id === todo.id){
-      _todos[i] = todo;
-      found = true;
-      break;
-    }
+  var todoMapping = TodoStore.get(todoKeys);
+  var todoArr = TodoStore.get(todos);
+  if (typeof todoMapping[todo.id] !== 'undefined'){
+    todoArr[todoMapping[todo.id]] = todo;
+  } else  {
+    todoMapping[todo.id] = todoArr.push(todo) - 1;
   }
-  if (!found){
-    _todos.push(todo);
-  }
-  TodoStore.save(todos, _todos);
+  TodoStore.save(todos, todoArr);
+  TodoStore.save(todoKeys, todoMapping);
   TodoStore.__emitChange();
 };
 
@@ -71,6 +77,11 @@ TodoStore.handleErrors = function(errs){
 };
 
 TodoStore.receiveTodos = function(data){
+  var todoMapping = {};
+  for (var i = 0; i < data.length; i++) {
+    todoMapping[data[i].id] = i;
+  }
+  TodoStore.save(todoKeys, todoMapping);
   TodoStore.save(todos, data);
   TodoStore.__emitChange();
 };
@@ -81,24 +92,16 @@ TodoStore.allTodos = function(){
 
 TodoStore.removeTodo = function(todo){
   var _todos = TodoStore.get(todos);
-  for (var i = 0; i < _todos.length; i++){
-    if (_todos[i].id === todo.id){
-      _todos.splice(i,1);
-      break;
-    }
-  }
-  TodoStore.save(todos, _todos);
-  TodoStore.__emitChange();
+  var _todoKeys = TodoStore.get(todoKeys);
+  _todos.splice(_todoKeys[todo.id], 1);
+  TodoStore.receiveTodos(_todos);
 };
 
 TodoStore.currentTodo = function(id){
   id = parseInt(id);
   var _todos = TodoStore.get(todos);
-  for (var i = 0; i < _todos.length; i++){
-    if (_todos[i].id === id) {
-      return _todos[i];
-    }
-  }
+  var _todoKeys = TodoStore.get(todoKeys);
+  return _todos[_todoKeys[id]];
 };
 
 TodoStore.errors = function(){

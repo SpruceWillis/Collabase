@@ -1,8 +1,10 @@
 var React = require('react');
 var TodoStore = require('../../stores/todoStore');
-var EditTodo = require('./editTodo');
+var EditTodo = require('./editTodo'),
+    NewTodoItem = require('./newTodoItem'),
+    TodoItemDisplay = require('./todoItemDisplay'),
+    NavBar = require('../navBar');
 var TodoActions = require('../../actions/todoActions');
-var NewTodoItem = require('./newTodoItem');
 var history = require('react-router').hashHistory;
 var TodoPage = React.createClass({
 
@@ -117,6 +119,7 @@ var TodoPage = React.createClass({
   render: function() {
     return (
       <div>
+        <NavBar />
         {this.edit()}
         {this.add()}
         {this.todoItems()}

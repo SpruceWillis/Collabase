@@ -54,22 +54,11 @@ var ProjectLandingPage = React.createClass({
     this.setState({showEdit: false});
   },
 
-  // projectNavigation: function(){
-  //   if (this.hasProject()){
-  //     return (
-  //       <ProjectNavigation project={this.state.currentProject}
-  //         user={this.state.currentUser} />
-  //     );
-  //   } else {
-  //     return;
-  //   }
-  // },
 
   hasProject: function(){
     return !($.isEmptyObject(this.state.currentProject));
   },
 
-  // {this.projectNavigation()}
   render: function() {
     return (
       <div className="background">
