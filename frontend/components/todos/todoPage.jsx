@@ -6,14 +6,25 @@ var EditTodo = require('./editTodo'),
     NavBar = require('../navBar');
 var TodoActions = require('../../actions/todoActions');
 var history = require('react-router').hashHistory;
+
+
 var TodoPage = React.createClass({
 
   getInitialState: function() {
+    var todo = TodoStore.currentTodo(this.props.params.todoid);
     return {
-      todo: TodoStore.currentTodo(this.props.params.todoid),
+      todo: todo,
       edit: false,
-      add: false
+      add: false,
+      completed: this.getCompletions(todo)
     };
+  },
+
+  getCompletions: function(todo){
+    var completions =  todo.todo_items.map(function(todoItem){
+      return todoItem.completed;
+    });
+    return completions;
   },
 
   componentWillMount: function() {
@@ -24,16 +35,52 @@ var TodoPage = React.createClass({
     });
   },
 
+  saveIfDifferent: function(){
+    if (this.isDifferent()){
+      this.save();
+    }
+  },
+
   componentWillReceiveProps: function(nextProps) {
+    var todo = TodoStore.currentTodo(nextProps.params.todoid);
     this.setState({
-      todo: TodoStore.currentTodo(nextProps.params.todoid),
+      todo: todo,
       edit: false,
-      add: false
+      add: false,
+      completed: this.getCompletions(todo)
     });
   },
 
   componentWillUnmount: function() {
     this.listener.remove();
+    if (this.isDifferent()){
+      this.save();
+    }
+  },
+
+  save: function(e){
+    debugger;
+    if (e){
+      e.preventDefault();
+      TodoActions.updateTodoListItems(this.state, this.saveAlert);
+    } else {
+      TodoActions.updateTodoListItems(this.state);
+    }
+  },
+
+  isDifferent: function(){
+    var storeTodo = TodoStore.currentTodo(this.props.params.todoid);
+    var storeCompleted = this.getCompletions(storeTodo);
+    if (storeCompleted.length !== this.state.completed.length) {
+      return true;
+    } else {
+      for (var i = 0; i < storeCompleted.length; i++){
+        if (storeCompleted[i] !== this.state.completed[i]){
+          return true;
+        }
+      }
+    }
+    return false;
   },
 
   update: function(){
@@ -85,13 +132,23 @@ var TodoPage = React.createClass({
         </div>
         <h1>{this.state.todo.title}</h1>
         <h2>{this.state.todo.description}</h2>
+        <h2>Completed: {this.state.todo.completed.toString()}</h2>
       </div>);
     }
   },
 
   onTodoCreate: function(){
     this.setState({add: false});
-    alert("New task added");
+  },
+
+  updateItemCompletion: function(index){
+    var _completed = this.state.completed;
+    _completed[index] = !_completed[index];
+    this.setState({completed: _completed})
+  },
+
+  saveAlert: function(){
+    alert("Todo-list saved");
   },
 
   add: function(){
@@ -108,12 +165,13 @@ var TodoPage = React.createClass({
 
   todoItems: function(){
     var that = this;
-    var items = this.state.todo.todo_items.map(function(item){
-      return (<TodoItemDisplay todoItem={item} key={item.id} />)
+    var items = this.state.todo.todo_items.map(function(item, index){
+      return (<TodoItemDisplay todoItem={item} completed={that.state.completed[index]}
+        key={item.id} handleClick={that.updateItemCompletion.bind(that, index)} />);
     });
     return (<ul>
       {items}
-    </ul>)
+    </ul>);
   },
 
   render: function() {
@@ -123,6 +181,9 @@ var TodoPage = React.createClass({
         {this.edit()}
         {this.add()}
         {this.todoItems()}
+        <div>
+          <button onClick={this.save}>Save</button>
+        </div>
       </div>
     );
   }

@@ -79,6 +79,33 @@ var TodoApiUtil = {
         TodoServerActions.handleErrors(errors);
       }
     });
+  },
+
+  destroyTodoItem: function(data, cb){
+    $.ajax({
+      url: 'api/todo_items/' + data,
+      method: "DELETE",
+      success: function(response){
+        TodoServerActions.receiveTodo(response, cb);
+      },
+      failure: function(errors){
+        TodoServerActions.handleErrors(errors);
+      }
+    });
+  },
+
+  updateTodoListItems: function(data, cb){
+    $.ajax({
+      url: 'api/todo_items/-1',
+      method: "PATCH",
+      data: {todo_items: JSON.stringify(data)},
+      success: function(response){
+        TodoServerActions.receiveTodo(response, cb);
+      },
+      failure: function(errors){
+        TodoServerActions.handleErrors(errors);
+      }
+    })
   }
 };
 

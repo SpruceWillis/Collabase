@@ -23,6 +23,18 @@ var TodoActions = {
 
   createTodoItem: function(data, cb){
     TodoApiUtil.createTodoItem(data, cb);
+  },
+
+  destroyTodoItem: function(data, cb){
+    TodoApiUtil.destroyTodoItem(data, cb);
+  },
+
+  updateTodoListItems: function(data, cb){
+    var todoItems = data.todo.todo_items;
+    for (var i = 0; i < todoItems.length; i++) {
+      todoItems[i].completed = data.completed[i];
+    }
+    TodoApiUtil.updateTodoListItems(todoItems, cb);
   }
 };
 

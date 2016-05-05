@@ -34,7 +34,7 @@ class Api::TodoListsController < ApplicationController
   end
 
   def update
-    @todo_list = TodoList.includes(todo_lists: :todo_items).find_by_id(params[:id])
+    @todo_list = TodoList.includes(:todo_items).find_by_id(params[:id])
     if (@todo_list.update(todo_list_params))
       render "api/todo_lists/show"
     else

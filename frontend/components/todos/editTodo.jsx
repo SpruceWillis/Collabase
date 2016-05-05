@@ -97,8 +97,8 @@ var EditTodo = React.createClass({
             className="edit-todolist-description" placeholder="description">
           </input>
           <label for="completed">Completed
-            <input type="checkbox" onClick={this.updateCompletion}
-            value={this.state.completed} id="completed"></input>
+            <input type="checkbox" onChange={this.updateCompletion}
+            checked={this.state.completed} id="completed"></input>
           </label>
           <div>
             <button className="todolist-save">{this.buttonText()}</button>

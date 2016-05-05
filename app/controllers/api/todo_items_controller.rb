@@ -23,14 +23,16 @@ class Api::TodoItemsController < ApplicationController
   end
 
   def update
-    @todo_item = TodoItem.find_by_id(params[:id])
-    if (@todo_item && @todo_item.update(todo_item_params))
-      @todo_list = TodoList.find_by_id(@todo_item.todo_list_id)
-      render 'api/todo_items/show'
-    else
-      @errors = ['resource not found']
-      render 'api/shared/error', status: 404
+    todo_items = JSON.parse(params[:todo_items])
+    begin
+      TodoItem.update_multiple(todo_items)
+    rescue
+      @errors =['failed to update todo items']
+      render 'api/shared/error', status: 422
+      return
     end
+    @todo_list = TodoList.find_by_id(todo_items[0]["todo_list_id"])
+    render 'api/todo_lists/show'
   end
 
   def destroy
@@ -45,6 +47,6 @@ class Api::TodoItemsController < ApplicationController
   end
 
   def todo_item_params
-    params.require(:todo_item).permit([:title, :description, :due_date, :completed])
+    params.require(:todo_item).permit([:title, :description, :due_date, :completed, :todo_items])
   end
 end

@@ -6,6 +6,12 @@ class TodoItem < ActiveRecord::Base
 
   belongs_to :user
 
-  
-
+  def self.update_multiple(todo_items)
+    TodoItem.transaction do
+      todo_items.each do |todo_item|
+        item = TodoItem.find(todo_item["id"])
+        item.update!(todo_item)
+      end
+    end
+  end
 end
