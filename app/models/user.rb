@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     through: :project_memberships,
     source: :project
 
+  has_many :todo_lists
+
+  has_many :todo_items
+
   def password= (password)
     self.password_digest = BCrypt::Password.create(password)
     @password = password
