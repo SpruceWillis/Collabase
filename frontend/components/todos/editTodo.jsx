@@ -79,20 +79,8 @@ var EditTodo = React.createClass({
     } else {
       return (<div>
         <div>Editing Todo-List</div>
-        <button onClick={this.destroy}>Delete</button>
       </div>);
     }
-  },
-
-  redirectOnRemoval: function(){
-    history.push('/users/' + this.props.userid + '/projects/' +
-    todo.project_id + '/todos')
-    alert ('Todo-list removed');
-  },
-
-  destroy: function(e){
-    e.preventDefault();
-    TodoActions.destroyTodoList(this.state, this.redirectOnRemoval);
   },
 
   render: function() {

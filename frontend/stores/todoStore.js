@@ -44,7 +44,7 @@ TodoStore.__onDispatch = function(payload){
       TodoStore.receiveTodo(payload.todo);
       break;
     case ActionTypes.DESTROY_TODO:
-      TodoStore.destroyTodo(payload.todo);
+      TodoStore.removeTodo(payload.todo);
   }
 };
 
@@ -77,6 +77,18 @@ TodoStore.receiveTodos = function(data){
 
 TodoStore.allTodos = function(){
   return TodoStore.get(todos);
+};
+
+TodoStore.removeTodo = function(todo){
+  var _todos = TodoStore.get(todos);
+  for (var i = 0; i < _todos.length; i++){
+    if (_todos[i].id === todo.id){
+      _todos.splice(i,1);
+      break;
+    }
+  }
+  TodoStore.save(todos, _todos);
+  TodoStore.__emitChange();
 };
 
 TodoStore.currentTodo = function(id){
