@@ -17,11 +17,11 @@ var ProjectTodosContainer = React.createClass({
 
   componentDidMount: function() {
     this.listener = TodoStore.addListener(this.update);
-    // TodoActions.getTodos(this.props.params);
+    // TodoActions.getTodoLists(this.props.params);
   },
 
   componentWillReceiveProps: function(nextProps) {
-    TodoActions.getTodos(nextProps.params);
+    TodoActions.getTodoLists(nextProps.params);
   },
 
   componentWillUnmount: function() {
@@ -52,13 +52,7 @@ var ProjectTodosContainer = React.createClass({
     return (
       <div>
         <div>
-          <div>Todo-Lists</div>
           {this.todos()}
-        </div>
-        <div>
-          <div>Add a Todo</div>
-          <EditTodo userid={this.props.params.userid} new={true}
-            project={this.props.params.projectid} />
         </div>
       </div>
     );

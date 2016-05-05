@@ -1,7 +1,7 @@
 var TodoServerActions = require('../actions/todoServerActions');
 
 var TodoApiUtil = {
-  getTodos: function(data, cb){
+  getTodoLists: function(data, cb){
     $.ajax({
       url: '/api/projects/' + data.projectid + '/todo_lists',
       method: 'GET',
@@ -61,6 +61,20 @@ var TodoApiUtil = {
       method: "DELETE",
       success: function(response){
         TodoServerActions.removeTodo(response, cb);
+      }, failure: function(errors){
+        TodoServerActions.handleErrors(errors);
+      }
+    });
+  },
+
+  createTodoItem: function(data, cb){
+    $.ajax({
+      url: 'api/projects/' + data.projectid + '/todo_lists/'
+      + data.id + '/todo_items',
+      method: "POST",
+      data: {todo_item: data},
+      success: function(response){
+        TodoServerActions.receiveTodo(response, cb);
       }, failure: function(errors){
         TodoServerActions.handleErrors(errors);
       }

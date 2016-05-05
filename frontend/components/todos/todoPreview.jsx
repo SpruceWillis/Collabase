@@ -4,7 +4,7 @@ var history = require('react-router').hashHistory;
 var TodoPreview = React.createClass({
 
   handleClick: function(){
-    history.push('/users/' + this.props.userid +
+    history.push('/users/' + this.props.params.userid +
     '/projects/' + this.props.todo.project_id+
     '/todos/' + this.props.todo.id);
   },

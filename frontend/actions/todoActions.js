@@ -1,11 +1,11 @@
 var TodoApiUtil = require('../util/todoApiUtil');
 
 var TodoActions = {
-  getTodos: function(data, cb){
-    TodoApiUtil.getTodos(data, cb);
+  getTodoLists: function(data, cb){
+    TodoApiUtil.getTodoLists(data, cb);
   },
 
-  getTodo: function(data, cb){
+  getTodoList: function(data, cb){
     TodoApiUtil.getTodoList(data, cb);
   },
 
@@ -19,6 +19,10 @@ var TodoActions = {
 
   updateTodoList: function(data, cb){
     TodoApiUtil.updateTodoList(data, cb);
+  },
+
+  createTodoItem: function(data, cb){
+    TodoApiUtil.createTodoItem(data, cb);
   }
 };
 

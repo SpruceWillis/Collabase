@@ -2,19 +2,21 @@ var React = require('react');
 var TodoStore = require('../../stores/todoStore');
 var EditTodo = require('./editTodo');
 var TodoActions = require('../../actions/todoActions');
+var NewTodoItem = require('./newTodoItem');
 var history = require('react-router').hashHistory;
 var TodoPage = React.createClass({
 
   getInitialState: function() {
     return {
       todo: TodoStore.currentTodo(this.props.params.todoid),
-      edit: false
+      edit: false,
+      add: false
     };
   },
 
   componentWillMount: function() {
     this.listener = TodoStore.addListener(this.update);
-    TodoActions.getTodo({
+    TodoActions.getTodoList({
       id: this.props.params.todoid,
       projectid: this.props.params.projectid
     });
@@ -23,7 +25,8 @@ var TodoPage = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     this.setState({
       todo: TodoStore.currentTodo(nextProps.params.todoid),
-      edit: false
+      edit: false,
+      add: false
     });
   },
 
@@ -33,7 +36,7 @@ var TodoPage = React.createClass({
 
   update: function(){
     this.setState( {
-      todo: TodoStore.currentTodo(this.props.params.todoid)
+      todo: TodoStore.currentTodo(this.props.params.todoid),
     });
   },
 
@@ -41,8 +44,16 @@ var TodoPage = React.createClass({
     this.setState({edit: true});
   },
 
-  cancel: function(){
+  cancelEdit: function(){
     this.setState({edit: false});
+  },
+
+  enableAdd: function(){
+    this.setState({add:true});
+  },
+
+  cancelAdd: function(){
+    this.setState({add:false});
   },
 
   redirectOnRemoval: function(){
@@ -61,7 +72,7 @@ var TodoPage = React.createClass({
 
   edit: function(){
     if (this.state.edit){
-      var boundClick = this.cancel;
+      var boundClick = this.cancelEdit;
       return <EditTodo new={false} todo={this.state.todo}
         cancel={boundClick} />;
     } else {
@@ -76,12 +87,39 @@ var TodoPage = React.createClass({
     }
   },
 
+  onTodoCreate: function(){
+    this.setState({add: false});
+    alert("New task added");
+  },
 
+  add: function(){
+    if (this.state.add){
+      return <NewTodoItem todo={this.state.todo} cancel={this.cancelAdd}
+        success={this.onTodoCreate}/>;
+    } else {
+      return (<div onClick={this.enableAdd}>
+        <button >+</button>
+        <div>New Task</div>
+      </div>);
+    }
+  },
+
+  todoItems: function(){
+    var that = this;
+    var items = this.state.todo.todo_items.map(function(item){
+      return (<TodoItemDisplay todoItem={item} key={item.id} />)
+    });
+    return (<ul>
+      {items}
+    </ul>)
+  },
 
   render: function() {
     return (
       <div>
         {this.edit()}
+        {this.add()}
+        {this.todoItems()}
       </div>
     );
   }

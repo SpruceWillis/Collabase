@@ -33,12 +33,12 @@ var EditTodo = React.createClass({
   },
 
   cancelButton: function(){
-    if (this.props.new){
-      return;
-    } else {
+    // if (this.props.new){
+    //   return;
+    // } else {
       return <button onClick={this.cancel}
         className="todolist-cancel">Cancel</button>;
-    }
+    // }
   },
 
   cancel: function(e){
