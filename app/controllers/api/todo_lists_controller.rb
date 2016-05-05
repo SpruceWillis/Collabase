@@ -15,7 +15,7 @@ class Api::TodoListsController < ApplicationController
   def index
     @project = Project.find_by_id(params[:project_id])
     if (@project)
-      @todo_lists = TodoList.includes(todo_lists: :todo_items).where(project_id: params[:project_id])
+      @todo_lists = TodoList.includes(:todo_items).where(project_id: params[:project_id])
       render "api/todo_lists/index"
     else
       @errors = ['resource not found']

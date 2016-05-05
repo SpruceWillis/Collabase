@@ -6,7 +6,7 @@ var NavBar = require('../navBar'),
 var TodoServerActions = require('../../actions/todoServerActions');
 var TodoActions = require('../../actions/todoActions');
 
-var ProjectTodosPage = React.createClass({
+var ProjectTodosContainer = React.createClass({
 
   getInitialState: function() {
     return {
@@ -17,7 +17,7 @@ var ProjectTodosPage = React.createClass({
 
   componentDidMount: function() {
     this.listener = TodoStore.addListener(this.update);
-    TodoActions.getTodos(this.props.params);
+    // TodoActions.getTodos(this.props.params);
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -42,7 +42,7 @@ var ProjectTodosPage = React.createClass({
     } else {
       var todoItems = this.state.todos.map(function(todo){
         return <li key={todo.id}><TodoPreview
-          userid={that.props.params.userid} todo={todo}/></li>;
+          params={that.props.params} todo={todo}/></li>;
       });
       return <ul>{todoItems}</ul>;
     }
@@ -51,7 +51,6 @@ var ProjectTodosPage = React.createClass({
   render: function() {
     return (
       <div>
-        <NavBar />
         <div>
           <div>Todo-Lists</div>
           {this.todos()}
@@ -67,4 +66,4 @@ var ProjectTodosPage = React.createClass({
 
 });
 
-module.exports = ProjectTodosPage;
+module.exports = ProjectTodosContainer;

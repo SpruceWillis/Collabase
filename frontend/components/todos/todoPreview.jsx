@@ -22,6 +22,7 @@ var TodoPreview = React.createClass({
       <div onClick={this.handleClick} className={this.thisClass()}>
         <h1>{this.props.todo.title}</h1>
         <h2>{this.props.todo.description}</h2>
+        <h2>{this.props.todo.completed.toString()}</h2>
       </div>
     );
   }

@@ -46,8 +46,8 @@ var TodoPage = React.createClass({
   },
 
   redirectOnRemoval: function(){
-    history.push('/users/' + this.props.userid + '/projects/' +
-    this.props.params.projectid + '/todos');
+    history.push('/users/' + this.props.params.userid + '/projects/' +
+    this.props.params.projectid);
     alert ('Todo-list removed');
   },
 
