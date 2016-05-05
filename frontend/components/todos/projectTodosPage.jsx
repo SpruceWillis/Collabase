@@ -52,9 +52,15 @@ var ProjectTodosPage = React.createClass({
     return (
       <div>
         <NavBar />
-        {this.todos()}
-        <EditTodo userid={this.props.params.userid} new={true}
-          project={this.props.params.projectid} />
+        <div>
+          <div>Todo-Lists</div>
+          {this.todos()}
+        </div>
+        <div>
+          <div>Add a Todo</div>
+          <EditTodo userid={this.props.params.userid} new={true}
+            project={this.props.params.projectid} />
+        </div>
       </div>
     );
   }

@@ -44,6 +44,7 @@ var ProjectLandingPage = React.createClass({
         <NavBar />
         {this.project()}
         {this.projectNavigation()}
+
       </div>
     );
   }

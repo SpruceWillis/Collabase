@@ -15,7 +15,7 @@ class Api::TodoListsController < ApplicationController
   def index
     @project = Project.find_by_id(params[:project_id])
     if (@project)
-      @todo_lists = TodoList.where(project_id: params[:project_id])
+      @todo_lists = TodoList.includes(todo_lists: :todo_items).where(project_id: params[:project_id])
       render "api/todo_lists/index"
     else
       @errors = ['resource not found']
@@ -24,7 +24,7 @@ class Api::TodoListsController < ApplicationController
   end
 
   def show
-    @todo_list = TodoList.find_by_id(params[:id])
+    @todo_list = TodoList.includes(:todo_items).find_by_id(params[:id])
     if (@todo_list)
       render "api/todo_lists/show"
     else
@@ -34,7 +34,7 @@ class Api::TodoListsController < ApplicationController
   end
 
   def update
-    @todo_list = TodoList.find_by_id(params[:id])
+    @todo_list = TodoList.includes(todo_lists: :todo_items).find_by_id(params[:id])
     if (@todo_list.update(todo_list_params))
       render "api/todo_lists/show"
     else
