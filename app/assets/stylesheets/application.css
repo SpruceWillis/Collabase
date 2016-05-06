@@ -160,3 +160,17 @@
   border: 1px solid green;
   color: #18121E;
 }
+
+.todoitem-completion {
+  border: 1px solid black;
+  min-height: 10px;
+  min-width: 10px;
+}
+
+.todoitem-incomplete {
+  background-color: yellow;
+}
+
+.todoitem-complete {
+  background-color: green;
+}

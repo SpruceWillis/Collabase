@@ -21,17 +21,37 @@ var TodoItemDisplay = React.createClass({
     }
   },
 
+  formatDueDate: function(){
+    var dueDate = new Date(this.props.todoItem.due_date);
+    var date = dueDate.getDate();
+    var month = dueDate.getMonth() + 1;
+    var year = dueDate.getFullYear().toString().substring(2);
+    return [month, date, year].join('/');
+  },
+
+  checkedClass: function(){
+    if (this.state.completed){
+      return "todoitem-incomplete";
+    } else {
+      return "todoitem-complete";
+    }
+  },
+
+  // <input type="checkbox" checked={this.state.completed}
+  //   onChange={this.props.handleClick}/>
+
   render: function() {
     return (
       <div>
         <div>
-          <input type="checkbox" checked={this.state.completed}
-            onChange={this.props.handleClick}/>
+          <button onClick={this.props.handleClick} className={"todoitem-completion " + this.checkedClass()}/>
           <button onClick={this.destroy}>X</button>
         </div>
-        <div>{this.props.todoItem.title}</div>
-        <div>{this.props.todoItem.description}</div>
-        <div>{this.props.todoItem.due_date}</div>
+        <div>
+          <div>{this.props.todoItem.title}</div>
+          <div>{this.props.todoItem.description}</div>
+          <div>{this.formatDueDate()}</div>
+        </div>
       </div>
     );
   }

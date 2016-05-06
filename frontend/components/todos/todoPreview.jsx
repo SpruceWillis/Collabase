@@ -43,7 +43,7 @@ var TodoPreview = React.createClass({
         var dueDate = new Date(todoItem.due_date);
         var date = dueDate.getDate();
         var month = dueDate.getMonth() + 1;
-        var year = dueDate.getFullYear().toString().substring();
+        var year = dueDate.getFullYear().toString().substring(2);
         return ['Next: ' + [month,date, year].join("/"), (new Date() > dueDate)];
       }
     }
