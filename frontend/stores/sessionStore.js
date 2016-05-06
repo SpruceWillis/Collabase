@@ -52,6 +52,7 @@ SessionStore.handleErrors = function(errors){
 SessionStore.logout = function(){
   _user = {};
   localStorage.setItem('currentUser', JSON.stringify({}));
+  // localStorage.clear();
   _errors = [];
   SessionStore.__emitChange();
 

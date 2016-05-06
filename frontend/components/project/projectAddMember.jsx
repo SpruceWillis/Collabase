@@ -45,7 +45,7 @@ var ProjectAddMember = React.createClass({
 
   potentialMembers: function(){
     var that = this;
-    if (this.state.currentUsers.length > 0){
+    if (this.state.currentUsers && this.state.currentUsers.length > 0){
       var members = this.state.currentUsers.map(function(member){
         return (<li onClick={that.addMember.bind(that,member)}
         className="found-member" key={member.id}>{member.name}</li>);
