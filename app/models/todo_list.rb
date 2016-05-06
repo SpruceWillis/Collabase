@@ -5,7 +5,8 @@ class TodoList < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
 
-  has_many :todo_items,
+  has_many :todo_items, -> {order('due_date DESC')},
   dependent: :destroy
+
 
 end

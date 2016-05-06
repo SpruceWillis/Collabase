@@ -89,6 +89,7 @@ $buttermilk: #FFF7C0;
   box-sizing: border-box;
   border-radius: 10px;
   width: 85%;
+  min-width: 800px;
   margin: 20px auto;
   background-color: beige;
   min-width: 400px;
@@ -354,4 +355,42 @@ $buttermilk: #FFF7C0;
 
 .new-member-clause {
   font-family: sans-serif;
+}
+
+//todo-list section of project landing page
+
+.new-todolist-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-new-todolist {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  line-height: 50px;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  color: #f5f5f5;
+  background: #66AB8C;
+  text-decoration: none;
+  box-shadow: 0 0 3px gray;
+  font-size: 20px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn-new-todolist:hover {
+  background-color: green;
+}
+
+.txt-new-todolist {
+  margin: 10px;
+font-size: 24px;
+font-family: sans-serif;
+color: #66AB8C;
 }

@@ -13,3 +13,105 @@
  *= require_tree .
  *= require_self
  */
+
+ /*Todo-list related CSS*/
+
+ .add-todolist-header {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .btn-new-todolist {
+   display: flex;
+   width: 55px;
+   height: 55px;
+   line-height: 50px;
+   border: 6px solid #f5f5f5;
+   border-radius: 50%;
+   color: #f5f5f5;
+   background: #66AB8C;
+   text-decoration: none;
+   box-shadow: 0 0 3px gray;
+   font-size: 20px;
+   font-weight: bold;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+ }
+
+ .btn-new-todolist:hover {
+   background-color: green;
+ }
+
+ .txt-new-todolist {
+ margin: 10px;
+ font-size: 32px;
+ font-weight: lighter;
+ font-family: sans-serif;
+ color: #66AB8C;
+ }
+
+ .new-todolist-header {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .add-todolist-txt {
+   width: auto;
+   font-size: 32px;
+   font-family: sans-serif;
+   margin-bottom: 4px;
+   font-weight: bold;
+   text-align: center;
+ }
+
+ .edit-todolist-form {
+   display: flex;
+   width: 100%;
+   flex-direction: column;
+ }
+
+ .edit-todolist-text {
+   width: 400px;
+   margin: 10px auto;
+   font-size: 24px;
+   text-align: center;
+   border-radius: 10px;
+   border: none;
+ }
+
+ .todolist-save {
+   display: flex;
+   justify-content: center;
+ }
+
+ .todolist-save > button {
+  width: auto;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: sans-serif;
+  margin: 0 10px;
+  font-size: 18px;
+ }
+
+ .todolist-save > button:hover{
+   color: #EFEFEF;
+ }
+
+ .todolist-save > button:active{
+   color: white;
+ }
+
+.todolist-save-btn {
+  background-color: palegreen;
+  border: 1px solid #66AB8C;
+}
+
+.todolist-cancel-btn{
+  background-color: pink;
+  border: 1px solid #FA7C92;
+}

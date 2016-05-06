@@ -24,7 +24,9 @@ var ProjectLandingPage = React.createClass({
     if (this.hasProject()){
       return (
         <ProjectHeader project={this.state.currentProject}
-          user={this.state.currentUser}/>);
+          user={this.state.currentUser} hide={this.hideNewTodo}
+          show={this.showNewTodo}/>
+      );
     } else {
       return (<div>Loading...</div>);
     }
@@ -33,15 +35,14 @@ var ProjectLandingPage = React.createClass({
   newTodoList: function(){
     if (this.state.showEdit){
       return (
-        <div>
-          <div>Add a Todo</div>
+        <div className="new-todolist-header">
           <EditTodo userid={this.props.params.userid} new={true}
             project={this.props.params.projectid} cancel={this.hideNewTodo} />
       </div>);
     } else {
-      return (<div onClick={this.showNewTodo}>
-        <button >+</button>
-        <div>Add New Todo</div>
+      return (<div onClick={this.showNewTodo} className="add-todolist-header">
+        <button className="btn-new-todolist">+</button>
+        <div className="txt-new-todolist">Add New Todo</div>
       </div>);
     }
   },

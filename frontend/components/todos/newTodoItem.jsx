@@ -35,7 +35,7 @@ var NewTodoItem = React.createClass({
           <input type="text" onChange={this.handleUpdate} id="description"
             value={this.state.description} required placeholder="description"/>
           <input type="date" onChange={this.handleUpdate} id="due_date"
-            value={this.state.due_date} required/>
+            value={this.state.due_date}/>
         </form>
         <div>
           <button type="submit" form="new-todo-form">Add Task</button>

@@ -32,15 +32,6 @@ var EditTodo = React.createClass({
     }
   },
 
-  cancelButton: function(){
-    // if (this.props.new){
-    //   return;
-    // } else {
-      return <button onClick={this.cancel}
-        className="todolist-cancel">Cancel</button>;
-    // }
-  },
-
   cancel: function(e){
     e.preventDefault();
     this.props.cancel();
@@ -75,11 +66,25 @@ var EditTodo = React.createClass({
 
   header: function(){
     if (this.props.new){
+      // return (<div className="add-todolist-txt">Add Todo</div>);
       return;
     } else {
       return (<div>
         <div>Editing Todo-List</div>
       </div>);
+    }
+  },
+
+  checked: function(){
+    if (this.props.new){
+      return;
+    } else {
+      return (
+        <label for="completed">Completed
+          <input type="checkbox" onChange={this.updateCompletion}
+            checked={this.state.completed} id="completed"></input>
+        </label>
+      );
     }
   },
 
@@ -89,20 +94,17 @@ var EditTodo = React.createClass({
         {this.header()}
         <form onSubmit={this.handleSubmit} className="edit-todolist-form"
           id="edit">
+          {this.checked()}
           <input type="text" value={this.state.title} placeholder="title"
             onChange={this.updateTitle} required
-            className="edit-todolist-title"></input>
+            className="edit-todolist-text"></input>
           <input type="text" value={this.state.description}
             onChange={this.updateDescription} required
-            className="edit-todolist-description" placeholder="description">
+            className="edit-todolist-text" placeholder="description">
           </input>
-          <label for="completed">Completed
-            <input type="checkbox" onChange={this.updateCompletion}
-            checked={this.state.completed} id="completed"></input>
-          </label>
-          <div>
-            <button className="todolist-save">{this.buttonText()}</button>
-            {this.cancelButton()}
+          <div className="todolist-save">
+            <button className="todolist-save-btn">{this.buttonText()}</button>
+            <button onClick={this.cancel} className="todolist-cancel-btn">Cancel</button>
           </div>
         </form>
       </div>

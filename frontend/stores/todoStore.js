@@ -108,6 +108,6 @@ TodoStore.errors = function(){
   return TodoStore.get(errors);
 };
 
-window.TodoStore = TodoStore;
+// window.TodoStore = TodoStore;
 
 module.exports = TodoStore;

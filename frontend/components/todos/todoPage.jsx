@@ -59,7 +59,6 @@ var TodoPage = React.createClass({
   },
 
   save: function(e){
-    debugger;
     if (e){
       e.preventDefault();
       TodoActions.updateTodoListItems(this.state, this.saveAlert);
@@ -141,6 +140,11 @@ var TodoPage = React.createClass({
     this.setState({add: false});
   },
 
+  back: function(){
+    history.push('/users/' + this.props.params.userid + '/projects/'
+    + this.props.params.projectid);
+  },
+
   updateItemCompletion: function(index){
     var _completed = this.state.completed;
     _completed[index] = !_completed[index];
@@ -156,9 +160,9 @@ var TodoPage = React.createClass({
       return <NewTodoItem todo={this.state.todo} cancel={this.cancelAdd}
         success={this.onTodoCreate}/>;
     } else {
-      return (<div onClick={this.enableAdd}>
-        <button >+</button>
-        <div>New Task</div>
+      return (<div onClick={this.enableAdd} className="new-todolist-header">
+        <button className="btn-new-todolist">+</button>
+        <div className="txt-new-todolist">New Task</div>
       </div>);
     }
   },
@@ -183,6 +187,7 @@ var TodoPage = React.createClass({
         {this.todoItems()}
         <div>
           <button onClick={this.save}>Save</button>
+          <button onClick={this.back}>Back</button>
         </div>
       </div>
     );
