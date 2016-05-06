@@ -9,16 +9,6 @@ var TodoPreview = React.createClass({
     '/todos/' + this.props.todo.id);
   },
 
-  thisClass: function(){
-    if (this.props.todo.completed){
-      return "todo-completed";
-    } else if (this.nothing) {
-      return "todo-nothing";
-    } else if (this.overdue){
-      return "todo-incomplete";
-    } 
-  },
-
   trimTitle: function(){
     var length = 25;
     var title = this.props.todo.title.trim();
@@ -44,34 +34,54 @@ var TodoPreview = React.createClass({
     var todoItems = this.props.todo.todo_items;
     var finished = true;
     if (todoItems.length === 0){
-      this.nothing = true;
-      return "No Tasks";
+      return ["No Tasks", false];
     }
     var thisYear = (new Date()).getFullYear();
     for (var i = todoItems.length -1; i >= 0; i--){
       var todoItem = todoItems[i];
       if (!todoItem.completed && todoItem.due_date){
         var dueDate = new Date(todoItem.due_date);
-        if (dueDate < (new Date())){
-          this.overdue = true;
-        }
-        if (Math.abs(dueDate.getFullYear() - thisYear) > 1){
-          return dueDate.toLocaleDateString();
-        } else {
-          var localeString = dueDate.toLocaleDateString();
-          return localeString.substring(0, localeString.length - 5);
-        }
+        var date = dueDate.getDate();
+        var month = dueDate.getMonth() + 1;
+        var year = dueDate.getFullYear().toString().substring();
+        return ['Next: ' + [month,date, year].join("/"), (new Date() > dueDate)];
       }
     }
-    return "Nothing Due"
+    return ["No Items Due", false];
   },
-  render: function() {
-    return (
-      <div onClick={this.handleClick} className={this.thisClass()}>
-        <div>{this.trimTitle()}</div>
-        <div>{this.nextEvent()}</div>
 
-      </div>
+  completionFraction: function(){
+    var todoItems = this.props.todo.todo_items;
+    var completedCount = 0;
+    var l = todoItems.length;
+    if (l === 0){
+      return "0/0";
+    } else if (this.props.todo.completed){
+      return "All Done!"
+    }
+    for (var i = 0; i < l; i++) {
+      if (todoItems[i].completed){
+        completedCount++;
+      }
+    }
+    return completedCount + "/" + l + " done";
+  },
+
+  render: function() {
+    var nextEvent = this.nextEvent();
+    if (nextEvent[1] && !this.props.todo.completed){
+      var className = "todo-overdue";
+    } else {
+      className = "todo-ontrack"
+    }
+    return (
+      <li className={"todo-preview group " + className}>
+        <div onClick={this.handleClick} title={this.props.todo.description}>
+          <div>{this.trimTitle()}</div>
+          <div>{this.nextEvent()}</div>
+          <div>{this.completionFraction()}</div>
+        </div>
+    </li>
     );
   }
 

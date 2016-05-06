@@ -119,6 +119,8 @@
 .todo-previews-list {
   list-style-type: none;
   padding-left: 0;
+  border-radius: 15px;
+  font-family: sans-serif;
   margin: 20px;
 }
 
@@ -132,8 +134,29 @@
 .todo-preview {
   float: left;
   margin: 10px;
+  padding: 15px 10px;
+  border-radius: 15px;
+  text-align: center;
+  background-color: white;
 }
 
-.todo-incomplete{
+.todo-overdue {
+  border: 1px solid #FA7C92;
+  color: red;
+}
 
+.todo-overdue:hover{
+  background-color: pink;
+  border: 1px solid red;
+}
+
+.todo-ontrack {
+  border: 1px solid #66AB8C;
+  color: darkgreen;
+}
+
+.todo-ontrack:hover {
+  background-color: #66AB8C;
+  border: 1px solid green;
+  color: #18121E;
 }

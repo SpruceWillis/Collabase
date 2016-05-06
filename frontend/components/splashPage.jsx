@@ -20,11 +20,11 @@ var SplashPage = React.createClass({
   render: function() {
     return (
       <div>
-        <img src="https://placekitten.com/1400/1200"
+        <img src="https://images.unsplash.com/photo-1423768164017-3f27c066407f"
           className="bg"/>
         <NavBar ref="nav"/>
         <div className="content">
-          <h1 className="tagline">Working Together</h1>
+          <h1 className="tagline">Teamwork Simplified</h1>
           <button className="startbutton"
             onClick={this.handleStartClick}>Get Started</button>
         </div>
