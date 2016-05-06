@@ -90,7 +90,8 @@ $buttermilk: #FFF7C0;
   margin: 0 0 0 30px;
   text-align: center;
   cursor: pointer;
-  background-image: image-url("/assets/logo.png");
+  z-index: 2;
+  background-image: url("http://res.cloudinary.com/dkskiosh7/image/upload/v1462578941/collaBase-logo_3_zvq8d3.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
