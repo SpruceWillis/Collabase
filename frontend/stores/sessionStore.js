@@ -4,12 +4,13 @@ var ActionTypes = require('../constants/actionTypes');
 
 var SessionStore = new Store(dispatcher);
 
-if (localStorage.getItem('currentUser') === "undefined"){
+if (localStorage.getItem('currentUser') === "undefined" ||
+  localStorage.getItem('currentUser') === null){
   var _user = {};
   localStorage.setItem('currentUser', JSON.stringify({}));
   localStorage.getItem('currentUser');
 } else {
-  _user = JSON.parse(localStorage.getItem('currentUser'));
+  // _user = JSON.parse(localStorage.getItem('currentUser'));
 }
 var _errors = [];
 
@@ -34,7 +35,6 @@ SessionStore.__onDispatch = function(payload){
 };
 
 SessionStore.loginUser = function(user){
-
   _user = user;
   localStorage.setItem('currentUser', JSON.stringify(user));
   localStorage.getItem('currentUser');
@@ -91,5 +91,7 @@ SessionStore.errors = function () {
 
   return [].slice.call(_errors);
 };
+
+window.SessionStore = SessionStore;
 
 module.exports = SessionStore;
