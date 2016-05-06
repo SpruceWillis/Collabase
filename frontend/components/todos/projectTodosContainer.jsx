@@ -39,12 +39,12 @@ var ProjectTodosContainer = React.createClass({
     var that = this;
     if (this.state.todos && this.state.todos.length > 0){
       var todoItems = this.state.todos.map(function(todo){
-        return <li key={todo.id}><TodoPreview
+        return <li key={todo.id} className="todo-preview"><TodoPreview
           params={that.props.params} todo={todo}/></li>;
       });
-      return <ul>{todoItems}</ul>;
+      return <ul className="group todo-previews-list">{todoItems}</ul>;
     } else {
-      return (<div>No todos found!</div>);
+      return (<div className="todos-none">No Todos Found!</div>);
     }
   },
 

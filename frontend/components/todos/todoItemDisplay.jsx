@@ -31,6 +31,7 @@ var TodoItemDisplay = React.createClass({
         </div>
         <div>{this.props.todoItem.title}</div>
         <div>{this.props.todoItem.description}</div>
+        <div>{this.props.todoItem.due_date}</div>
       </div>
     );
   }

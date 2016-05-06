@@ -115,3 +115,25 @@
   background-color: pink;
   border: 1px solid #FA7C92;
 }
+
+.todo-previews-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 20px;
+}
+
+.todos-none {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 24px;
+  margin: 20px;
+}
+
+.todo-preview {
+  float: left;
+  margin: 10px;
+}
+
+.todo-incomplete{
+
+}

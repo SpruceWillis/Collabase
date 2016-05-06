@@ -12,9 +12,11 @@ var TodoPreview = React.createClass({
   thisClass: function(){
     if (this.props.todo.completed){
       return "todo-completed";
-    } else {
+    } else if (this.nothing) {
+      return "todo-nothing";
+    } else if (this.overdue){
       return "todo-incomplete";
-    }
+    } 
   },
 
   trimTitle: function(){
@@ -30,24 +32,29 @@ var TodoPreview = React.createClass({
   nextEvent: function(){
     var todo = this.props.todo;
     if (todo.completed){
-      return "Done!"
+      return "Completed";
     } else {
       return this.findNextEvent();
     }
   },
 
   findNextEvent: function(){
+    this.nothing = false;
+    this.overdue = false;
     var todoItems = this.props.todo.todo_items;
+    var finished = true;
     if (todoItems.length === 0){
-      this.completed = "N/A";
+      this.nothing = true;
       return "No Tasks";
     }
     var thisYear = (new Date()).getFullYear();
     for (var i = todoItems.length -1; i >= 0; i--){
       var todoItem = todoItems[i];
       if (!todoItem.completed && todoItem.due_date){
-        this.completed = "False";
         var dueDate = new Date(todoItem.due_date);
+        if (dueDate < (new Date())){
+          this.overdue = true;
+        }
         if (Math.abs(dueDate.getFullYear() - thisYear) > 1){
           return dueDate.toLocaleDateString();
         } else {
@@ -56,15 +63,14 @@ var TodoPreview = React.createClass({
         }
       }
     }
-    this.completed = "True";
-    return "All Done!";
+    return "Nothing Due"
   },
-
   render: function() {
     return (
       <div onClick={this.handleClick} className={this.thisClass()}>
         <div>{this.trimTitle()}</div>
-        <div>{this.findNextEvent()}</div>
+        <div>{this.nextEvent()}</div>
+
       </div>
     );
   }
