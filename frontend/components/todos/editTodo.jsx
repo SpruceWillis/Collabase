@@ -69,7 +69,7 @@ var EditTodo = React.createClass({
       // return (<div className="add-todolist-txt">Add Todo</div>);
       return;
     } else {
-      return (<div>
+      return (<div className="editing-todolist-header">
         <div>Editing Todo-List</div>
       </div>);
     }
@@ -80,9 +80,10 @@ var EditTodo = React.createClass({
       return;
     } else {
       return (
-        <label for="completed">Completed
+        <label for="completed" className="edit-todolist-completed">Completed
           <input type="checkbox" onChange={this.updateCompletion}
-            checked={this.state.completed} id="completed"></input>
+            checked={this.state.completed} id="completed"
+            ></input>
         </label>
       );
     }
@@ -94,7 +95,6 @@ var EditTodo = React.createClass({
         {this.header()}
         <form onSubmit={this.handleSubmit} className="edit-todolist-form"
           id="edit">
-          {this.checked()}
           <input type="text" value={this.state.title} placeholder="title"
             onChange={this.updateTitle} required
             className="edit-todolist-text"></input>
@@ -102,6 +102,7 @@ var EditTodo = React.createClass({
             onChange={this.updateDescription} required
             className="edit-todolist-text" placeholder="description">
           </input>
+          {this.checked()}
           <div className="todolist-save">
             <button className="todolist-save-btn">{this.buttonText()}</button>
             <button onClick={this.cancel} className="todolist-cancel-btn">Cancel</button>

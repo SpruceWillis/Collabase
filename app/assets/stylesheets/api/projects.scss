@@ -394,3 +394,149 @@ font-size: 24px;
 font-family: sans-serif;
 color: #66AB8C;
 }
+
+//todo-list page
+
+.edit-todolist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: sans-serif;
+}
+
+.edit-todolist-btn {
+  width: auto;
+  margin: 10px 70px;
+  float: left;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: palegreen;
+  border: 1px solid $leaf;
+
+}
+
+.edit-todolist-btn:hover {
+  color: white;
+}
+
+.del-todolist-btn {
+  width: auto;
+  margin: 10px 70px;
+  float: right;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: pink;
+  border: 1px solid $salmon;
+
+}
+
+.del-todolist-btn:hover{
+  color: white;
+}
+
+.todolist-title {
+  width: auto;
+  text-align: center;
+  font-size: 44px;
+  font-family: sans-serif;
+}
+
+.todolist-description {
+  width: auto;
+  text-align: center;
+  font-size: 32px;
+  font-family: sans-serif;
+}
+
+.todolist-completion {
+  width: auto;
+  text-align: center;
+  font-size: 24px;
+  font-family: sans-serif;
+}
+
+.new-todoitem-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.editing-todolist-header {
+    padding-top: 10px;
+    margin-left: 30px;
+    font-family: sans-serif;
+    font-size: 18px;
+
+}
+
+#completed
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+  margin: 10px;
+}
+
+.edit-todolist-completed {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    font-size: 24px;
+    padding: 10px;
+    font-family: sans-serif;
+}
+
+.new-todo-container {
+  margin: 10px;
+
+}
+
+#new-todo-form {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#new-todo-form > input {
+  width: 250px;
+    font-size: 24px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 10px;
+}
+
+.new-todoitem-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-todoitem-btns > button {
+  width: auto;
+  margin: 10px 70px;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: sans-serif;
+}
+
+.project-back-btn {
+  width: auto;
+  margin: 10px 0 0 70px;
+  padding: 10px;
+  background-color: orange;
+  border-radius: 10px;
+  font-family: sans-serif;
+}
+
+.project-back-btn:hover {
+  color: white;
+}

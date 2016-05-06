@@ -28,18 +28,18 @@ var NewTodoItem = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="new-todo-container">
         <form onSubmit={this.handleSubmit} id="new-todo-form">
           <input type="text" onChange={this.handleUpdate} id="title"
-            value={this.state.title} required placeholder="title"/>
+            value={this.state.title} required placeholder="Title"/>
           <input type="text" onChange={this.handleUpdate} id="description"
-            value={this.state.description} required placeholder="description"/>
+            value={this.state.description} required placeholder="Description"/>
           <input type="date" onChange={this.handleUpdate} id="due_date"
             value={this.state.due_date}/>
         </form>
-        <div>
-          <button type="submit" form="new-todo-form">Add Task</button>
-          <button onClick={this.props.cancel}>Cancel</button>
+        <div className="new-todoitem-btns">
+          <button type="submit" form="new-todo-form" className="edit-todolist-btn">Add Task</button>
+          <button onClick={this.props.cancel} className="del-todolist-btn">Cancel</button>
         </div>
       </div>
     );

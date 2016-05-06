@@ -118,20 +118,29 @@ var TodoPage = React.createClass({
     }, this.redirectOnRemoval);
   },
 
+  completed: function() {
+    if (this.state.todo.completed){
+      return "Completed"
+    } else {
+      return "Incomplete"
+    }
+  },
+
   edit: function(){
     if (this.state.edit){
       var boundClick = this.cancelEdit;
       return <EditTodo new={false} todo={this.state.todo}
         cancel={boundClick} />;
     } else {
-      return (<div>
-        <div>
-          <button onClick={this.enableEdit}>Edit</button>
-          <button onClick={this.destroyTodoList}>Delete</button>
-        </div>
-        <h1>{this.state.todo.title}</h1>
-        <h2>{this.state.todo.description}</h2>
-        <h2>Completed: {this.state.todo.completed.toString()}</h2>
+      return (
+        <div className="edit-todolist">
+          <div className="group edit-todolist-grp">
+            <button className="edit-todolist-btn" onClick={this.enableEdit}>Edit</button>
+            <button className="del-todolist-btn" onClick={this.destroyTodoList}>Delete</button>
+          </div>
+          <h1 className="todolist-title">{this.state.todo.title}</h1>
+          <h2 className="todolist-description">{this.state.todo.description}</h2>
+          <h2 className="todolist-completion">{this.completed()}</h2>
       </div>);
     }
   },
@@ -148,7 +157,7 @@ var TodoPage = React.createClass({
   updateItemCompletion: function(index){
     var _completed = this.state.completed;
     _completed[index] = !_completed[index];
-    this.setState({completed: _completed})
+    this.setState({completed: _completed});
   },
 
   saveAlert: function(){
@@ -160,7 +169,7 @@ var TodoPage = React.createClass({
       return <NewTodoItem todo={this.state.todo} cancel={this.cancelAdd}
         success={this.onTodoCreate}/>;
     } else {
-      return (<div onClick={this.enableAdd} className="new-todolist-header">
+      return (<div onClick={this.enableAdd} className="new-todoitem-header">
         <button className="btn-new-todolist">+</button>
         <div className="txt-new-todolist">New Task</div>
       </div>);
@@ -182,12 +191,13 @@ var TodoPage = React.createClass({
     return (
       <div>
         <NavBar />
-        {this.edit()}
-        {this.add()}
-        {this.todoItems()}
-        <div>
-          <button onClick={this.save}>Save</button>
-          <button onClick={this.back}>Back</button>
+        <div className="background">
+          {this.edit()}
+          {this.add()}
+          {this.todoItems()}
+          <div>
+            <button onClick={this.back} className="project-back-btn">Back</button>
+          </div>
         </div>
       </div>
     );
