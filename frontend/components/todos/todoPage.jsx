@@ -120,9 +120,9 @@ var TodoPage = React.createClass({
 
   completed: function() {
     if (this.state.todo.completed){
-      return "Completed"
+      return "Completed";
     } else {
-      return "Incomplete"
+      return "Incomplete";
     }
   },
 
@@ -182,7 +182,7 @@ var TodoPage = React.createClass({
       return (<TodoItemDisplay todoItem={item} completed={that.state.completed[index]}
         key={item.id} handleClick={that.updateItemCompletion.bind(that, index)} />);
     });
-    return (<ul>
+    return (<ul className="group todo-container-box">
       {items}
     </ul>);
   },
@@ -194,9 +194,11 @@ var TodoPage = React.createClass({
         <div className="background">
           {this.edit()}
           {this.add()}
+          <h2 className="todo-container-header">Tasks</h2>
           {this.todoItems()}
           <div>
             <button onClick={this.back} className="project-back-btn">Back</button>
+            <button onClick={this.back} className="todo-done-btn">Done</button>
           </div>
         </div>
       </div>

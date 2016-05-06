@@ -174,3 +174,74 @@
 .todoitem-complete {
   background-color: green;
 }
+
+input[type="checkbox"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+}
+
+input[type="checkbox"] + label:before {
+  border: 1px solid #233237;
+  content: "\00a0";
+  display: inline-block;
+  font: 16px/1em sans-serif;
+  height: 16px;
+  margin: 0 .25em 0 0;
+  padding:0;
+  vertical-align: top;
+  width: 16px;
+}
+
+input[type="checkbox"]:checked + label:before {
+  background: #fff;
+  color: #666;
+  content: "\2713";
+  text-align: center;
+}
+
+input[type="checkbox"]:checked + label:after {
+  font-weight: bold;
+}
+
+.todoitem-display {
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-family: sans-serif;
+  font-size: 18px;
+  float: left;
+  height: 130px;
+  background-color: white;
+  margin: 30px 10px;
+}
+
+.todoitem-btnheader {
+  float: right;
+  margin: 5px;
+}
+
+.todoitem-destroybtn:hover {
+  color: white;
+}
+
+.todoitem-destroybtn {
+  width: 14px;
+  padding: 5px;
+  box-sizing: content-box;
+  background-color: red;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.todoitem-txt {
+  margin: 5px;
+}
+
+.todoitem-title {
+  font-size: 20px;
+  margin: 5px;
+  font-weight: bold;
+}

@@ -17,11 +17,11 @@ var NavBar = React.createClass({
 
   mixins: [CurrentUserState],
 
+  // <img src="/assets/logo.png" title="home" />
   render: function() {
     return (
       <div className="navbar group">
         <div className="logo group" onClick={this.toSplashPage}>
-          <img src="https://placekitten.com/80/30" title="home" />
         </div>
         {this.projectSelector()}
         <NavBarAuth ref="auth" />

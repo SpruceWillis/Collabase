@@ -395,6 +395,21 @@ font-family: sans-serif;
 color: #66AB8C;
 }
 
+.todo-container-header {
+  font-family: sans-serif;
+text-align: center;
+font-size: 32px;
+color: green;
+}
+
+.todo-container-box {
+  border: 1px solid lightgray;
+  width: 85%;
+  margin: 20px auto;
+  border-radius: 15px;
+  background-color: beige;
+}
+
 //todo-list page
 
 .edit-todolist {
@@ -494,7 +509,6 @@ color: #66AB8C;
 
 .new-todo-container {
   margin: 10px;
-
 }
 
 #new-todo-form {
@@ -535,12 +549,23 @@ color: #66AB8C;
   background-color: orange;
   border-radius: 10px;
   font-family: sans-serif;
+  border: 1px solid yellow;
 }
 
 .project-back-btn:hover {
   color: white;
 }
 
-.todo-previews-list {
+.todo-done-btn {
+  width: auto;
+  margin: 10px 0 0 70px;
+  padding: 10px;
+  background-color: palegreen;
+  border-radius: 10px;
+  font-family: sans-serif;
+  border: 1px solid $leaf;
+}
 
+.todo-done-btn:hover {
+  color: white;
 }

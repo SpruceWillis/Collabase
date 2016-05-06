@@ -22,7 +22,11 @@ var TodoItemDisplay = React.createClass({
   },
 
   formatDueDate: function(){
-    var dueDate = new Date(this.props.todoItem.due_date);
+    var dueDate = this.props.todoItem.due_date;
+    if (dueDate === null){
+      return "No due date";
+    }
+    dueDate = new Date(dueDate);
     var date = dueDate.getDate();
     var month = dueDate.getMonth() + 1;
     var year = dueDate.getFullYear().toString().substring(2);
@@ -31,26 +35,29 @@ var TodoItemDisplay = React.createClass({
 
   checkedClass: function(){
     if (this.state.completed){
-      return "todoitem-incomplete";
-    } else {
       return "todoitem-complete";
+    } else if (this.props.todoItem.due_date < (new Date())) {
+      return "todoitem-overdue";
+    } else {
+      return "todoitem-incomplete";
     }
   },
 
-  // <input type="checkbox" checked={this.state.completed}
-  //   onChange={this.props.handleClick}/>
-
   render: function() {
     return (
-      <div>
-        <div>
-          <button onClick={this.props.handleClick} className={"todoitem-completion " + this.checkedClass()}/>
-          <button onClick={this.destroy}>X</button>
+      <div className="todoitem-display">
+        <div className="todoitem-btnheader">
+          <button onClick={this.destroy} className="todoitem-destroybtn">X</button>
         </div>
         <div>
-          <div>{this.props.todoItem.title}</div>
-          <div>{this.props.todoItem.description}</div>
-          <div>{this.formatDueDate()}</div>
+          <div className="todoitem-txt">{this.formatDueDate()}</div>
+          <div className="todoitem-title">{this.props.todoItem.title}</div>
+          <div className="todoitem-txt">{this.props.todoItem.description}</div>
+          <p onClick={this.props.handleClick}>
+            <input type="checkbox" checked={this.state.completed}
+               id={'c' + this.props.todoItem.id}/>
+            <label for={'c' + this.props.todoItem.id}>Completed</label>
+          </p>
         </div>
       </div>
     );

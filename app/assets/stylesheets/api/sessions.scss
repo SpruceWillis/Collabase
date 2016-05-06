@@ -86,9 +86,13 @@ $buttermilk: #FFF7C0;
 .logo {
   float: left;
   height: 30px;
-  margin: 0 30px;
+  width: 80px;
+  margin: 0 0 0 30px;
   text-align: center;
   cursor: pointer;
+  background-image: url("/assets/logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .authmodal-form {

@@ -55,9 +55,9 @@ var TodoPreview = React.createClass({
     var completedCount = 0;
     var l = todoItems.length;
     if (l === 0){
-      return "0/0";
+      return "0/0 done";
     } else if (this.props.todo.completed){
-      return "All Done!"
+      return "All Done!";
     }
     for (var i = 0; i < l; i++) {
       if (todoItems[i].completed){
@@ -72,7 +72,7 @@ var TodoPreview = React.createClass({
     if (nextEvent[1] && !this.props.todo.completed){
       var className = "todo-overdue";
     } else {
-      className = "todo-ontrack"
+      className = "todo-ontrack";
     }
     return (
       <li className={"todo-preview group " + className}>
