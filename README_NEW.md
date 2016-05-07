@@ -14,3 +14,14 @@ collaBase allows users to:
 * Add and drop other users from a project.
 * Create, edit, and delete todo-lists.
 * Schedule items to be done, with deadlines.
+
+![Project Main Page](https://www.github.com/SpruceWillis/Collabase/blob/master/docs/screenshots/mainPage.png)
+
+## Technology
+
+* React.js/Flux
+* Ruby/Rails
+
+collaBase was built using Ruby/Rails for the database and React.js/Flux for display. The site's styling is custom CSS. Npm packages include react-router, react-modal, and babel.
+
+## Features in Development
