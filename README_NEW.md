@@ -15,7 +15,7 @@ collaBase allows users to:
 * Create, edit, and delete todo-lists.
 * Schedule items to be done, with deadlines.
 
-![Project Main Page](https://www.github.com/SpruceWillis/Collabase/blob/master/docs/screenshots/mainPage.png)
+![Project Main Page](https://github.com/SpruceWillis/Collabase/blob/master/docs/screenshots/mainPage.png)
 
 ## Technology
 
