@@ -25,3 +25,9 @@ collaBase allows users to:
 collaBase was built using Ruby/Rails for the database and React.js/Flux for display. The site's styling is custom CSS. Npm packages include react-router, react-modal, and babel.
 
 ## Features in Development
+
+Currently collaBase is built to be a minimum viable product (MVP). Possible future updates could add:
+
+* Assigning tasks to project members.
+* Notifications for your assigned tasks.
+* Comments on projects, todo-lists, and tasks. 
