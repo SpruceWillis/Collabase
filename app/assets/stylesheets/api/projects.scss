@@ -204,7 +204,8 @@ $buttermilk: #FFF7C0;
   width: 20%;
   border-radius: 10px;
   background-color: $leaf;
-  margin: 5px 0;
+  margin: 5px;
+  float: left;
   padding: 10px;
 }
 
@@ -212,7 +213,8 @@ $buttermilk: #FFF7C0;
   width: 20%;
   border-radius: 10px;
   background-color: $warmyellow;
-  margin: 5px 0;
+  margin: 5px;
+  float: left;
   padding: 10px;
   cursor: pointer;
 }

@@ -17,6 +17,7 @@ class Api::ProjectsController < ApplicationController
 
   def show
     @project = current_user.member_projects.find_by_id(params[:id])
+    # @project = User.find(1).member_projects.find_by_id(params[:id])
     if (@project)
       render "api/projects/show", locals: {show_members: true}
     else
