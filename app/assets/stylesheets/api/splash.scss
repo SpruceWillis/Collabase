@@ -23,6 +23,7 @@ img.bg {
   z-index: -1;
   width: 100%;
   height: auto;
+  opacity: 0.5;
   position: fixed;
   top: 0;
   left: 0
@@ -53,6 +54,7 @@ img.bg {
   text-align: center;
   background-color: $leaf;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .startbutton:hover{
