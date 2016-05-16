@@ -154,7 +154,7 @@ input + input {
 }
 
 .signin > label {
-  padding: 5px;
+  padding: 10px;
   margin: 0 10px;
 }
 
@@ -166,6 +166,7 @@ input + input {
   background-color: $leaf;
   border: none;
   font-size: 32px;
+  border-radius: 10px;
 
 }
 
@@ -176,6 +177,7 @@ input + input {
 .guest-signin-button {
   background-color: $salmon;
   border: none;
+  border-radius: 10px;
 }
 
 .guest-signin-button:hover {
