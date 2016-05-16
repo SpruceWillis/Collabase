@@ -26,6 +26,24 @@ class User < ActiveRecord::Base
 
   has_many :todo_items
 
+  has_many :assignments,
+    dependent: :destroy,
+    foreign_key: :assignee_id,
+    class_name: TodoAssignment
+
+  has_many :assigned_items,
+    through: :assignments,
+    source: :todo_item
+
+  has_many :assignings,
+    dependent: :destroy,
+    foreign_key: :assigner_id,
+    class_name: TodoAssignment
+
+  has_many :assigning_items,
+    through: :assignings,
+    source: :todo_item
+
   def password= (password)
     self.password_digest = BCrypt::Password.create(password)
     @password = password

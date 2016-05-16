@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503213012) do
+ActiveRecord::Schema.define(version: 20160516063438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 20160503213012) do
   end
 
   add_index "projects", ["owner_id"], name: "index_projects_on_owner_id", using: :btree
+
+  create_table "todo_assignments", force: :cascade do |t|
+    t.integer  "todo_item_id", null: false
+    t.integer  "assigner_id",  null: false
+    t.integer  "assignee_id",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "todo_assignments", ["assignee_id"], name: "index_todo_assignments_on_assignee_id", using: :btree
+  add_index "todo_assignments", ["assigner_id"], name: "index_todo_assignments_on_assigner_id", using: :btree
+  add_index "todo_assignments", ["todo_item_id", "assignee_id"], name: "index_todo_assignments_on_todo_item_id_and_assignee_id", unique: true, using: :btree
+  add_index "todo_assignments", ["todo_item_id"], name: "index_todo_assignments_on_todo_item_id", using: :btree
 
   create_table "todo_items", force: :cascade do |t|
     t.integer  "todo_list_id", null: false
@@ -76,6 +89,9 @@ ActiveRecord::Schema.define(version: 20160503213012) do
   add_index "users", ["session_token"], name: "index_users_on_session_token", unique: true, using: :btree
 
   add_foreign_key "projects", "users", column: "owner_id"
+  add_foreign_key "todo_assignments", "todo_items"
+  add_foreign_key "todo_assignments", "users", column: "assignee_id"
+  add_foreign_key "todo_assignments", "users", column: "assigner_id"
   add_foreign_key "todo_items", "todo_lists"
   add_foreign_key "todo_items", "users"
   add_foreign_key "todo_lists", "projects"

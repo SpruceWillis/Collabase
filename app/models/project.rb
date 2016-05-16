@@ -23,4 +23,8 @@ class Project < ActiveRecord::Base
     through: :todo_lists,
     source: :todo_items
 
+  has_many :todo_assignments,
+    through: :todo_items,
+    source: :todo_assignments
+
 end

@@ -6,6 +6,13 @@ class TodoItem < ActiveRecord::Base
 
   belongs_to :user
 
+  has_one :project,
+    through: :todo_list,
+    source: :project
+
+  has_many :todo_assignments,
+    dependent: :destroy
+
   def self.update_multiple(todo_items)
     TodoItem.transaction do
       todo_items.each do |todo_item|
