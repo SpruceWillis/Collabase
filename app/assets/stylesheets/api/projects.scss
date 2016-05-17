@@ -383,6 +383,7 @@ $jungle: #1FD426;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin: 0 0 20px 0;
 }
 
 .btn-new-todolist {
@@ -424,9 +425,10 @@ color: green;
 .todo-container-box {
   border: 1px solid lightgray;
   width: 85%;
+  padding: 20px;
   margin: 20px auto;
   border-radius: 15px;
-  background-color: beige;
+  background-color: $steel;
 }
 
 //todo-list page
@@ -444,8 +446,7 @@ color: green;
   float: left;
   padding: 10px;
   border-radius: 10px;
-  background-color: palegreen;
-  border: 1px solid $leaf;
+  background-color: $jungle;
 
 }
 
@@ -459,8 +460,7 @@ color: green;
   float: right;
   padding: 10px;
   border-radius: 10px;
-  background-color: pink;
-  border: 1px solid $salmon;
+  background-color: $watermelon;
 
 }
 
@@ -579,7 +579,7 @@ color: green;
   width: auto;
   margin: 10px 0 0 70px;
   padding: 10px;
-  background-color: palegreen;
+  background-color: $jungle;
   border-radius: 10px;
   font-family: sans-serif;
   border: 1px solid $leaf;

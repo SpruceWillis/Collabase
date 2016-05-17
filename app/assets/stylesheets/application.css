@@ -107,13 +107,11 @@
  }
 
 .todolist-save-btn {
-  background-color: palegreen;
-  border: 1px solid #66AB8C;
+  background-color: #1FD426;
 }
 
 .todolist-cancel-btn{
-  background-color: pink;
-  border: 1px solid #FA7C92;
+  background-color: #FA7C92;
 }
 
 .todo-previews-list {
@@ -121,7 +119,10 @@
   padding-left: 0;
   border-radius: 15px;
   font-family: sans-serif;
-  margin: 20px;
+  margin: 20px 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .todos-none {
@@ -142,24 +143,25 @@
 }
 
 .todo-overdue {
-  border: 1px solid #FA7C92;
-  color: red;
+  /*border: 1px solid #FA7C92;*/
+  color: #FD383F;
 }
 
 .todo-overdue:hover{
-  background-color: pink;
-  border: 1px solid red;
+  background-color: #FD383F;
+  color: white;
+  /*border: 1px solid red;*/
 }
 
 .todo-ontrack {
-  border: 1px solid #66AB8C;
-  color: darkgreen;
+  /*border: 1px solid #66AB8C;*/
+  color: #1FD426;
 }
 
 .todo-ontrack:hover {
-  background-color: #66AB8C;
-  border: 1px solid green;
-  color: #18121E;
+  background-color: #1FD426;
+  /*border: 1px solid green;*/
+  color: white;
 }
 
 .todoitem-completion {
@@ -216,7 +218,7 @@ input[type="checkbox"]:checked + label:after {
   float: left;
   height: 130px;
   background-color: white;
-  margin: 30px 10px;
+  margin: 10px;
 }
 
 .todoitem-btnheader {
@@ -235,6 +237,7 @@ input[type="checkbox"]:checked + label:after {
   background-color: red;
   border-radius: 8px;
   text-align: center;
+  cursor: pointer;
 }
 
 .todoitem-txt {
