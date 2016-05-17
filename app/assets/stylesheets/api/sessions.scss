@@ -27,7 +27,7 @@ $buttermilk: #FFF7C0;
 .navbar {
   display: block;
   background-color: #1A25B7;
-  height: 30px;
+  height: 40px;
   z-index: 1;
 }
 
@@ -49,19 +49,18 @@ $buttermilk: #FFF7C0;
   display: inline-block;
   text-align: center;
   padding: 5px 5px;
+  margin: 5px;
 }
 
 .navbar-auth button {
   float: right;
   padding: 5px 5px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 5px;
   font-family: sans-serif;
   font-size: 16px;
-  border-radius: 5%;
+  border-radius: 10px;
   box-sizing: border-box;;
   color: white;
-  height: 30px;
   width: 70px;
   text-align: center;
 }
@@ -85,9 +84,9 @@ $buttermilk: #FFF7C0;
 
 .logo {
   float: left;
-  height: 30px;
-  width: 80px;
-  margin: 0 0 0 30px;
+  height: 40px;
+  width: 105px;
+  margin: 1px 0 1px 10px;
   text-align: center;
   cursor: pointer;
   z-index: 2;
