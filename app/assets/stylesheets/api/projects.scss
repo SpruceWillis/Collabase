@@ -20,14 +20,18 @@ $salmon: #FA7C92;
 $rain: #6EC4DB;
 $buttermilk: #FFF7C0;
 
+//palette4
+$steel: #2F2F2F;
+$activeblue: #2880A2;
+$jungle: #1FD426;
+
 .dropdown {
   font-size: 16px;
   color: white;
   font-family: sans-serif;
   display: inline-block;
   position: relative;
-  padding: 5px;
-  margin: 5px;
+  padding: 10px;
 }
 
 .dropdown-content:hover {
@@ -92,8 +96,7 @@ $buttermilk: #FFF7C0;
   width: 85%;
   min-width: 800px;
   margin: 20px auto;
-  background-color: beige;
-  min-width: 400px;
+  background-color: $steel;
 }
 
 .project-innerheader{
@@ -101,6 +104,7 @@ $buttermilk: #FFF7C0;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  color: white;
   box-sizing: border-box;
 }
 
@@ -115,22 +119,21 @@ $buttermilk: #FFF7C0;
 
 .edit-project-button {
   float: left;
-  border: 1px solid $leaf;
-  background-color: lightgreen;
+  // border: 1px solid $leaf;
+  background-color: $jungle;
 }
 
 .edit-project-button:hover {
-  color: $neutral;
+  color: palegreen;
 }
 
 .delete-project-button {
   float: right;
-  border: 1px solid $salmon;
-  background-color: pink;
+  background-color: $salmon;
 }
 
 .delete-project-button:hover {
-  color: $neutral
+  color: $watermelon
 }
 
 .project-title {
@@ -152,6 +155,7 @@ $buttermilk: #FFF7C0;
   width: auto;
   margin: 5px 0 0 40px;
   font-size: 32px;
+  color: white;
   font-family: sans-serif;
 }
 
@@ -166,6 +170,7 @@ $buttermilk: #FFF7C0;
 
 .edit-project-header{
   margin: 10px;
+  color: white;
   font-family: sans-serif;
 }
 
@@ -173,7 +178,7 @@ $buttermilk: #FFF7C0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 0 5px 0;
+  padding: 0 0 20px 0;
   border-bottom: 1px solid $carbon;
 }
 
@@ -186,6 +191,7 @@ $buttermilk: #FFF7C0;
   border-radius: 10px;
   border-style: groove;
   border: 1px solid $neutral;
+  color: darkblue;
   font-family: sans-serif;
 }
 
@@ -196,6 +202,7 @@ $buttermilk: #FFF7C0;
   border: 1px solid $neutral;
   width: 600px;
   font-size: 32px;
+  color: darkblue;
   text-align: center;
   font-family: sans-serif;
 
@@ -204,7 +211,7 @@ $buttermilk: #FFF7C0;
 .member-list-item {
   width: 20%;
   border-radius: 10px;
-  background-color: $leaf;
+  background-color: $activeblue;
   margin: 5px;
   float: left;
   padding: 10px;
@@ -213,7 +220,7 @@ $buttermilk: #FFF7C0;
 .member-list-item-edit {
   width: 20%;
   border-radius: 10px;
-  background-color: $warmyellow;
+  background-color: $jungle;
   margin: 5px;
   float: left;
   padding: 10px;
@@ -225,7 +232,7 @@ $buttermilk: #FFF7C0;
 }
 
 .member-list-item-edit:hover {
-  background-color: $salmon;
+  background-color: $watermelon;
   color: white;
 }
 
@@ -252,6 +259,7 @@ $buttermilk: #FFF7C0;
   width: auto;
   padding: 10px 15px;
   border-radius: 10px;
+  margin: 0 0 10px 0;
   cursor: pointer;
 }
 
@@ -260,15 +268,15 @@ $buttermilk: #FFF7C0;
 }
 
 .save-project-button {
-  background-color: palegreen;
+  background-color: $jungle;
 }
 
 .nosave-project-button {
-  background-color: pink;
+  background-color: $salmon;
 }
 
 .done-project-button {
-  background-color: lightblue;
+  background-color: rgba(72, 202, 243, 0.96);
 }
 
 .add-members {
@@ -298,6 +306,7 @@ $buttermilk: #FFF7C0;
   margin: 0 0 10px 40px;
   font-weight: bold;
   font-size: 20px;
+  color: white;
   font-family: sans-serif;
 }
 
@@ -313,7 +322,7 @@ $buttermilk: #FFF7C0;
   margin: 5px;
   display: flex;
   width: auto;
-  background-color: palegreen;
+  background-color: $jungle;
   padding: 10px;
   border-radius: 10px;
   flex-direction: row;
