@@ -184,6 +184,9 @@ input[type="checkbox"] {
 
 label {
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 input[type="checkbox"] + label:before {

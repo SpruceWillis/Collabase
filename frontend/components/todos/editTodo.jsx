@@ -48,7 +48,7 @@ var EditTodo = React.createClass({
   },
 
   updateCompletion: function(e){
-    this.setState({completed: e.target.checked});
+    this.setState({completed: !this.state.completed});
   },
 
   todoRedirect: function(todo){
@@ -80,14 +80,19 @@ var EditTodo = React.createClass({
       return;
     } else {
       return (
-        <label for="completed" className="edit-todolist-completed">Completed
-          <input type="checkbox" onChange={this.updateCompletion}
-            checked={this.state.completed} id="completed"
-            ></input>
-        </label>
+        <p onClick={this.updateCompletion} className="edit-todolist-completed">
+          <input type="checkbox" checked={this.state.completed} id="completed"/>
+          <label for="completed">Completed</label>
+        </p>
       );
     }
   },
+
+  // <label for="completed" className="edit-todolist-completed">Completed
+  //   <input type="checkbox" onChange={this.updateCompletion}
+  //     checked={this.state.completed} id="completed"
+  //     ></input>
+  // </label>
 
   render: function() {
     return (
