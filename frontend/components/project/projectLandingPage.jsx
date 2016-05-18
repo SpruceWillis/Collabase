@@ -42,7 +42,7 @@ var ProjectLandingPage = React.createClass({
     } else {
       return (<div onClick={this.showNewTodo} className="add-todolist-header">
         <button className="btn-new-todolist">+</button>
-        <div className="txt-new-todolist">Add New Todo List</div>
+        <div className="txt-new-todolist">Your Todo Lists</div>
       </div>);
     }
   },

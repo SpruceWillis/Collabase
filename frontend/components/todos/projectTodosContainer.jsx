@@ -47,10 +47,10 @@ var ProjectTodosContainer = React.createClass({
     }
   },
 
+  // <h2 className="todo-container-header">Your Todo Lists</h2>
   render: function() {
     return (
       <div>
-        <h2 className="todo-container-header">Your Todo Lists</h2>
         <div className="todo-container-box">
           {this.todos()}
         </div>

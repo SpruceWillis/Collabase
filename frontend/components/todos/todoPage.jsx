@@ -136,7 +136,8 @@ var TodoPage = React.createClass({
         <div className="edit-todolist">
           <div className="group edit-todolist-grp">
             <button className="edit-todolist-btn" onClick={this.enableEdit}>Edit</button>
-            <button className="del-todolist-btn" onClick={this.destroyTodoList}>Delete</button>
+            <button className="del-todolist-btn"
+              onClick={this.destroyTodoList}>Delete</button>
           </div>
           <h1 className="todolist-title">{this.state.todo.title}</h1>
           <h2 className="todolist-description">{this.state.todo.description}</h2>
@@ -171,12 +172,15 @@ var TodoPage = React.createClass({
     } else {
       return (<div onClick={this.enableAdd} className="new-todoitem-header">
         <button className="btn-new-todolist">+</button>
-        <div className="txt-new-todolist">New Task</div>
+        <div className="txt-new-todolist">Tasks</div>
       </div>);
     }
   },
 
   todoItems: function(){
+    if (this.state.todo.todo_items.length === 0){
+      return <div className="no-todoitems-header">No tasks found!</div>
+    }
     var that = this;
     var items = this.state.todo.todo_items.map(function(item, index){
       return (<TodoItemDisplay todoItem={item} completed={that.state.completed[index]}
@@ -187,6 +191,7 @@ var TodoPage = React.createClass({
     </ul>);
   },
 
+  // <h2 className="todo-container-header">Tasks</h2>
   render: function() {
     return (
       <div>
@@ -194,7 +199,6 @@ var TodoPage = React.createClass({
         <div className="background">
           {this.edit()}
           {this.add()}
-          <h2 className="todo-container-header">Tasks</h2>
           {this.todoItems()}
           <div>
             <button onClick={this.back} className="project-back-btn">Back</button>

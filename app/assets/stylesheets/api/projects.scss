@@ -438,6 +438,7 @@ color: green;
   flex-direction: column;
   justify-content: center;
   font-family: sans-serif;
+  width: 100%;
 }
 
 .edit-todolist-btn {
@@ -460,7 +461,7 @@ color: green;
   float: right;
   padding: 10px;
   border-radius: 10px;
-  background-color: $watermelon;
+  background-color: $salmon;
 
 }
 
@@ -583,6 +584,13 @@ color: green;
   border-radius: 10px;
   font-family: sans-serif;
   border: 1px solid $leaf;
+}
+
+.no-todoitems-header {
+  font-family: sans-serif;
+  font-size: 24px;
+  text-align: center;
+  margin: 10px;
 }
 
 .todo-done-btn:hover {
