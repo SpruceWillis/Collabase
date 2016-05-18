@@ -52,7 +52,7 @@ var ProjectAddMember = React.createClass({
       });
       return <ul className="results group">{members}</ul>;
     } else {
-      return <div className="no-members"> No members found</div>
+      return <div className="no-members"> No members found</div>;
     }
   },
 

@@ -319,6 +319,8 @@ $jungle: #1FD426;
   font-family: sans-serif;
 }
 
+$fadeTime: 0.5s;
+
 .found-member{
   margin: 5px;
   display: flex;
@@ -329,6 +331,8 @@ $jungle: #1FD426;
   flex-direction: row;
   cursor: pointer;
   align-items: center;
+  -webkit-animation: member-enter $fadeTime ease-in-out 1;
+  animation: member-enter $fadeTime ease-in-out 1;
 }
 
 .found-member:hover {
@@ -340,7 +344,24 @@ $jungle: #1FD426;
   font-family: sans-serif;
   font-size: 18px;
   font-weight: bold;
+  color: white;
 }
+
+//animation for found members
+
+@-webkit-keyframes member-enter {
+  from {opacity: 0;}
+  to {opacity: 1}
+}
+
+@keyframes member-enter {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+
+
+//new project
 
 .new-project-buttons > button {
   width: auto;
@@ -394,7 +415,7 @@ $jungle: #1FD426;
   border: 2px solid #f5f5f5;
   border-radius: 50%;
   color: #f5f5f5;
-  background: #66AB8C;
+  background: $jungle;
   text-decoration: none;
   box-shadow: 0 0 3px gray;
   font-size: 20px;
@@ -410,9 +431,9 @@ $jungle: #1FD426;
 
 .txt-new-todolist {
   margin: 10px;
-font-size: 24px;
+font-size: 28px;
 font-family: sans-serif;
-color: #66AB8C;
+color: $jungle;
 }
 
 .todo-container-header {
@@ -425,6 +446,7 @@ color: green;
 .todo-container-box {
   border: 1px solid lightgray;
   width: 85%;
+  min-width: 800px;
   padding: 20px;
   margin: 20px auto;
   border-radius: 15px;
@@ -595,4 +617,35 @@ color: green;
 
 .todo-done-btn:hover {
   color: white;
+}
+
+//modal css - fade in
+
+.ReactModal__Overlay {
+  -webkit-perspective: 600;
+  perspective: 600;
+  opacity: 0;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transition: opacity 100ms ease-out;
+}
+
+.ReactModal__Content {
+  -webkit-transform: scale(0.5) rotateX(-30deg);
+}
+
+.ReactModal__Content--after-open {
+  -webkit-transform: scale(1) rotateX(0deg);
+  transition: all 100ms ease-in-out;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.ReactModal__Content--before-close {
+  -webkit-transform: scale(0.5) rotateX(30deg);
+  transition: all 150ms ease-in-out;
 }
