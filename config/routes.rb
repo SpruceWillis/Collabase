@@ -8,7 +8,9 @@ Rails.application.routes.draw do
         resources :todo_items, only: [:create]
       end
     end
-    resources :todo_items, only: [:show, :update, :destroy]
+    resources :todo_items, only: [:show, :update, :destroy] do
+      resources :todo_assignments, only: [:create, :destroy]
+    end
     resources :project_memberships, only: [:create]
     delete 'project_memberships', to: 'project_memberships#destroy'
   end
