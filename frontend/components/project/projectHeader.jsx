@@ -16,11 +16,6 @@ var ProjectHeader = React.createClass({
   },
 
   toggleEdit: function(save){
-    // if (this.state.edit){
-    //   this.setState({edit: false});
-    // } else {
-    //   this.setState({edit: true});
-    // }
     if (save) this.saveChanges();
     this.setState({edit: !this.state.edit});
   },
@@ -168,13 +163,17 @@ var ProjectHeader = React.createClass({
         </div>
       );
     } else {
+      // <button className="edit-project-button"
+      //   onClick={this.toggleEdit.bind(this, false)}>Edit</button>
+      // <button className="delete-project-button"
+      //   onClick={this.destroyProject}>Delete</button>
       return (
         <div className="project-innerheader">
           <div>
-            <button className="edit-project-button"
-              onClick={this.toggleEdit.bind(this, false)}>Edit</button>
-            <button className="delete-project-button"
-              onClick={this.destroyProject}>Delete</button>
+            <i className="material-icons edit-project-icon del-icon"
+              onClick={this.destroyProject}>delete_forever</i>
+            <i className="material-icons edit-project-icon edit-icon"
+              onClick={this.toggleEdit.bind(this, false)}>mode_edit</i>
           </div>
           <h1 className="project-title">{this.props.project.title}</h1>
           <h2 className="project-description">{this.props.project.description}</h2>

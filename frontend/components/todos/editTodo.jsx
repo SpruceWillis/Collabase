@@ -26,7 +26,7 @@ var EditTodo = React.createClass({
 
   buttonText: function(){
     if (this.props.new) {
-      return "New";
+      return "Create";
     } else {
       return "Update";
     }

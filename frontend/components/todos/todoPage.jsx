@@ -132,12 +132,16 @@ var TodoPage = React.createClass({
       return <EditTodo new={false} todo={this.state.todo}
         cancel={boundClick} />;
     } else {
+      // <button className="edit-todolist-btn" onClick={this.enableEdit}>Edit</button>
+      // <button className="del-todolist-btn"
+      //   onClick={this.destroyTodoList}>Delete</button>
       return (
         <div className="edit-todolist">
           <div className="group edit-todolist-grp">
-            <button className="edit-todolist-btn" onClick={this.enableEdit}>Edit</button>
-            <button className="del-todolist-btn"
-              onClick={this.destroyTodoList}>Delete</button>
+            <i className="material-icons edit-project-icon del-icon"
+              onClick={this.destroyTodoList}>delete_forever</i>
+            <i className="material-icons edit-project-icon edit-icon"
+              onClick={this.enableEdit}>mode_edit</i>
           </div>
           <h1 className="todolist-title">{this.state.todo.title}</h1>
           <h2 className="todolist-description">{this.state.todo.description}</h2>

@@ -59,6 +59,7 @@ var NewProjectPage = React.createClass({
   cancel: function(){
     if (confirm("Are you sure you want to leave this page?" +
     "Any information you have will be lost.")){
+      this.setState({title: "", description: ""});
       history.goBack();
     }
   },

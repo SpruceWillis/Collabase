@@ -48,6 +48,7 @@
  .edit-todolist-text {
    width: 400px;
    margin: 10px auto;
+   padding: 10px;
    font-size: 24px;
    text-align: center;
    border-radius: 10px;
@@ -60,7 +61,7 @@
  }
 
  .todolist-save > button {
-  width: auto;
+  width: 77px;
   padding: 10px;
   border-radius: 10px;
   font-family: sans-serif;

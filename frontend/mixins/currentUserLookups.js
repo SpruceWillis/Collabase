@@ -18,11 +18,11 @@ module.exports = {
       // });
   },
 
-  componentWillReceiveProps: function(nextProps){
-    UserActions.fetchCurrentUsers({
-      user_params: nextProps.project.id,
-    });
-  },
+  // componentWillReceiveProps: function(nextProps){
+  //   UserActions.fetchCurrentUsers({
+  //     user_params: nextProps.project.id,
+  //   });
+  // },
 
   componentWillUnmount: function() {
     this.userListener.remove();
