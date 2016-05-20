@@ -205,6 +205,7 @@ $jungle: #1FD426;
   font-size: 44px;
   text-align: center;
   border-radius: 10px;
+  background: white;
   border-style: groove;
   border: 1px solid $neutral;
   color: darkblue;
@@ -219,6 +220,7 @@ $jungle: #1FD426;
   width: 600px;
   padding: 7px;
   font-size: 32px;
+  background: white;
   color: darkblue;
   text-align: center;
   font-family: 'Raleway', sans-serif;
@@ -400,11 +402,12 @@ $fadeTime: 0.5s;
 
 .create-project-button {
   background-color: $jungle;
-  // border: 1px solid $leaf;
+  font-size: 18px;
 }
 
 .cancel-project-button {
   background-color: $salmon;
+  font-size: 18px;
   // border: 1px solid $salmon
 }
 
@@ -484,6 +487,7 @@ color: green;
   width: auto;
   margin: 10px 70px;
   float: left;
+  font-size: 18px;
   padding: 10px;
   border-radius: 10px;
   background-color: $jungle;
@@ -497,6 +501,7 @@ color: green;
 .del-todolist-btn {
   width: auto;
   margin: 10px 70px;
+  font-size: 18px;
   float: right;
   padding: 10px;
   border-radius: 10px;
@@ -581,10 +586,22 @@ color: green;
 
 #new-todo-form > input {
   width: 250px;
-    font-size: 24px;
+    font-size: 28px;
     border-radius: 10px;
     text-align: center;
     margin: 10px;
+}
+
+#new-todo-form >input[type="text"] {
+  background: white;
+  width: 300px;
+  padding: 5px;
+}
+
+#new-todo-form >input[type="date"]{
+  background: white;
+  width: 300px;
+  padding: 5px;
 }
 
 .new-todoitem-btns {
@@ -606,6 +623,7 @@ color: green;
   width: auto;
   margin: 10px 0 0 70px;
   padding: 10px;
+  font-size: 18px;
   background-color: orange;
   border-radius: 10px;
   font-family: 'Raleway', sans-serif;
@@ -621,6 +639,7 @@ color: green;
   margin: 10px 0 0 70px;
   padding: 10px;
   background-color: $jungle;
+  font-size: 18px;
   border-radius: 10px;
   font-family: 'Raleway', sans-serif;
   border: 1px solid $leaf;

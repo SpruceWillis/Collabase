@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
   linkState: function(e){
     var newState = {};
-    newState[e.target.id] = e.target.value
+    newState[e.target.id] = e.target.value;
     this.setState(newState);
   },
 
@@ -24,7 +24,7 @@ module.exports = React.createClass({
       return (
         <ul className="errorlist">
           {this.state.errors.map(function(error){
-            return <li className="signinerror" key={error}>{error}</li>
+            return <li className="signinerror" key={error}>{error}</li>;
           })}
         </ul>
       );
@@ -33,7 +33,7 @@ module.exports = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
 
-    this.setState({errors: nextProps.errors})
+    this.setState({errors: nextProps.errors});
   },
 
   form: function(){
@@ -41,17 +41,21 @@ module.exports = React.createClass({
       <div className="authmodal">
         {this.errors()}
         <form onSubmit={this.handleSubmit} className="signup-form">
-          <input type="text" onInput={this.linkState} id="name" placeholder="Name" value={this.state.name}></input>
-          <input type="email" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
-          <input type="text" onInput={this.linkState} id="organization" placeholder="Company/Organization" value={this.state.organization}></input>
-          <input type="password" onInput={this.linkState} id="password" placeholder="Password" value={this.state.password}></input>
+          <input type="text" onInput={this.linkState}
+            id="name" placeholder="Name" value={this.state.name}></input>
+          <input type="email" onInput={this.linkState}
+            id="email" placeholder="Email" value={this.state.email}></input>
+          <input type="text" onInput={this.linkState} id="organization"
+            placeholder="Organization" value={this.state.organization}></input>
+          <input type="password" onInput={this.linkState}
+            id="password" placeholder="Password" value={this.state.password}></input>
           <input type="submit" className="guest-signin-button" value="Sign Up"></input>
         </form>
         <div className="authmodal-footer">Already have an account? &nbsp;
           <a onClick={this.props.toggle} >Sign In</a>
         </div>
       </div>
-    )
+    );
   },
 
   render: function() {

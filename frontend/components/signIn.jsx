@@ -37,12 +37,13 @@ var SignIn = React.createClass({
 
   guestLogin: function(e){
     e.preventDefault();
-    SessionActions.getUser({email: "guest@guest.com", password:"password"}, "/api/session");
+    SessionActions.getUser({email: "guest@guest.com", password:"password"},
+      "/api/session");
   },
 
   componentWillReceiveProps: function(nextProps) {
 
-    this.setState({errors: nextProps.errors})
+    this.setState({errors: nextProps.errors});
   },
 
   render: function() {
@@ -50,11 +51,14 @@ var SignIn = React.createClass({
       <div className="authmodal">
         {this.errors()}
         <form id="signinform" onSubmit={this.handleSubmit} className="authmodal-form">
-          <input type="email" onInput={this.linkState} id="email" placeholder="Email" value={this.state.email}></input>
-          <input type="password" onInput={this.linkState} id="password" placeholder="Password" value={this.state.password}></input>
+          <input type="email" onInput={this.linkState} id="email"
+            placeholder="Email" value={this.state.email}></input>
+          <input type="password" onInput={this.linkState} id="password"
+            placeholder="Password" value={this.state.password}></input>
         </form>
         <div className="signin">
-          <input type="submit" form="signinform" className="signin-button" value="Sign In"></input>
+          <input type="submit" form="signinform" className="signin-button"
+            value="Sign In"></input>
           <label className="guest-signin-button" onClick={this.guestLogin} >Guest</label>
         </div>
         <div className="authmodal-footer">Don't have an account? &nbsp;

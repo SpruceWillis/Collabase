@@ -45,7 +45,7 @@ var NewProjectPage = React.createClass({
                value={this.state.description} required></input>
             <div className="new-project-buttons">
               <button className="create-project-button"
-                type="submit" form="editProjectForm">Create Project</button>
+                type="submit" form="editProjectForm">Create</button>
               <button className="cancel-project-button"
                 onClick={this.cancel}>Cancel</button>
           </div>
@@ -57,7 +57,7 @@ var NewProjectPage = React.createClass({
   },
 
   cancel: function(){
-    if (confirm("Are you sure you want to leave this page?" +
+    if (confirm("Are you sure you want to leave this page? " +
     "Any information you have will be lost.")){
       this.setState({title: "", description: ""});
       history.goBack();
