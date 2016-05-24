@@ -86,7 +86,7 @@ $jungle: #1FD426;
 .background {
   height: auto;
   min-height: 100vh;
-  background-color: $sky;
+  // background-color: $sky;
 }
 
 .project-header {
@@ -275,9 +275,11 @@ $jungle: #1FD426;
 }
 
 .edit-project-options > button {
-  width: auto;
+  width: 175px;
   padding: 10px 15px;
   border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
   margin: 0 0 10px 0;
   cursor: pointer;
 }
@@ -310,13 +312,15 @@ $jungle: #1FD426;
 .search-members{
   float: left;
   width: auto;
+  margin: 0 15px;
   white-space: nowrap;
 }
 
 .search {
-  margin: 0 0 10px 40px;
+  margin: 0 5px 10px 40px;
   font-family: 'Raleway', sans-serif;
   font-size: 18px;
+  background: white;
   padding: 5px;
   border-radius: 10px;
   text-align: center;
@@ -334,6 +338,7 @@ $jungle: #1FD426;
   display: flex;
   list-style-type: none;
   flex-wrap: wrap;
+  margin: 5px;
   justify-content: center;
   font-family: 'Raleway', sans-serif;
 }
