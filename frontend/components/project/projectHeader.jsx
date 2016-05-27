@@ -128,8 +128,8 @@ var ProjectHeader = React.createClass({
       }
     });
     return (<div>
-      <h2 className="project-member-header">Members</h2>
-      <ul className="project-member-list group">{memberInfo}</ul>
+      <h2 className="">Members</h2>
+      <ul className="">{memberInfo}</ul>
     </div>);
   },
 
@@ -139,11 +139,11 @@ var ProjectHeader = React.createClass({
     if (this.state.edit){
       return(
         <div>
-          <div className="edit-project-header">Editing Project</div>
+          <div className="">Editing Project</div>
           <form id="editProjectForm" onSubmit={this.saveChanges}>
             <input type="text" value={this.state.title}
               onChange={this.linkState} placeholder="Title"
-              maxLength="40" className="edit-project-title" id="title" required/>
+              maxLength="40" className="" id="title" required/>
             <input maxLength="100" type="text" value={this.state.description}
               onChange={this.linkState} placeholder="Description"
               className="edit-project-description" id="description" required/>
@@ -152,12 +152,12 @@ var ProjectHeader = React.createClass({
           {this.members()}
           <ProjectAddMember project={this.props.project} user={this.props.user}/>
           </div>
-          <div className="edit-project-options">
-            <button className="save-project-button"
+          <div className="">
+            <button className=""
               type="submit" form="editProjectForm">Save</button>
-            <button className="nosave-project-button"
+            <button className=""
               onClick={this.discardChanges}>Discard Changes</button>
-            <button className="done-project-button"
+            <button className=""
               onClick={this.toggleEdit.bind(this, true)}>Save and Finish</button>
           </div>
         </div>
@@ -168,15 +168,15 @@ var ProjectHeader = React.createClass({
       // <button className="delete-project-button"
       //   onClick={this.destroyProject}>Delete</button>
       return (
-        <div className="project-innerheader">
+        <div className="">
           <div>
             <i className="material-icons edit-project-icon del-icon"
               onClick={this.destroyProject}>delete_forever</i>
             <i className="material-icons edit-project-icon edit-icon"
               onClick={this.toggleEdit.bind(this, false)}>mode_edit</i>
           </div>
-          <h1 className="project-title">{this.props.project.title}</h1>
-          <h2 className="project-description">{this.props.project.description}</h2>
+          <h1 className="">{this.props.project.title}</h1>
+          <h2 className="">{this.props.project.description}</h2>
           {this.members()}
         </div>
       );
@@ -185,7 +185,7 @@ var ProjectHeader = React.createClass({
 
   render: function() {
     return (
-      <div className="project-header">
+      <div className="">
         {this.success()}
         {this.titleBlock()}
       </div>

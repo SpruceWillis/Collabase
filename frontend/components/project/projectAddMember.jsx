@@ -30,7 +30,7 @@ var ProjectAddMember = React.createClass({
   },
 
   searchBar: function(){
-    return <input type="text" value={this.state.name} className="search"
+    return <input type="text" value={this.state.name} className=""
       onInput={this.handleInput} placeholder="Name"></input>;
   },
 
@@ -48,19 +48,19 @@ var ProjectAddMember = React.createClass({
     if (this.state.currentUsers && this.state.currentUsers.length > 0){
       var members = this.state.currentUsers.map(function(member){
         return (<li onClick={that.addMember.bind(that,member)}
-        className="found-member" key={member.id}>{member.name}</li>);
+        className="" key={member.id}>{member.name}</li>);
       });
-      return <ul className="results group">{members}</ul>;
+      return <ul className="">{members}</ul>;
     } else {
-      return <div className="no-members"> No members found</div>;
+      return <div className=""> No members found</div>;
     }
   },
 
   render: function() {
     return (
-      <div className="add-members">
-        <div className="search-members">
-          <div className="add-members-header"> Add Project Members</div>
+      <div className="">
+        <div className="">
+          <div className=""> Add Project Members</div>
           {this.searchBar()}
         </div>
         {this.potentialMembers()}

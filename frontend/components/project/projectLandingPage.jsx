@@ -35,12 +35,12 @@ var ProjectLandingPage = React.createClass({
   newTodoList: function(){
     if (this.state.showEdit){
       return (
-        <div className="new-todolist-header">
+        <div className="">
           <EditTodo userid={this.props.params.userid} new={true}
             project={this.props.params.projectid} cancel={this.hideNewTodo} />
       </div>);
     } else {
-      return (<div onClick={this.showNewTodo} className="add-todolist-header">
+      return (<div onClick={this.showNewTodo} className="">
         <button className="btn-new-todolist">+</button>
         <div className="txt-new-todolist">Your Todo Lists</div>
       </div>);
