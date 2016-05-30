@@ -129,7 +129,7 @@ var ProjectHeader = React.createClass({
     });
     return (<div>
       <h2 className="">Members</h2>
-      <ul className="">{memberInfo}</ul>
+      <ul className="group member-list">{memberInfo}</ul>
     </div>);
   },
 
@@ -168,15 +168,15 @@ var ProjectHeader = React.createClass({
       // <button className="delete-project-button"
       //   onClick={this.destroyProject}>Delete</button>
       return (
-        <div className="">
+        <div className="project-inner-div">
           <div>
             <i className="material-icons edit-project-icon del-icon"
               onClick={this.destroyProject}>delete_forever</i>
             <i className="material-icons edit-project-icon edit-icon"
               onClick={this.toggleEdit.bind(this, false)}>mode_edit</i>
           </div>
-          <h1 className="">{this.props.project.title}</h1>
-          <h2 className="">{this.props.project.description}</h2>
+          <h1 className="project-header">{this.props.project.title}</h1>
+          <h2 className="project-description">{this.props.project.description}</h2>
           {this.members()}
         </div>
       );

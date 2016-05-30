@@ -41,7 +41,7 @@ var ProjectTodosContainer = React.createClass({
       var todoItems = this.state.todos.map(function(todo){
         return <TodoPreview key={todo.id} params={that.props.params} todo={todo}/>;
       });
-      return <ul className="">{todoItems}</ul>;
+      return <ul className="group todolist-ul">{todoItems}</ul>;
     } else {
       return (<div className="">No Todos Found!</div>);
     }
@@ -51,7 +51,7 @@ var ProjectTodosContainer = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="">
+        <div className="s">
           {this.todos()}
         </div>
       </div>

@@ -40,7 +40,7 @@ var ProjectLandingPage = React.createClass({
             project={this.props.params.projectid} cancel={this.hideNewTodo} />
       </div>);
     } else {
-      return (<div onClick={this.showNewTodo} className="">
+      return (<div onClick={this.showNewTodo} className="new-todolist-header">
         <button className="btn-new-todolist">+</button>
         <div className="txt-new-todolist">Your Todo Lists</div>
       </div>);
@@ -64,9 +64,15 @@ var ProjectLandingPage = React.createClass({
     return (
       <div className="background">
         <NavBar />
-        {this.project()}
-        {this.newTodoList()}
-        <ProjectTodosContainer params={this.props.params}/>
+        <div className="pagediv group">
+          <div className="project-info-div group">
+            {this.project()}
+          </div>
+          <div className="project-todo-div">
+            {this.newTodoList()}
+            <ProjectTodosContainer params={this.props.params}/>
+          </div>
+        </div>
       </div>
     );
   }

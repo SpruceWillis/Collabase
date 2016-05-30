@@ -89,15 +89,15 @@ $jungle: #1FD426;
   background-color: $sky;
 }
 
-.project-header {
-  border: 1px solid lightgray;
-  box-sizing: border-box;
-  border-radius: 10px;
-  width: 85%;
-  min-width: 800px;
-  margin: 20px auto;
-  background-color: $steel;
-}
+// .project-header {
+//   border: 1px solid lightgray;
+//   box-sizing: border-box;
+//   border-radius: 10px;
+//   width: 85%;
+//   min-width: 800px;
+//   margin: 20px auto;
+//   background-color: $steel;
+// }
 
 .project-innerheader{
   display: flex;
@@ -159,12 +159,12 @@ $jungle: #1FD426;
   font-weight: bold;
 }
 
-.project-description {
-  margin: auto;
-  width: auto;
-  font-size: 32px;
-  font-family: 'Raleway', sans-serif;
-}
+// .project-description {
+//   margin: auto;
+//   width: auto;
+//   font-size: 32px;
+//   font-family: 'Raleway', sans-serif;
+// }
 
 .project-member-header {
   width: auto;
@@ -419,13 +419,13 @@ $fadeTime: 0.5s;
 
 //todo-list section of project landing page
 
-.new-todolist-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 0 0 20px 0;
-}
+// .new-todolist-header {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 0 0 20px 0;
+// }
 
 .btn-new-todolist {
   display: flex;
