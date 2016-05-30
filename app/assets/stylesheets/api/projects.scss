@@ -89,16 +89,6 @@ $jungle: #1FD426;
   background-color: $sky;
 }
 
-// .project-header {
-//   border: 1px solid lightgray;
-//   box-sizing: border-box;
-//   border-radius: 10px;
-//   width: 85%;
-//   min-width: 800px;
-//   margin: 20px auto;
-//   background-color: $steel;
-// }
-
 .project-innerheader{
   display: flex;
   flex-direction: column;
@@ -123,6 +113,76 @@ $jungle: #1FD426;
   padding: 10px;
   cursor: pointer;
   margin: 10px 10px 0 0;
+}
+
+//CSS related to project landing page
+
+.pagediv {
+  display: flex;
+  width: 100%;
+}
+
+.project-info-div {
+  width: 100%;
+}
+
+.project-header {
+  text-align: center;
+  margin: 0 0 10px 0;
+  width: auto;
+  padding: 0 10px;
+}
+
+.project-description {
+  text-align: center;
+  margin: 10px;
+  width: auto;
+}
+
+.member-list {
+  list-style: none;
+  margin: 5px 0;
+}
+
+.project-inner-div {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  background: $neutral;
+}
+
+.new-todolist-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.todolist-ul {
+  list-style: none;
+  width: 80%;
+  padding: 0;
+  margin: auto;
+}
+
+.todo-preview {
+  float: left;
+  margin: 10px 20px;
+  padding: 15px 10px;
+  border-radius: 15px;
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+  width: 200px;
+  height: 80px;
+}
+
+.project-todo-div {
+  margin: 10px;
+  padding: 10px;
+  background: $neutral;
+  border-radius: 10px;
 }
 
 .del-icon:hover {
@@ -159,12 +219,7 @@ $jungle: #1FD426;
   font-weight: bold;
 }
 
-// .project-description {
-//   margin: auto;
-//   width: auto;
-//   font-size: 32px;
-//   font-family: 'Raleway', sans-serif;
-// }
+
 
 .project-member-header {
   width: auto;
@@ -268,6 +323,8 @@ $jungle: #1FD426;
 
 .edit-project-options {
   display: flex;
+  border-top: 1px solid $carbon;
+  padding: 20px 0 0 0;
   flex-direction: row;
   font-family: 'Raleway', sans-serif;
   justify-content: space-around;
@@ -275,7 +332,9 @@ $jungle: #1FD426;
 }
 
 .edit-project-options > button {
-  width: auto;
+  width: 150px;
+  font-size: 15px;
+  text-align: center;
   padding: 10px 15px;
   border-radius: 10px;
   margin: 0 0 10px 0;
@@ -314,19 +373,22 @@ $jungle: #1FD426;
 }
 
 .search {
-  margin: 0 0 10px 40px;
+  margin: 10px;
   font-family: 'Raleway', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   padding: 5px;
+  background: white;
+  width: auto;
   border-radius: 10px;
   text-align: center;
 }
 
 .add-members-header{
-  margin: 0 0 10px 40px;
+  margin: 10px 0;
+  padding: 10px 0;
+  border-top: 1px solid $carbon;
   font-weight: bold;
   font-size: 20px;
-  color: white;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -342,6 +404,8 @@ $fadeTime: 0.5s;
 
 .found-member{
   margin: 5px;
+  float: left;
+  width: auto;
   display: flex;
   width: auto;
   background-color: $jungle;
@@ -418,14 +482,6 @@ $fadeTime: 0.5s;
 }
 
 //todo-list section of project landing page
-
-// .new-todolist-header {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-//   align-items: center;
-//   margin: 0 0 20px 0;
-// }
 
 .btn-new-todolist {
   display: flex;

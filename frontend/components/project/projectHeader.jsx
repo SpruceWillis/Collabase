@@ -143,21 +143,21 @@ var ProjectHeader = React.createClass({
           <form id="editProjectForm" onSubmit={this.saveChanges}>
             <input type="text" value={this.state.title}
               onChange={this.linkState} placeholder="Title"
-              maxLength="40" className="" id="title" required/>
+              maxLength="40" className="edit-project-title  " id="title" required/>
             <input maxLength="100" type="text" value={this.state.description}
               onChange={this.linkState} placeholder="Description"
               className="edit-project-description" id="description" required/>
           </form>
-          <div>
-          {this.members()}
+          <div className="group">
+            {this.members()}
           <ProjectAddMember project={this.props.project} user={this.props.user}/>
           </div>
-          <div className="">
-            <button className=""
+          <div className="edit-project-options">
+            <button className="save-project-button"
               type="submit" form="editProjectForm">Save</button>
-            <button className=""
+            <button className="nosave-project-button"
               onClick={this.discardChanges}>Discard Changes</button>
-            <button className=""
+            <button className="done-project-button"
               onClick={this.toggleEdit.bind(this, true)}>Save and Finish</button>
           </div>
         </div>
@@ -185,8 +185,7 @@ var ProjectHeader = React.createClass({
 
   render: function() {
     return (
-      <div className="">
-        {this.success()}
+      <div className="project-inner-div">
         {this.titleBlock()}
       </div>
     );
