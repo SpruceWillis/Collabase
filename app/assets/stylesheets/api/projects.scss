@@ -250,7 +250,6 @@ $jungle: #1FD426;
   align-items: center;
   margin-top: 20px;
   padding: 0 0 20px 0;
-  border-bottom: 1px solid $carbon;
 }
 
 .edit-project-title {
@@ -299,6 +298,11 @@ $jungle: #1FD426;
   float: left;
   padding: 10px;
   cursor: pointer;
+}
+
+.current-members{
+  padding: 10px;
+  border-top: 1px solid $carbon;
 }
 
 .member-list-item-edit > button {
@@ -478,7 +482,6 @@ $fadeTime: 0.5s;
 .new-member-clause {
   font-family: 'Raleway', sans-serif;
   margin-top: 3px;
-  color: white
 }
 
 //todo-list section of project landing page

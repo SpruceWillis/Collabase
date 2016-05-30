@@ -148,7 +148,7 @@ var ProjectHeader = React.createClass({
               onChange={this.linkState} placeholder="Description"
               className="edit-project-description" id="description" required/>
           </form>
-          <div className="group">
+          <div className="group current-members">
             {this.members()}
           <ProjectAddMember project={this.props.project} user={this.props.user}/>
           </div>
