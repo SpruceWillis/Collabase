@@ -127,8 +127,8 @@ var ProjectHeader = React.createClass({
         return <li className="member-list-item group" key={member.id}>{member.name}</li>;
       }
     });
-    return (<div>
-      <h2 className="">Members</h2>
+    return (<div className="members-div">
+      <h2 className="member-header">Members</h2>
       <ul className="group member-list">{memberInfo}</ul>
     </div>);
   },

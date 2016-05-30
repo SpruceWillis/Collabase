@@ -24,6 +24,8 @@ $buttermilk: #FFF7C0;
 $steel: #2F2F2F;
 $activeblue: #2880A2;
 $jungle: #1FD426;
+$offblue: #DEE5F5;
+
 
 .dropdown {
   font-size: 16px;
@@ -127,20 +129,28 @@ $jungle: #1FD426;
 }
 
 .project-header {
-  text-align: center;
+  color: darkblue;
   margin: 0 0 10px 0;
   width: auto;
+  font-size: 44px;
   padding: 0 10px;
 }
 
 .project-description {
-  text-align: center;
+  color: darkblue;
+  font-size: 32px;
   margin: 10px;
   width: auto;
 }
 
+.members-div {
+  margin: 10px 0;
+  border-top: 1px solid $carbon;
+}
+
 .member-list {
   list-style: none;
+  padding: 0;
   margin: 5px 0;
 }
 
@@ -219,14 +229,9 @@ $jungle: #1FD426;
   font-weight: bold;
 }
 
-
-
-.project-member-header {
-  width: auto;
-  margin: 5px 0 0 40px;
-  font-size: 32px;
-  color: white;
-  font-family: 'Raleway', sans-serif;
+.member-header {
+  margin: 10px 0;
+  color: darkblue;
 }
 
 .project-member-list {
@@ -284,7 +289,7 @@ $jungle: #1FD426;
 .member-list-item {
   width: 20%;
   border-radius: 10px;
-  background-color: $activeblue;
+  background-color: rgba(72, 202, 243, 0.96);
   margin: 5px;
   float: left;
   padding: 10px;
@@ -302,7 +307,6 @@ $jungle: #1FD426;
 
 .current-members{
   padding: 10px;
-  border-top: 1px solid $carbon;
 }
 
 .member-list-item-edit > button {
