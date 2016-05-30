@@ -129,23 +129,32 @@ var TodoPage = React.createClass({
   edit: function(){
     if (this.state.edit){
       var boundClick = this.cancelEdit;
-      return <EditTodo new={false} todo={this.state.todo}
-        cancel={boundClick} />;
+      return(
+        <div className="project-inner-div">
+          <EditTodo new={false} todo={this.state.todo} cancel={boundClick} />
+        </div>
+      );
     } else {
       // <button className="edit-todolist-btn" onClick={this.enableEdit}>Edit</button>
       // <button className="del-todolist-btn"
       //   onClick={this.destroyTodoList}>Delete</button>
       return (
-        <div className="edit-todolist">
-          <div className="group edit-todolist-grp">
+        <div className="project-inner-div">
+          <div className="">
             <i className="material-icons edit-project-icon del-icon"
               onClick={this.destroyTodoList}>delete_forever</i>
             <i className="material-icons edit-project-icon edit-icon"
               onClick={this.enableEdit}>mode_edit</i>
           </div>
-          <h1 className="todolist-title">{this.state.todo.title}</h1>
-          <h2 className="todolist-description">{this.state.todo.description}</h2>
-          <h2 className="todolist-completion">{this.completed()}</h2>
+          <div className="">
+            <h1 className="project-header">{this.state.todo.title}</h1>
+            <h2 className="project-description">{this.state.todo.description}</h2>
+            <h2 className="member-header">{this.completed()}</h2>
+            <div>
+              <button onClick={this.back} className="project-back-btn">Back</button>
+              <button onClick={this.back} className="todo-done-btn">Done</button>
+            </div>
+          </div>
       </div>);
     }
   },
@@ -174,7 +183,7 @@ var TodoPage = React.createClass({
       return <NewTodoItem todo={this.state.todo} cancel={this.cancelAdd}
         success={this.onTodoCreate}/>;
     } else {
-      return (<div onClick={this.enableAdd} className="new-todoitem-header">
+      return (<div onClick={this.enableAdd} className="new-todolist-header">
         <button className="btn-new-todolist">+</button>
         <div className="txt-new-todolist">Tasks</div>
       </div>);
@@ -183,14 +192,14 @@ var TodoPage = React.createClass({
 
   todoItems: function(){
     if (this.state.todo.todo_items.length === 0){
-      return <div className="no-todoitems-header">No tasks found!</div>
+      return <div className="no-todoitems-header">No tasks found!</div>;
     }
     var that = this;
     var items = this.state.todo.todo_items.map(function(item, index){
       return (<TodoItemDisplay todoItem={item} completed={that.state.completed[index]}
         key={item.id} handleClick={that.updateItemCompletion.bind(that, index)} />);
     });
-    return (<ul className="group todo-container-box">
+    return (<ul className="group">
       {items}
     </ul>);
   },
@@ -201,12 +210,14 @@ var TodoPage = React.createClass({
       <div>
         <NavBar />
         <div className="background">
-          {this.edit()}
-          {this.add()}
-          {this.todoItems()}
-          <div>
-            <button onClick={this.back} className="project-back-btn">Back</button>
-            <button onClick={this.back} className="todo-done-btn">Done</button>
+          <div className="todo-outer-div">
+            <div>
+              {this.edit()}
+            </div>
+            <div className="project-todo-div">
+              {this.add()}
+              {this.todoItems()}
+            </div>
           </div>
         </div>
       </div>

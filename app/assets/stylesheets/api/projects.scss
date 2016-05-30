@@ -157,8 +157,9 @@ $offblue: #DEE5F5;
 .project-inner-div {
   padding: 10px;
   margin: 10px;
+  min-width: 825px;
   border-radius: 10px;
-  background: $neutral;
+  background: ghostwhite;
 }
 
 .new-todolist-header {
@@ -182,8 +183,8 @@ $offblue: #DEE5F5;
   padding: 15px 10px;
   border-radius: 15px;
   text-align: center;
-  background-color: white;
   cursor: pointer;
+  border: 1px solid;
   width: 200px;
   height: 80px;
 }
@@ -191,7 +192,7 @@ $offblue: #DEE5F5;
 .project-todo-div {
   margin: 10px;
   padding: 10px;
-  background: $neutral;
+  background: ghostwhite;
   border-radius: 10px;
 }
 
@@ -287,7 +288,6 @@ $offblue: #DEE5F5;
 }
 
 .member-list-item {
-  width: 20%;
   border-radius: 10px;
   background-color: rgba(72, 202, 243, 0.96);
   margin: 5px;
@@ -296,13 +296,15 @@ $offblue: #DEE5F5;
 }
 
 .member-list-item-edit {
-  width: 20%;
   border-radius: 10px;
   background-color: $jungle;
   margin: 5px;
   float: left;
   padding: 10px;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+
 }
 
 .current-members{
@@ -325,6 +327,7 @@ $offblue: #DEE5F5;
 .member-list-remove {
   float: right;
   width: auto;
+  margin: 0 5px 0 10px;
 }
 
 //buttons at the bottom of the page
@@ -386,6 +389,7 @@ $offblue: #DEE5F5;
   font-size: 20px;
   padding: 5px;
   background: white;
+  border: 1px solid $neutral;
   width: auto;
   border-radius: 10px;
   text-align: center;
@@ -514,7 +518,7 @@ $fadeTime: 0.5s;
 
 .txt-new-todolist {
   margin: 10px;
-font-size: 28px;
+font-size: 44px;
 font-family: 'Raleway', sans-serif;
 color: $jungle;
 }
