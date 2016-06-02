@@ -26,8 +26,8 @@ $buttermilk: #FFF7C0;
 
 .navbar {
   display: block;
-  background-color: $rain;
-  height: 30px;
+  background-color: #1A25B7;
+  height: 40px;
   z-index: 1;
 }
 
@@ -45,23 +45,22 @@ $buttermilk: #FFF7C0;
 .greeting {
   color: white;
   font-size: 16px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   display: inline-block;
   text-align: center;
   padding: 5px 5px;
+  margin: 5px;
 }
 
 .navbar-auth button {
   float: right;
   padding: 5px 5px;
-  margin-left: 5px;
-  margin-right: 5px;
-  font-family: sans-serif;
+  margin: 5px;
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
-  border-radius: 5%;
+  border-radius: 10px;
   box-sizing: border-box;;
   color: white;
-  height: 30px;
   width: 70px;
   text-align: center;
 }
@@ -76,7 +75,7 @@ $buttermilk: #FFF7C0;
   margin: auto;
   text-align: center;
   font-size: 32px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -85,9 +84,9 @@ $buttermilk: #FFF7C0;
 
 .logo {
   float: left;
-  height: 30px;
-  width: 80px;
-  margin: 0 0 0 30px;
+  height: 40px;
+  width: 105px;
+  margin: 1px 0 1px 10px;
   text-align: center;
   cursor: pointer;
   z-index: 2;
@@ -103,20 +102,24 @@ $buttermilk: #FFF7C0;
 
 .signup-form {
   height: 250px;
-  margin: auto;
+  width: 300px;
+  margin: 0 auto;
 }
 
 .signup-form > input{
-  // border: 1px solid black;
+  border: 1px solid grey;
   border-radius: 10px;
   margin: 5px auto;
-  font-size: 32px;
+  padding: 3px;
+  font-size: 29px;
   text-align: center;
   display: block;
 }
 
 .signup-form:last-child{
   color: red;
+  border: none;
+  padding: 10px;
 }
 
 .signup-form:last-child:hover {
@@ -130,8 +133,8 @@ $buttermilk: #FFF7C0;
 }
 
 .authmodal-form > input{
-  // border: 1px solid black;
-  border-radius: 5%;
+  border: 1px solid grey;
+  border-radius: 10px;
   margin: 5px;
   font-size: 32px;
   text-align: center;
@@ -165,8 +168,10 @@ input + input {
 .signin-button {
   background-color: $leaf;
   border: none;
-  font-size: 32px;
+  font-size: 29px;
+  width: 50%;
   border-radius: 10px;
+  cursor: pointer;
 
 }
 
@@ -177,7 +182,13 @@ input + input {
 .guest-signin-button {
   background-color: $salmon;
   border: none;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  font-size: 29px;
+  justify-content: center;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .guest-signin-button:hover {

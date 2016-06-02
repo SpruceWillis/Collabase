@@ -3,5 +3,5 @@
 # end
 
 json.array! (@users.includes(:member_projects)) do |user|
-  json.partial! 'api/users/user', user: user, show_projects: true
+  json.partial! 'api/users/user', user: user, show_projects: false
 end

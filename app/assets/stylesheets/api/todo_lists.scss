@@ -1,3 +1,14 @@
 // Place all the styles related to the api/TodoLists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.todo-outer-div {
+  display: flex;
+  width: 100%;
+}
+
+.todoitems-container {
+  list-style: none;
+  width: 525px;
+  padding: 0;
+}

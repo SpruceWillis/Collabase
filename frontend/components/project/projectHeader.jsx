@@ -16,11 +16,6 @@ var ProjectHeader = React.createClass({
   },
 
   toggleEdit: function(save){
-    // if (this.state.edit){
-    //   this.setState({edit: false});
-    // } else {
-    //   this.setState({edit: true});
-    // }
     if (save) this.saveChanges();
     this.setState({edit: !this.state.edit});
   },
@@ -132,9 +127,9 @@ var ProjectHeader = React.createClass({
         return <li className="member-list-item group" key={member.id}>{member.name}</li>;
       }
     });
-    return (<div>
-      <h2 className="project-member-header">Members</h2>
-      <ul className="project-member-list group">{memberInfo}</ul>
+    return (<div className="members-div">
+      <h2 className="member-header">Members</h2>
+      <ul className="group member-list">{memberInfo}</ul>
     </div>);
   },
 
@@ -144,17 +139,17 @@ var ProjectHeader = React.createClass({
     if (this.state.edit){
       return(
         <div>
-          <div className="edit-project-header">Editing Project</div>
+          <div className="">Editing Project</div>
           <form id="editProjectForm" onSubmit={this.saveChanges}>
             <input type="text" value={this.state.title}
               onChange={this.linkState} placeholder="Title"
-              maxLength="40" className="edit-project-title" id="title" required/>
+              maxLength="40" className="edit-project-title  " id="title" required/>
             <input maxLength="100" type="text" value={this.state.description}
               onChange={this.linkState} placeholder="Description"
               className="edit-project-description" id="description" required/>
           </form>
-          <div>
-          {this.members()}
+          <div className="group current-members">
+            {this.members()}
           <ProjectAddMember project={this.props.project} user={this.props.user}/>
           </div>
           <div className="edit-project-options">
@@ -168,15 +163,19 @@ var ProjectHeader = React.createClass({
         </div>
       );
     } else {
+      // <button className="edit-project-button"
+      //   onClick={this.toggleEdit.bind(this, false)}>Edit</button>
+      // <button className="delete-project-button"
+      //   onClick={this.destroyProject}>Delete</button>
       return (
-        <div className="project-innerheader">
+        <div className="project-inner-div">
           <div>
-            <button className="edit-project-button"
-              onClick={this.toggleEdit.bind(this, false)}>Edit</button>
-            <button className="delete-project-button"
-              onClick={this.destroyProject}>Delete</button>
+            <i className="material-icons edit-project-icon del-icon"
+              onClick={this.destroyProject}>delete_forever</i>
+            <i className="material-icons edit-project-icon edit-icon"
+              onClick={this.toggleEdit.bind(this, false)}>mode_edit</i>
           </div>
-          <h1 className="project-title">{this.props.project.title}</h1>
+          <h1 className="project-header">{this.props.project.title}</h1>
           <h2 className="project-description">{this.props.project.description}</h2>
           {this.members()}
         </div>
@@ -186,8 +185,7 @@ var ProjectHeader = React.createClass({
 
   render: function() {
     return (
-      <div className="project-header">
-        {this.success()}
+      <div className="project-inner-div">
         {this.titleBlock()}
       </div>
     );

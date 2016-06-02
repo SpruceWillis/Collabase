@@ -20,13 +20,20 @@ $salmon: #FA7C92;
 $rain: #6EC4DB;
 $buttermilk: #FFF7C0;
 
+//palette4
+$steel: #2F2F2F;
+$activeblue: #2880A2;
+$jungle: #1FD426;
+$offblue: #DEE5F5;
+
+
 .dropdown {
   font-size: 16px;
   color: white;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   display: inline-block;
   position: relative;
-  padding: 5px;
+  padding: 10px;
 }
 
 .dropdown-content:hover {
@@ -84,22 +91,12 @@ $buttermilk: #FFF7C0;
   background-color: $sky;
 }
 
-.project-header {
-  border: 1px solid lightgray;
-  box-sizing: border-box;
-  border-radius: 10px;
-  width: 85%;
-  min-width: 800px;
-  margin: 20px auto;
-  background-color: beige;
-  min-width: 400px;
-}
-
 .project-innerheader{
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  color: white;
   box-sizing: border-box;
 }
 
@@ -108,54 +105,138 @@ $buttermilk: #FFF7C0;
   margin: 20px 40px;
   padding: 10px;
   border-radius: 10px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 24px;
+}
+
+.material-icons.edit-project-icon {
+  font-size: 24px;
+  float: right;
+  padding: 10px;
+  cursor: pointer;
+  margin: 10px 10px 0 0;
+}
+
+//CSS related to project landing page
+
+.pagediv {
+  display: flex;
+  width: 100%;
+}
+
+.project-info-div {
+  width: 100%;
+}
+
+.project-header {
+  color: darkblue;
+  margin: 0 0 10px 0;
+  width: auto;
+  font-size: 44px;
+  padding: 0 10px;
+}
+
+.project-description {
+  color: darkblue;
+  font-size: 32px;
+  margin: 10px;
+  width: auto;
+}
+
+.members-div {
+  margin: 10px 0;
+  border-top: 1px solid $carbon;
+}
+
+.member-list {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0;
+}
+
+.project-inner-div {
+  padding: 10px;
+  margin: 10px;
+  min-width: 825px;
+  border-radius: 10px;
+  background: ghostwhite;
+}
+
+.new-todolist-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.todolist-ul {
+  list-style: none;
+  width: 80%;
+  padding: 0;
+  margin: auto;
+}
+
+.todo-preview {
+  float: left;
+  margin: 10px 20px;
+  padding: 15px 10px;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid;
+  width: 200px;
+  height: 80px;
+}
+
+.project-todo-div {
+  margin: 10px;
+  padding: 10px;
+  background: ghostwhite;
+  border-radius: 10px;
+}
+
+.del-icon:hover {
+  color: $salmon;
+}
+
+.edit-icon:hover {
+  color: yellow;
 }
 
 .edit-project-button {
   float: left;
-  border: 1px solid $leaf;
-  background-color: lightgreen;
+  background-color: $jungle;
 }
 
 .edit-project-button:hover {
-  color: $neutral;
+  color: palegreen;
 }
 
 .delete-project-button {
   float: right;
-  border: 1px solid $salmon;
-  background-color: pink;
+  background-color: $salmon;
 }
 
 .delete-project-button:hover {
-  color: $neutral
+  color: $watermelon
 }
 
 .project-title {
   margin: 10px auto;
   width: auto;
   font-size: 44px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: bold;
 }
 
-.project-description {
-  margin: auto;
-  width: auto;
-  font-size: 32px;
-  font-family: sans-serif;
-}
-
-.project-member-header {
-  width: auto;
-  margin: 5px 0 0 40px;
-  font-size: 32px;
-  font-family: sans-serif;
+.member-header {
+  margin: 10px 0;
+  color: darkblue;
 }
 
 .project-member-list {
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   list-style-type: none;
   padding-left: 40px;
   padding-bottom: 10px;
@@ -165,58 +246,69 @@ $buttermilk: #FFF7C0;
 
 .edit-project-header{
   margin: 10px;
-  font-family: sans-serif;
+  color: white;
+  font-family: 'Raleway', sans-serif;
 }
 
 #editProjectForm {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 0 5px 0;
-  border-bottom: 1px solid $carbon;
+  margin-top: 20px;
+  padding: 0 0 20px 0;
 }
 
 .edit-project-title {
   margin: 5px;
-  padding: 5px;
+  padding: 7px;
   width: 500px;
   font-size: 44px;
   text-align: center;
   border-radius: 10px;
+  background: white;
   border-style: groove;
   border: 1px solid $neutral;
-  font-family: sans-serif;
+  color: darkblue;
+  font-family: 'Raleway', sans-serif;
 }
 
 .edit-project-description {
-  margin: 5px;
+  margin: 10px 0 5px 0;
   border-radius: 10px;
   border-style: groove;
   border: 1px solid $neutral;
   width: 600px;
+  padding: 7px;
   font-size: 32px;
+  background: white;
+  color: darkblue;
   text-align: center;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 
 }
 
 .member-list-item {
-  width: 20%;
   border-radius: 10px;
-  background-color: $leaf;
+  background-color: rgba(72, 202, 243, 0.96);
   margin: 5px;
   float: left;
   padding: 10px;
 }
 
 .member-list-item-edit {
-  width: 20%;
   border-radius: 10px;
-  background-color: $warmyellow;
+  background-color: $jungle;
   margin: 5px;
   float: left;
   padding: 10px;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.current-members{
+  padding: 10px;
 }
 
 .member-list-item-edit > button {
@@ -224,7 +316,7 @@ $buttermilk: #FFF7C0;
 }
 
 .member-list-item-edit:hover {
-  background-color: $salmon;
+  background-color: $watermelon;
   color: white;
 }
 
@@ -235,22 +327,28 @@ $buttermilk: #FFF7C0;
 .member-list-remove {
   float: right;
   width: auto;
+  margin: 0 5px 0 10px;
 }
 
 //buttons at the bottom of the page
 
 .edit-project-options {
   display: flex;
+  border-top: 1px solid $carbon;
+  padding: 20px 0 0 0;
   flex-direction: row;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   justify-content: space-around;
   margin: 10px;
 }
 
 .edit-project-options > button {
-  width: auto;
+  width: 150px;
+  font-size: 15px;
+  text-align: center;
   padding: 10px 15px;
   border-radius: 10px;
+  margin: 0 0 10px 0;
   cursor: pointer;
 }
 
@@ -259,15 +357,15 @@ $buttermilk: #FFF7C0;
 }
 
 .save-project-button {
-  background-color: palegreen;
+  background-color: $jungle;
 }
 
 .nosave-project-button {
-  background-color: pink;
+  background-color: $salmon;
 }
 
 .done-project-button {
-  background-color: lightblue;
+  background-color: rgba(72, 202, 243, 0.96);
 }
 
 .add-members {
@@ -286,18 +384,24 @@ $buttermilk: #FFF7C0;
 }
 
 .search {
-  margin: 0 0 10px 40px;
-  font-family: sans-serif;
-  font-size: 18px;
+  margin: 10px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  padding: 5px;
+  background: white;
+  border: 1px solid $neutral;
+  width: auto;
   border-radius: 10px;
   text-align: center;
 }
 
 .add-members-header{
-  margin: 0 0 10px 40px;
+  margin: 10px 0;
+  padding: 10px 0;
+  border-top: 1px solid $carbon;
   font-weight: bold;
   font-size: 20px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 .results {
@@ -305,19 +409,25 @@ $buttermilk: #FFF7C0;
   list-style-type: none;
   flex-wrap: wrap;
   justify-content: center;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
+
+$fadeTime: 0.5s;
 
 .found-member{
   margin: 5px;
+  float: left;
+  width: auto;
   display: flex;
   width: auto;
-  background-color: palegreen;
+  background-color: $jungle;
   padding: 10px;
   border-radius: 10px;
   flex-direction: row;
   cursor: pointer;
   align-items: center;
+  -webkit-animation: member-enter $fadeTime ease-in-out 1;
+  animation: member-enter $fadeTime ease-in-out 1;
 }
 
 .found-member:hover {
@@ -326,16 +436,33 @@ $buttermilk: #FFF7C0;
 
 .no-members {
   margin: auto;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 18px;
   font-weight: bold;
+  color: white;
 }
+
+//animation for found members
+
+@-webkit-keyframes member-enter {
+  from {opacity: 0;}
+  to {opacity: 1}
+}
+
+@keyframes member-enter {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+
+
+//new project
 
 .new-project-buttons > button {
   width: auto;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   white-space: nowrap;
-  margin: 5px;
+  margin: 0 10px;
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
@@ -345,28 +472,27 @@ $buttermilk: #FFF7C0;
   color: white;
 }
 
+.new-project-buttons {
+  margin: 10px;
+}
+
 .create-project-button {
-  background-color: palegreen;
-  border: 1px solid $leaf;
+  background-color: $jungle;
+  font-size: 18px;
 }
 
 .cancel-project-button {
-  background-color: pink;
-  border: 1px solid $salmon
+  background-color: $salmon;
+  font-size: 18px;
+  // border: 1px solid $salmon
 }
 
 .new-member-clause {
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
+  margin-top: 3px;
 }
 
 //todo-list section of project landing page
-
-.new-todolist-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
 
 .btn-new-todolist {
   display: flex;
@@ -376,7 +502,7 @@ $buttermilk: #FFF7C0;
   border: 2px solid #f5f5f5;
   border-radius: 50%;
   color: #f5f5f5;
-  background: #66AB8C;
+  background: $jungle;
   text-decoration: none;
   box-shadow: 0 0 3px gray;
   font-size: 20px;
@@ -392,13 +518,13 @@ $buttermilk: #FFF7C0;
 
 .txt-new-todolist {
   margin: 10px;
-font-size: 24px;
-font-family: sans-serif;
-color: #66AB8C;
+font-size: 44px;
+font-family: 'Raleway', sans-serif;
+color: $jungle;
 }
 
 .todo-container-header {
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 text-align: center;
 font-size: 32px;
 color: green;
@@ -407,9 +533,11 @@ color: green;
 .todo-container-box {
   border: 1px solid lightgray;
   width: 85%;
+  min-width: 800px;
+  padding: 20px;
   margin: 20px auto;
   border-radius: 15px;
-  background-color: beige;
+  background-color: $steel;
 }
 
 //todo-list page
@@ -418,17 +546,18 @@ color: green;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
+  width: 85%;
 }
 
 .edit-todolist-btn {
   width: auto;
   margin: 10px 70px;
   float: left;
+  font-size: 18px;
   padding: 10px;
   border-radius: 10px;
-  background-color: palegreen;
-  border: 1px solid $leaf;
+  background-color: $jungle;
 
 }
 
@@ -439,11 +568,11 @@ color: green;
 .del-todolist-btn {
   width: auto;
   margin: 10px 70px;
+  font-size: 18px;
   float: right;
   padding: 10px;
   border-radius: 10px;
-  background-color: pink;
-  border: 1px solid $salmon;
+  background-color: $salmon;
 
 }
 
@@ -455,21 +584,22 @@ color: green;
   width: auto;
   text-align: center;
   font-size: 44px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 .todolist-description {
   width: auto;
   text-align: center;
   font-size: 32px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 .todolist-completion {
   width: auto;
   text-align: center;
+  margin: 10px 0 0 0;
   font-size: 24px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 .new-todoitem-header {
@@ -483,7 +613,7 @@ color: green;
 .editing-todolist-header {
     padding-top: 10px;
     margin-left: 30px;
-    font-family: sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 18px;
 
 }
@@ -506,7 +636,7 @@ color: green;
     margin: 10px;
     font-size: 24px;
     padding: 10px;
-    font-family: sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .new-todo-container {
@@ -523,10 +653,22 @@ color: green;
 
 #new-todo-form > input {
   width: 250px;
-    font-size: 24px;
+    font-size: 28px;
     border-radius: 10px;
     text-align: center;
     margin: 10px;
+}
+
+#new-todo-form >input[type="text"] {
+  background: white;
+  width: 300px;
+  padding: 5px;
+}
+
+#new-todo-form >input[type="date"]{
+  background: white;
+  width: 300px;
+  padding: 5px;
 }
 
 .new-todoitem-btns {
@@ -541,16 +683,17 @@ color: green;
   margin: 10px 70px;
   padding: 10px;
   border-radius: 10px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 .project-back-btn {
   width: auto;
   margin: 10px 0 0 70px;
   padding: 10px;
+  font-size: 18px;
   background-color: orange;
   border-radius: 10px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   border: 1px solid yellow;
 }
 
@@ -562,12 +705,51 @@ color: green;
   width: auto;
   margin: 10px 0 0 70px;
   padding: 10px;
-  background-color: palegreen;
+  background-color: $jungle;
+  font-size: 18px;
   border-radius: 10px;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
   border: 1px solid $leaf;
+}
+
+.no-todoitems-header {
+  font-family: 'Raleway', sans-serif;
+  font-size: 24px;
+  text-align: center;
+  margin: 10px;
 }
 
 .todo-done-btn:hover {
   color: white;
+}
+
+//modal css - fade in
+
+.ReactModal__Overlay {
+  -webkit-perspective: 600;
+  perspective: 600;
+  opacity: 0;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transition: opacity 100ms ease-out;
+}
+
+.ReactModal__Content {
+  -webkit-transform: scale(0.5) rotateX(-30deg);
+}
+
+.ReactModal__Content--after-open {
+  -webkit-transform: scale(1) rotateX(0deg);
+  transition: all 100ms ease-in-out;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.ReactModal__Content--before-close {
+  -webkit-transform: scale(0.5) rotateX(30deg);
+  transition: all 150ms ease-in-out;
 }

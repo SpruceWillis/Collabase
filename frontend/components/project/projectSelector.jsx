@@ -18,7 +18,8 @@ projects: function(){
   });
   return (<ul className="dropdown-content">
     {projectListItems}
-    <li onClick={this.navigateToNewProject} className="dropdown-item new-project">New Project</li>
+    <li onClick={this.navigateToNewProject}
+      className="dropdown-item new-project">New Project</li>
   </ul>);
 },
 
