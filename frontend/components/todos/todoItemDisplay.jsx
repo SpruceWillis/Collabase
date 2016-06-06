@@ -45,7 +45,7 @@ var TodoItemDisplay = React.createClass({
 
   render: function() {
     return (
-      <div className="todoitem-display">
+      <li className="todoitem-display">
         <div className="todoitem-btnheader">
           <button onClick={this.destroy} className="todoitem-destroybtn">X</button>
         </div>
@@ -59,7 +59,7 @@ var TodoItemDisplay = React.createClass({
             <label for={'c' + this.props.todoItem.id}>Completed</label>
           </p>
         </div>
-      </div>
+      </li>
     );
   }
 
