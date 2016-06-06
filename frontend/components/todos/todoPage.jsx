@@ -199,7 +199,7 @@ var TodoPage = React.createClass({
       return (<TodoItemDisplay todoItem={item} completed={that.state.completed[index]}
         key={item.id} handleClick={that.updateItemCompletion.bind(that, index)} />);
     });
-    return (<ul className="group">
+    return (<ul className="todoitems-list group">
       {items}
     </ul>);
   },
