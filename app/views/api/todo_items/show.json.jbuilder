@@ -1,1 +1,3 @@
-json.partial! 'api/todo_items/todo_item', todo_item: @todo_item
+json.partial! 'api/todo_items/todo_item',
+  todo_item: @todo_item,
+  show_assignments: true

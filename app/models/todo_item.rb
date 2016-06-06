@@ -13,6 +13,10 @@ class TodoItem < ActiveRecord::Base
   has_many :todo_assignments,
     dependent: :destroy
 
+  has_many :assignees,
+    through: :todo_assignments,
+    source: :assignee
+
   def self.update_multiple(todo_items)
     TodoItem.transaction do
       todo_items.each do |todo_item|

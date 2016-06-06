@@ -25,6 +25,8 @@ class Api::TodoListsController < ApplicationController
 
   def show
     @todo_list = TodoList.includes(:todo_items).find_by_id(params[:id])
+    @todo_list.todo_items.each do |item|
+    end
     if (@todo_list)
       render "api/todo_lists/show"
     else
