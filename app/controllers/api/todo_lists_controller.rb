@@ -24,7 +24,7 @@ class Api::TodoListsController < ApplicationController
   end
 
   def show
-    @todo_list = TodoList.includes(:todo_items).find_by_id(params[:id])
+    @todo_list = TodoList.includes(:todo_items, todo_items: :todo_assignments, todo_items: :assignees).find_by_id(params[:id])
     @todo_list.todo_items.each do |item|
     end
     if (@todo_list)
