@@ -104,10 +104,18 @@ TodoStore.currentTodo = function(id){
   return _todos[_todoKeys[id]];
 };
 
+TodoStore.currentItem = function(todoId, id){
+  var todo = TodoStore.currentTodo(todoId);
+  for (var i = 0; i < todo.todo_items.length; i++) {
+    if (todo.todo_items[i].id === parseInt(id))
+    return todo.todo_items[i];
+  }
+};
+
 TodoStore.errors = function(){
   return TodoStore.get(errors);
 };
 
-// window.TodoStore = TodoStore;
+window.TodoStore = TodoStore;
 
 module.exports = TodoStore;

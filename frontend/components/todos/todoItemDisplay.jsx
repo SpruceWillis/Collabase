@@ -1,5 +1,6 @@
 var React = require('react');
 var TodoActions = require('../../actions/todoActions');
+var history = require('react-router').hashHistory;
 
 var TodoItemDisplay = React.createClass({
 
@@ -43,6 +44,11 @@ var TodoItemDisplay = React.createClass({
     }
   },
 
+  redirectToItem: function(id){
+    debugger;
+    history.push('todos/' + this.props.todoItem.id + '/todo_item/' + id);
+  },
+
   render: function() {
     return (
       <li className="todoitem-display">
@@ -51,7 +57,9 @@ var TodoItemDisplay = React.createClass({
         </div>
         <div>
           <div className="todoitem-txt">{this.formatDueDate()}</div>
-          <div className="todoitem-title">{this.props.todoItem.title}</div>
+          <div className="todoitem-title"
+            onClick={this.redirectToItem.bind(this, this.props.todoItem.id)}>
+            {this.props.todoItem.title}</div>
           <div className="todoitem-txt">{this.props.todoItem.description}</div>
           <p onClick={this.props.handleClick}>
             <input type="checkbox" checked={this.state.completed}

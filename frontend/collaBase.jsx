@@ -4,8 +4,8 @@ var SplashPage = require('./components/splashPage'),
     ProjectLandingPage = require('./components/project/projectLandingPage'),
      NavBar = require('./components/navBar'),
      NewProjectPage = require('./components/project/newProjectPage'),
-    //  ProjectTodosPage = require('./components/todos/projectTodosPage'),
-     TodoPage = require('./components/todos/todoPage');
+     TodoPage = require('./components/todos/todoPage'),
+     TodoItemPage = require('./components/todos/TodoItemPage');
 var Modal = require("react-modal");
 var ReactRouter = require('react-router'),
     Router = ReactRouter.Router,
@@ -24,9 +24,6 @@ var App = React.createClass({
   }
 });
 
-// <Route path="/users/:userid/projects/:projectid/todos"
-//   component={ProjectTodosPage} />
-
 var router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
@@ -36,6 +33,7 @@ var router = (
         component={ProjectLandingPage}></Route>
       <Route path="/users/:userid/projects/:projectid/todos/:todoid"
         component={TodoPage} />
+      <Route path="todos/:todoid/todo_item/:id" component={TodoItemPage} />
     </Route>
   </Router>
 );
