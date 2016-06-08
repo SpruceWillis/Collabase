@@ -651,25 +651,25 @@ color: green;
   align-items: center;
 }
 
-#new-todo-form > input {
-  width: 250px;
-    font-size: 28px;
-    border-radius: 10px;
-    text-align: center;
-    margin: 10px;
-}
+// #new-todo-form > input {
+//   width: 250px;
+//     font-size: 28px;
+//     border-radius: 10px;
+//     text-align: center;
+//     margin: 10px;
+// }
 
-#new-todo-form >input[type="text"] {
-  background: white;
-  width: 300px;
-  padding: 5px;
-}
+// #new-todo-form >input[type="text"] {
+//   background: white;
+//   width: 300px;
+//   padding: 5px;
+// }
 
-#new-todo-form >input[type="date"]{
-  background: white;
-  width: 300px;
-  padding: 5px;
-}
+// #new-todo-form >input[type="date"]{
+//   background: white;
+//   width: 300px;
+//   padding: 5px;
+// }
 
 .new-todoitem-btns {
   display: flex;

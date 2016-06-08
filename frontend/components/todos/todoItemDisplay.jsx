@@ -45,8 +45,7 @@ var TodoItemDisplay = React.createClass({
   },
 
   redirectToItem: function(id){
-    debugger;
-    history.push('todos/' + this.props.todoItem.id + '/todo_item/' + id);
+    history.push('todos/' + this.props.todoItem.todo_list_id + '/todo_item/' + id);
   },
 
   render: function() {

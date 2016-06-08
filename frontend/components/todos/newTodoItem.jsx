@@ -23,7 +23,7 @@ var NewTodoItem = React.createClass({
 
   handleSubmit: function(e){
     e.preventDefault();
-    TodoActions.createTodoItem(this.state, this.props.success)
+    TodoActions.createTodoItem(this.state, this.props.success);
   },
 
   render: function() {
@@ -31,14 +31,17 @@ var NewTodoItem = React.createClass({
       <div className="new-todo-container">
         <form onSubmit={this.handleSubmit} id="new-todo-form">
           <input type="text" onChange={this.handleUpdate} id="title"
-            value={this.state.title} required placeholder="Title"/>
+            value={this.state.title} className="edit-todolist-text"
+            required placeholder="title"/>
           <input type="text" onChange={this.handleUpdate} id="description"
-            value={this.state.description} required placeholder="Description"/>
+            value={this.state.description} required placeholder="Description"
+            className="edit-todolist-text"/>
           <input type="date" onChange={this.handleUpdate} id="due_date"
-            value={this.state.due_date}/>
+            value={this.state.due_date} className="edit-todolist-text"/>
         </form>
         <div className="new-todoitem-btns">
-          <button type="submit" form="new-todo-form" className="edit-todolist-btn">Add Task</button>
+          <button type="submit" form="new-todo-form"
+            className="edit-todolist-btn">Add Task</button>
           <button onClick={this.props.cancel} className="del-todolist-btn">Cancel</button>
         </div>
       </div>
