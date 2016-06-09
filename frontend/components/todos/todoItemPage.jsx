@@ -1,8 +1,10 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
 var NavBar = require('../navBar'),
-    TodoStore = require('../../stores/todoStore');
-
+    TodoStore = require('../../stores/todoStore'),
+    TodoActions = require('../../actions/todoActions'),
+    TodoItemAssignments = require('./todoItemAssignments');
+var currentUserLookups = require('../../mixins/currentUserLookups');
 var TodoItemPage = React.createClass({
 
   getInitialState: function(){
@@ -10,16 +12,39 @@ var TodoItemPage = React.createClass({
     return this.getItemInfo(params.todoid, params.id);
   },
 
+  componentWillMount: function() {
+    TodoActions.getTodoItem({id: this.props.params.id});
+    this.itemListener = TodoStore.addListener(this.updateTodo);
+  },
+
+  updateTodo: function(){
+    var params = this.props.params;
+    this.setState(this.getItemInfo(params.todoid, params.id));
+  },
+
+  componentWillUnmount: function(){
+    this.itemListener.remove();
+  },
+
   getItemInfo: function(todoId, id){
     var due;
     var item = TodoStore.currentItem(todoId, id);
     due = (item.due_date === null) ? "" : item.due_date;
-    return {
-      description: item.description,
-      dueDate: due,
-      title: item.title,
-      assignments: item.assignments
-    };
+    if (item){
+      return {
+        description: item.description,
+        dueDate: due,
+        title: item.title,
+        assignments: item.assignments
+      };
+    } else {
+      return {
+        description: null,
+        dueDate: null,
+        title: null,
+        assignments: null
+      };
+    }
   },
 
   itemDisplay: function(){
@@ -37,6 +62,7 @@ var TodoItemPage = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     var params = nextProps.params;
+    TodoActions.getTodoItem({id: params.id});
     this.setState(this.getItemInfo(params.todoid, params.id));
   },
 
@@ -47,19 +73,6 @@ var TodoItemPage = React.createClass({
     this.setState(state);
   },
 
-  assignments: function(){
-    var assignees;
-    var that = this;
-    if (this.state.assignments.length > 0){
-      assignees = this.state.assignments.map(function(person){
-        return <li key={person.id}>{person.name}</li>;
-      });
-    } else {
-      return <div>Unassigned</div>;
-    }
-    return <ul>{assignees}</ul>;
-  },
-
   render: function() {
     return (
       <div>
@@ -67,7 +80,7 @@ var TodoItemPage = React.createClass({
         <div clasName="background">
           <div className="project-inner-div">
             {this.itemDisplay()}
-            {this.assignments()}
+            <TodoItemAssignments assignments={this.state.assignments} />
           </div>
         </div>
       </div>

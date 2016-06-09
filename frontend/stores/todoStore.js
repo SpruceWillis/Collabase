@@ -55,6 +55,9 @@ TodoStore.__onDispatch = function(payload){
     case ActionTypes.RECEIVE_PROJECT:
       TodoStore.receiveTodos(payload.project.todo_lists);
       break;
+    case ActionTypes.RECEIVE_TODO_ITEM:
+      TodoStore.receiveTodoItem(payload.item);
+      break;
   }
 };
 
@@ -110,6 +113,17 @@ TodoStore.currentItem = function(todoId, id){
     if (todo.todo_items[i].id === parseInt(id))
     return todo.todo_items[i];
   }
+};
+
+TodoStore.receiveTodoItem = function(item){
+  var todo = TodoStore.currentTodo(item.todo_list_id);
+  for (var i = 0; i < todo.todo_items.length; i++) {
+    if (todo.todo_items[i].id === item.id){
+      todo.todo_items[i] = item;
+      break;
+    }
+  }
+  TodoStore.__emitChange();
 };
 
 TodoStore.errors = function(){

@@ -25,6 +25,10 @@ var TodoActions = {
     TodoApiUtil.createTodoItem(data, cb);
   },
 
+  getTodoItem: function(data, cb){
+    TodoApiUtil.getTodoItem(data, cb);
+  },
+
   destroyTodoItem: function(data, cb){
     TodoApiUtil.destroyTodoItem(data, cb);
   },
@@ -36,6 +40,7 @@ var TodoActions = {
     }
     TodoApiUtil.updateTodoListItems(todoItems, cb);
   }
+
 };
 
 module.exports = TodoActions;

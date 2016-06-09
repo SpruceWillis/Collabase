@@ -22,6 +22,16 @@ var TodoServerActions = {
     }
   },
 
+  receiveTodoItem: function(data, cb){
+    dispatcher.dispatch({
+      actionType: ActionTypes.RECEIVE_TODO_ITEM,
+      item: data
+    });
+    if (typeof cb !== 'undefined'){
+      cb(data);
+    }
+  },
+
   removeTodo: function(data, cb){
     if (typeof cb !== 'undefined'){
       cb(data);

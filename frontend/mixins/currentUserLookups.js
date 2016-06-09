@@ -10,19 +10,9 @@ module.exports = {
     };
   },
 
-//how do we determine which project to fetch?
   componentDidMount: function(){
     this.userListener = UserStore.addListener(this.update);
-      // UserActions.fetchCurrentUsers({
-      //   user_params: this.props.user_params,
-      // });
   },
-
-  // componentWillReceiveProps: function(nextProps){
-  //   UserActions.fetchCurrentUsers({
-  //     user_params: nextProps.project.id,
-  //   });
-  // },
 
   componentWillUnmount: function() {
     this.userListener.remove();

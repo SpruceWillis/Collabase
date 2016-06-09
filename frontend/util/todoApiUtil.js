@@ -81,6 +81,18 @@ var TodoApiUtil = {
     });
   },
 
+  getTodoItem: function(data, cb){
+    $.ajax({
+      url: 'api/todo_items/' + data.id,
+      method: "GET",
+      success: function(response){
+        TodoServerActions.receiveTodoItem(response, cb);
+      }, failure: function(errors){
+        TodoServerActions.handleErrors(errors);
+      }
+    });
+  },
+
   destroyTodoItem: function(data, cb){
     $.ajax({
       url: 'api/todo_items/' + data,
