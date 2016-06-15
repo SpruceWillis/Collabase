@@ -12,7 +12,6 @@ var ReactRouter = require('react-router'),
     Route = ReactRouter.Route,
     IndexRoute = ReactRouter.IndexRoute,
     hashHistory = ReactRouter.hashHistory;
-var GoogleAnalytics = require('react-g-analytics');
 
 
 
@@ -20,7 +19,6 @@ var App = React.createClass({
   render: function() {
     return (
       <div id="App">
-        <GoogleAnalytics id="UA-79365008-1" />
         {this.props.children}
       </div>
     );
