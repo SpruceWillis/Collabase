@@ -15,12 +15,19 @@ var NavBar = React.createClass({
     }
   },
 
+  disableBackground: function(){
+    var classes = "navbar group";
+    if (this.props.transparent)
+      classes += " transparent";
+    return classes;
+  },
+
   mixins: [CurrentUserState],
 
   // <img src="/assets/logo.png" title="home" />
   render: function() {
     return (
-      <div className="navbar group">
+      <div className={this.disableBackground()}>
         <div className="logo group" onClick={this.toSplashPage}>
         </div>
         {this.projectSelector()}

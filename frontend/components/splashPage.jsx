@@ -20,9 +20,9 @@ var SplashPage = React.createClass({
   render: function() {
     return (
       <div>
-        <img src="https://images.unsplash.com/photo-1423768164017-3f27c066407f"
+        <img src="http://res.cloudinary.com/dkskiosh7/image/upload/v1466120157/Splash_Background_qa5bzf.jpg"
           className="bg"/>
-        <NavBar ref="nav"/>
+        <NavBar ref="nav" transparent={true}/>
         <div className="content">
           <h1 className="tagline">Teamwork Simplified</h1>
           <button className="startbutton"
