@@ -100,12 +100,12 @@ var NavBar = React.createClass({
           <div className="greeting">
             Logged in as {this.state.currentUser.name}
           </div>
-          <button onClick={this.logout}>Log out</button>
+          <button className="greeting" onClick={this.logout}>Log out</button>
       </div>);
     } else {
       return (<div>
-        <button onClick={this.openSignInModal} >Sign In</button>
-        <button onClick={this.openSignUpModal} >Sign Up</button>
+        <button className="greeting" onClick={this.openSignInModal} >Sign In</button>
+        <button className="greeting" onClick={this.openSignUpModal} >Sign Up</button>
       </div>);
     }
   },
