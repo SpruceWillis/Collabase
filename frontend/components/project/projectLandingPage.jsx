@@ -38,6 +38,7 @@ var ProjectLandingPage = React.createClass({
         <div className="">
           <EditTodo userid={this.props.params.userid} new={true}
             project={this.props.params.projectid} cancel={this.hideNewTodo} />
+          <div className="txt-new-todolist">Your Todo Lists</div>
       </div>);
     } else {
       return (<div onClick={this.showNewTodo} className="new-todolist-header">
