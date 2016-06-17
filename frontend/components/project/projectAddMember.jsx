@@ -7,7 +7,7 @@ var ProjectAddMember = React.createClass({
   mixins: [CurrentUserLookups],
 
   getInitialState: function(){
-    return {name: "", same_organization: false};
+    return {name: "", same_project: false};
   },
 
   handleInput: function(e){
@@ -18,8 +18,8 @@ var ProjectAddMember = React.createClass({
   updateName: function(name){
     var data = {name: name};
     this.setState(data);
-    if (this.state.same_organization) {
-      data["organization"] = this.props.user.organization;
+    if (this.state.same_project) {
+      data["same_project"] = this.state.same_project;
     }
     data["project_id"] = this.props.project.id;
     UserActions.fetchCurrentUsers(data);

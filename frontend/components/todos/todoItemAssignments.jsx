@@ -3,8 +3,6 @@ var currentUserLookups = require('../../mixins/currentUserLookups');
 
 var TodoItemAssignments = React.createClass({
 
-  mixins: [currentUserLookups],
-
   assignments: function(){
     var assignees;
     var that = this;
@@ -16,6 +14,12 @@ var TodoItemAssignments = React.createClass({
       return <div>Unassigned</div>;
     }
     return <ul>{assignees}</ul>;
+  },
+
+  ids: function(){
+    return this.props.assignments.map(function(person){
+      return person.id;
+    });
   },
 
   render: function() {

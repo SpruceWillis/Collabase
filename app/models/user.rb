@@ -51,12 +51,9 @@ class User < ActiveRecord::Base
 
   def self.find_by_params(params)
     project_memberships = ProjectMembership.where(project_id: params[:project_id]).pluck(:member_id)
-    users = User.where.not(id: project_memberships)
+    users = (params[:same_project] ? User.where(id: project_memberships) : User.where.not(id: project_memberships))
     if (params[:name] && params[:name].length > 0)
       users = users.where("LOWER(name) LIKE :query", query: "%#{params[:name].downcase}%")
-    end
-    if (params[:organization])
-      users = users.where("LOWER(organization) LIKE :query", query: "%#{params[:organization].downcase}")
     end
     users.limit(10)
   end

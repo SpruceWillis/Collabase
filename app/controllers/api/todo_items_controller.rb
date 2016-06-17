@@ -13,7 +13,7 @@ class Api::TodoItemsController < ApplicationController
   end
 
   def show
-    @todo_item = TodoItem.find_by_id(params[:id])
+    @todo_item = TodoItem.includes(:assignees).find_by_id(params[:id])
     if (@todo_item)
       render 'api/todo_items/show'
     else
