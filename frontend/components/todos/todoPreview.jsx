@@ -1,6 +1,6 @@
 var React = require('react');
 var history = require('react-router').hashHistory;
-
+var TodoActions = require('../../actions/todoActions');
 var TodoPreview = React.createClass({
 
   handleClick: function(){
@@ -17,6 +17,23 @@ var TodoPreview = React.createClass({
     } else {
       return (title.substring(0, length - 3) + '...');
     }
+  },
+
+  updateCompleted: function(e){
+    // e.target.preventDefault();
+    TodoActions.updateTodoList({
+      project_id: this.props.todo.project_id,
+      id: this.props.todo.id,
+      completed: !this.props.todo.completed
+    })
+  },
+
+  changeCompleted: function(){
+    return (<p onClick={this.updateCompleted}>
+      <input type="checkbox" checked={this.props.todo.completed}
+         id={'c' + this.props.todo.id}/>
+       <label for={'c' + this.props.todo.id} className="centered">Completed</label>
+    </p>);
   },
 
   nextEvent: function(){
@@ -55,16 +72,14 @@ var TodoPreview = React.createClass({
     var completedCount = 0;
     var l = todoItems.length;
     if (l === 0){
-      return "0/0 done";
-    } else if (this.props.todo.completed){
-      return "All Done!";
+      return "0/0 tasks done";
     }
     for (var i = 0; i < l; i++) {
       if (todoItems[i].completed){
         completedCount++;
       }
     }
-    return completedCount + "/" + l + " done";
+    return completedCount + "/" + l + " tasks done";
   },
 
   render: function() {
@@ -76,10 +91,11 @@ var TodoPreview = React.createClass({
     }
     return (
       <li className={"todo-preview group " + className}>
-        <div onClick={this.handleClick} title={this.props.todo.description}>
-          <div>{this.trimTitle()}</div>
-          <div>{this.nextEvent()}</div>
-          <div>{this.completionFraction()}</div>
+        <div>
+          <div onClick={this.handleClick} className="todopreview-title">
+            {this.trimTitle()}</div>
+          <div className="todo-spaced">{this.completionFraction()}</div>
+          <div className="todo-spaced">{this.changeCompleted()}</div>
         </div>
     </li>
     );
