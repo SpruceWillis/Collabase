@@ -9,6 +9,7 @@
 
 .todoitems-container {
   list-style: none;
+  margin: auto;
   width: 525px;
   padding: 0;
 }
@@ -17,4 +18,17 @@
   padding: 0 10px;
   list-style: none;
   width: 720px;
+}
+
+.todo-spaced {
+  margin: 5px;
+}
+
+.centered {
+  justify-content: center;
+}
+
+.todopreview-title {
+  cursor: pointer;
+  font-weight: bold;
 }
