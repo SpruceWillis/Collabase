@@ -20,12 +20,11 @@ var TodoPreview = React.createClass({
   },
 
   updateCompleted: function(e){
-    // e.target.preventDefault();
     TodoActions.updateTodoList({
       project_id: this.props.todo.project_id,
       id: this.props.todo.id,
       completed: !this.props.todo.completed
-    })
+    });
   },
 
   changeCompleted: function(){
