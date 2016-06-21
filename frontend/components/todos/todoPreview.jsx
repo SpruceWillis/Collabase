@@ -10,7 +10,7 @@ var TodoPreview = React.createClass({
   },
 
   trimTitle: function(){
-    var length = 25;
+    var length = 21;
     var title = this.props.todo.title.trim();
     if (title.length <= length){
       return title;
@@ -21,7 +21,7 @@ var TodoPreview = React.createClass({
 
   updateCompleted: function(e){
     TodoActions.updateTodoList({
-      project_id: this.props.todo.project_id,
+      project_id: this.props.todo.projectid,
       id: this.props.todo.id,
       completed: !this.props.todo.completed
     });
@@ -37,11 +37,7 @@ var TodoPreview = React.createClass({
 
   nextEvent: function(){
     var todo = this.props.todo;
-    if (todo.completed){
-      return "Completed";
-    } else {
       return this.findNextEvent();
-    }
   },
 
   findNextEvent: function(){
@@ -91,8 +87,9 @@ var TodoPreview = React.createClass({
     return (
       <li className={"todo-preview group " + className}>
         <div>
-          <div onClick={this.handleClick} className="todopreview-title">
-            {this.trimTitle()}</div>
+          <div onClick={this.handleClick} className="todopreview-title"
+            title={this.props.todo.title}>{this.trimTitle()}</div>
+          <div className="todo-spaced">{nextEvent}</div>
           <div className="todo-spaced">{this.completionFraction()}</div>
           <div className="todo-spaced">{this.changeCompleted()}</div>
         </div>

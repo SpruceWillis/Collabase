@@ -26,12 +26,17 @@ var TodoItemPage = React.createClass({
     this.itemListener.remove();
   },
 
+  updateCompleted: function(){
+    this.setState({completed: !this.state.completed});
+  },
+
   getItemInfo: function(todoId, id){
     var due;
     var item = TodoStore.currentItem(todoId, id);
     due = (item.due_date === null) ? "" : item.due_date;
     if (item){
       return {
+        completed: item.completed,
         description: item.description,
         dueDate: due,
         title: item.title,
@@ -39,6 +44,7 @@ var TodoItemPage = React.createClass({
       };
     } else {
       return {
+        completed: false,
         description: null,
         dueDate: null,
         title: null,
@@ -56,6 +62,11 @@ var TodoItemPage = React.createClass({
           id="description" onChange={this.linkState} className="edit-todolist-text"/>
         <input type="date" value={this.state.dueDate} id="dueDate"
           onChange={this.linkState} className="edit-todolist-text"/>
+          <p onClick={this.updateCompleted}>
+            <input type="checkbox" checked={this.state.completed}
+               id="completed"/>
+             <label for="completed" className="centered">Completed</label>
+          </p>
       </form>
     );
   },
